@@ -328,7 +328,7 @@
 
   .birthday-event {
     font-size: 12px;
-    color: var(--text);
+    color: var(--color-birthday-text, var(--text));
     display: flex;
     align-items: flex-start;
     gap: 2px;
@@ -343,7 +343,7 @@
 
   .holiday-event {
     font-size: 12px;
-    color: var(--text);
+    color: var(--color-holiday-text, var(--text));
     display: flex;
     align-items: flex-start;
     gap: 2px;
@@ -394,7 +394,7 @@
     line-height: 1.3;
   }
   .upcoming-event.birthday {
-    color: var(--text);
+    color: var(--color-birthday-text, var(--text));
     display: flex;
     align-items: flex-start;
     gap: 2px;
@@ -504,6 +504,26 @@ const BIRTHDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/3d26a5687f5
 
 // 4) US Holidays calendar
 const HOLIDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics';
+// Force proxy for holiday URL since it always needs CORS bypass
+async function fetchHolidayIcal() {
+  const proxies = [
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://thingproxy.freeboard.io/fetch/${u}`,
+  ];
+  for (const proxy of proxies) {
+    try {
+      const r = await fetch(proxy(HOLIDAY_ICAL_URL));
+      if (r.ok) {
+        const events = parseIcal(await r.text());
+        console.log(`✅ Fetched ${events.length} holiday events`);
+        return events;
+      }
+    } catch(_) {}
+  }
+  console.warn('❌ Failed to fetch holiday calendar');
+  return [];
+}
 
 // 3) Weatherbird image index (uploaded to your GitHub repo)
 const WEATHERBIRD_INDEX_URL = 'https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbird-index.json';
@@ -821,7 +841,7 @@ async function buildCalendar() {
     fetchIcal(CALENDAR_ICAL_URL_1),
     fetchIcal(CALENDAR_ICAL_URL_2),
     fetchIcal(BIRTHDAY_ICAL_URL),
-    fetchIcal(HOLIDAY_ICAL_URL)
+    fetchHolidayIcal()
   ]);
   const calEvents = [...cal1Events, ...cal2Events];
 
@@ -1074,13 +1094,33 @@ function applyDominantColor() {
       }, { rgb: null, diff: 0 }).rgb || sorted[1]?.[0].split(',').map(Number);
     }
 
+    // WCAG contrast helper
+    function relativeLuminance([r, g, b]) {
+      const [rs, gs, bs] = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+    }
+    function contrastRatio(rgb1, rgb2) {
+      const l1 = relativeLuminance(rgb1), l2 = relativeLuminance(rgb2);
+      return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+    }
+    const black = [40, 35, 24]; // --text color approx
+    const white = [240, 235, 224]; // --bg color approx
+
     const [pr, pg, pb] = primary;
-    const primaryColor = `rgba(${pr},${pg},${pb},0.8)`;
-    document.documentElement.style.setProperty('--color-birthday', primaryColor);
+    const primaryBg = [pr, pg, pb];
+    const primaryTextColor = contrastRatio(primaryBg, black) >= 4.5 ? 'var(--text)' : '#f0ebe0';
+    document.documentElement.style.setProperty('--color-birthday', `rgba(${pr},${pg},${pb},0.85)`);
+    document.documentElement.style.setProperty('--color-birthday-text', primaryTextColor);
 
     if (secondary) {
       const [sr, sg, sb] = secondary;
-      document.documentElement.style.setProperty('--color-holiday', `rgba(${sr},${sg},${sb},0.8)`);
+      const secondaryBg = [sr, sg, sb];
+      const secondaryTextColor = contrastRatio(secondaryBg, black) >= 4.5 ? 'var(--text)' : '#f0ebe0';
+      document.documentElement.style.setProperty('--color-holiday', `rgba(${sr},${sg},${sb},0.85)`);
+      document.documentElement.style.setProperty('--color-holiday-text', secondaryTextColor);
     }
   } catch(e) {
     // CORS blocked — keep CSS fallback colors
