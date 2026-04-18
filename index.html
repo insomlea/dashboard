@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="300">
+<title>Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0ebe0;
+    --card: #ede8dc;
+    --bg-dark: #e8e3d8;
+    --border: #c8bfaa;
+    --text: #2a2318;
+    --text-muted: #7a6f5e;
+    --accent: #3a3028;
+    --today-ring: #3a3028;
+    --event-dot: #8b7355;
+    --birthday-color: #a0522d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    height: 100vh;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── TOP SECTION ── */
+  .top {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 20px;
+    margin-bottom: 32px;
+    align-items: start;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .top {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  /* ── FLIP CLOCK ── */
+  .info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+  }
+  .flip-clock {
+    text-align: center;
+    perspective: 400px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .card {
+    display: block;
+    position: relative;
+    padding-bottom: 0.72em;
+    font-size: 120px;
+    line-height: 0.95;
+  }
+  .flip-clock *, .flip-clock *:before, .flip-clock *:after { box-sizing: border-box; }
+  .flip-clock__piece { display: block; margin: 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .flip-clock__piece + .flip-clock__piece { margin-top: 16px; }
+  .flip-clock__slot { display: none; }
+  .card__top,
+  .card__bottom,
+  .card__back::before,
+  .card__back::after {
+    display: block;
+    height: 0.72em;
+    color: var(--text);
+    background: var(--bg);
+    padding: 0.25em 0.25em;
+    border-radius: 16px 16px 0 0;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    width: 1.8em;
+    transform: translateZ(0);
+    text-align: center;
+  }
+  .card__top {
+    background: var(--bg-dark);
+  }
+  .card__bottom {
+    color: var(--text);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    border-top: solid 1px var(--border);
+    background: var(--bg);
+    border-radius: 0 0 16px 16px;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .card__bottom::after { display: block; margin-top: -0.72em; }
+  .card__back::before, .card__bottom::after { content: attr(data-value); }
+  .card__back { position: absolute; top: 0; height: 100%; left: 0; pointer-events: none; }
+  .card__back::before { position: relative; z-index: -1; overflow: hidden; background: var(--bg-dark); }
+  .flip .card__back::before {
+    animation: flipTop 0.3s cubic-bezier(.37,.01,.94,.35);
+    animation-fill-mode: both;
+    transform-origin: center bottom;
+  }
+  .flip .card__back .card__bottom {
+    transform-origin: center top;
+    animation-fill-mode: both;
+    animation: flipBottom 0.6s cubic-bezier(.15,.45,.28,1);
+  }
+  @keyframes flipTop {
+    0% { transform: rotateX(0deg); z-index: 2; }
+    0%, 99% { opacity: 0.99; }
+    100% { transform: rotateX(-90deg); opacity: 0; }
+  }
+  @keyframes flipBottom {
+    0%, 50% { z-index: -1; transform: rotateX(90deg); opacity: 0; }
+    51% { opacity: 0.99; }
+    100% { opacity: 0.99; transform: rotateX(0deg); z-index: 5; }
+  }
+
+  .gif-box {
+    overflow: hidden;
+  }
+  .gif-box img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.4)) drop-shadow(0 0 1px #c8bfaa);
+  }
+
+  .top-card {
+    background: var(--bg-dark);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    min-width: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+  .top-card-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    min-width: 0;
+    padding-right: 48px;
+  }
+  .top-card-date-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .top-card-day {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .top-card-date {
+    font-size: 72px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1;
+  }
+  .weather-conditions {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    font-size: 24px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .top-card-right {
+    display: flex;
+    align-items: stretch;
+    margin: -24px -24px -24px 0;
+  }
+  .top-card-right img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    object-position: bottom right;
+    display: block;
+    filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.4)) drop-shadow(0 0 1px #c8bfaa);
+    padding: 24px 24px 24px 0;
+    box-sizing: border-box;
+  }
+
+
+
+  .weather-current {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 33px;
+    font-weight: 500;
+  }
+  .weather-icon { font-size: 39px; }
+
+  .weather-hourly {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .weather-hour {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .weather-hour .h-time { font-size: 12px; color: var(--text-muted); width: 32px; }
+  .weather-hour .h-icon { font-size: 16px; }
+  .weather-hour .h-temp { font-size: 12px; font-weight: 500; color: var(--text); }
+
+  /* ── CALENDAR ── */
+  .calendar-section { margin-bottom: 0; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+  .cal-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 6px;
+  }
+  .cal-header span {
+    text-align: left;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 0 4px 8px;
+  }
+
+  .cal-grid-wrapper {
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    margin-bottom: 0;
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .cal-month-header {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 8px 4px 8px;
+  }
+
+  .cal-day {
+    background: var(--bg-dark);
+    border-radius: 6px;
+    padding: 6px 4px 10px;
+    height: 110px;
+    overflow: hidden;
+    font-size: 12px;
+  }
+
+  .cal-day.other-month { }
+  .cal-day.has-holiday { background: var(--bg-dark); }
+
+  .day-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 4px;
+  }
+
+  .holiday-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .day-num {
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .cal-day.today .day-num {
+    background: var(--today-ring);
+    color: #f0ebe0;
+    border: 2px solid var(--today-ring);
+  }
+
+  .event {
+    font-size: 12px;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 3px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .birthday-event {
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    margin-bottom: 3px;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-word;
+    background: var(--color-birthday, var(--bg-dark));
+    border-radius: 4px;
+    padding: 1px 3px;
+  }
+
+  .holiday-event {
+    font-size: 12px;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    margin-bottom: 3px;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-word;
+    background: var(--color-holiday, var(--bg-dark));
+    border-radius: 4px;
+    padding: 1px 3px;
+  }
+
+  /* ── UPCOMING ── */
+  .upcoming-wrapper {
+    flex-shrink: 0;
+    padding-top: 16px;
+  }
+  .upcoming-section {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .upcoming-cell {
+    background: var(--bg-dark);
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .upcoming-date {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .upcoming-date .month {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .upcoming-event {
+    font-size: 10px;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .upcoming-event.birthday {
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    background: var(--color-birthday, var(--bg-dark));
+    border-radius: 4px;
+    padding: 1px 3px;
+    margin-bottom: 3px;
+  }
+
+  .status-msg {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 6px;
+  }
+
+  .setup-banner {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .setup-banner strong { color: var(--text); }
+  .setup-banner code {
+    background: rgba(0,0,0,0.07);
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SETUP INSTRUCTIONS (remove once configured) ── -->
+<div class="setup-banner" id="setupBanner">
+  <strong>⚙️ Setup required:</strong> Paste your Google Calendar iCal URLs into <code>CALENDAR_ICAL_URL_1</code>, <code>CALENDAR_ICAL_URL_2</code>, and <code>BIRTHDAY_ICAL_URL</code> in the script below. Both main calendars will be merged together in the grid.
+</div>
+
+<!-- ── TOP ── -->
+<div class="top">
+
+  <div class="info-box">
+    <div id="flipClock"></div>
+  </div>
+
+  <div class="top-card">
+    <div class="top-card-left">
+      <div class="top-card-date-block">
+        <div id="dayLabel" class="top-card-day">--</div>
+        <div id="dateLabel" class="top-card-date">--</div>
+      </div>
+      <div class="weather-conditions">
+        <div><span id="weatherIcon">⛅</span> <span id="weatherTemp">--°</span></div>
+        <div>💧 <span id="weatherHumidity">--</span>%</div>
+        <div>💨 <span id="weatherWind">--</span> mph</div>
+      </div>
+    </div>
+    <div class="top-card-right">
+      <img id="dashImg" src="https://i.postimg.cc/v8Kptgc0/625c2bd214350-image-1.png" alt="Dashboard image">
+    </div>
+  </div>
+</div>
+
+<!-- ── CALENDAR ── -->
+<div class="calendar-section">
+  <div class="cal-header">
+    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+  </div>
+  <div class="cal-grid-wrapper">
+    <div class="cal-grid" id="calGrid">
+      <div class="status-msg" style="grid-column:1/-1">Loading calendar…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── UPCOMING ── -->
+<div class="upcoming-wrapper">
+  <div class="cal-month-header" style="padding: 8px 0 12px 0;">Upcoming</div>
+  <div class="upcoming-section" id="upcomingCells"></div>
+</div>
+
+<!-- ── DEBUG PANEL ── -->
+<div id="debugPanel" style="margin-top:24px;padding:16px;background:#fff3cd;border:1px solid #f0ad4e;border-radius:8px;font-size:12px;display:none;">
+  <strong>🐛 Filtered birthday entries:</strong>
+  <ul id="debugList" style="margin:8px 0 0 16px;padding:0;"></ul>
+</div>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CONFIGURATION — edit these values
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// 1) First Google Calendar public iCal URL
+//    Go to Google Calendar → Settings → your calendar → "Integrate calendar" → copy the "Public address in iCal format"
+const CALENDAR_ICAL_URL_1 = 'https://calendar.google.com/calendar/ical/lea.m.cody%40gmail.com/private-c3e852541e654e7e9e51e4a5f05fd613/basic.ics';  // e.g. 'https://calendar.google.com/calendar/ical/xxxxx%40gmail.com/public/basic.ics'
+
+// 2) Second Google Calendar public iCal URL (merged with the first, no visual distinction)
+const CALENDAR_ICAL_URL_2 = 'https://calendar.google.com/calendar/ical/675efc891c4436d97b4ad43c9ff80bb23f8af6333ef1b3553186e8584f2e7c1b%40group.calendar.google.com/private-adfd81abad942357d3a08f326466a788/basic.ics';  // e.g. 'https://calendar.google.com/calendar/ical/yyyyy/public/basic.ics'
+
+// 3) Your Birthdays calendar iCal URL (separate Google Calendar)
+const BIRTHDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/3d26a5687f59fa5678e07fc7eee7e0ef8dc103776a6e24f9aa048b79943d23fc%40group.calendar.google.com/private-a365f54ce4902b94cbc460a6872e44da/basic.ics'; // e.g. 'https://calendar.google.com/calendar/ical/xxxxx/public/basic.ics'
+
+// 4) US Holidays calendar
+const HOLIDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics';
+
+// 3) Your gif/image — you can also just replace the <img src> above directly
+const DASH_IMAGE_URL = 'https://i.postimg.cc/v8Kptgc0/625c2bd214350-image-1.png';
+
+// 4) Weather location (Washington DC)
+const WEATHER_LAT = 38.9072;
+const WEATHER_LON = -77.0369;
+
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// WEATHER (Open-Meteo, no key needed)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const WMO_ICONS = {
+  0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
+  45:'🌫️', 48:'🌫️',
+  51:'🌦️', 53:'🌦️', 55:'🌧️',
+  61:'🌧️', 63:'🌧️', 65:'🌧️',
+  71:'🌨️', 73:'🌨️', 75:'❄️',
+  80:'🌦️', 81:'🌧️', 82:'⛈️',
+  95:'⛈️', 96:'⛈️', 99:'⛈️'
+};
+
+async function loadWeather() {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}` +
+      `&current=temperature_2m,weathercode,is_day,relative_humidity_2m,wind_speed_10m` +
+      `&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const cur = data.current;
+
+    document.getElementById('weatherTemp').textContent = `${Math.round(cur.temperature_2m)}°`;
+    document.getElementById('weatherIcon').textContent = getWeatherIcon(cur.weathercode, cur.is_day === 1);
+    document.getElementById('weatherHumidity').textContent = Math.round(cur.relative_humidity_2m);
+    document.getElementById('weatherWind').textContent = Math.round(cur.wind_speed_10m);
+  } catch(e) {
+    document.getElementById('weatherTemp').textContent = '--°';
+  }
+}
+
+function updateDayDate() {
+  const now = new Date();
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('dayLabel').textContent = days[now.getDay()];
+  document.getElementById('dateLabel').textContent = `${months[now.getMonth()]} ${now.getDate()}`;
+}
+updateDayDate();
+
+function getWeatherIcon(code, isDay) {
+  const night = !isDay;
+  if (code === 0) return night ? '🌙' : '☀️';
+  if (code === 1) return night ? '🌙' : '🌤️';
+  if (code === 2) return '⛅';
+  if (code === 3) return '☁️';
+  if (code === 45 || code === 48) return '🌫️';
+  if (code >= 51 && code <= 55) return '🌦️';
+  if (code >= 61 && code <= 65) return '🌧️';
+  if (code >= 71 && code <= 75) return code === 75 ? '❄️' : '🌨️';
+  if (code === 80) return '🌦️';
+  if (code === 81) return '🌧️';
+  if (code === 82) return '⛈️';
+  if (code >= 95) return '⛈️';
+  return '🌡️';
+}
+loadWeather();
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ICAL PARSER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function parseIcal(text) {
+  const events = [];
+  const lines = text.replace(/\r\n /g, '').replace(/\r\n\t/g, '').split(/\r\n|\n/);
+  let evt = null;
+  for (const line of lines) {
+    if (line === 'BEGIN:VEVENT') { evt = {}; continue; }
+    if (line === 'END:VEVENT') { if (evt) events.push(evt); evt = null; continue; }
+    if (!evt) continue;
+    const [key, ...rest] = line.split(':');
+    const val = rest.join(':');
+    const baseKey = key.split(';')[0];
+    if (baseKey === 'SUMMARY') evt.summary = val;
+    else if (baseKey === 'DTSTART') evt.start = parseIcalDate(key, val);
+    else if (baseKey === 'DTEND') evt.end = parseIcalDate(key, val);
+    else if (baseKey === 'RRULE') evt.rrule = val;
+  }
+  return events;
+}
+
+function parseIcalDate(key, val) {
+  const isDate = key.includes('VALUE=DATE') || (val.length === 8 && !val.includes('T'));
+  if (isDate) {
+    return { date: val, allDay: true };
+  }
+  const utc = val.endsWith('Z');
+  const clean = val.replace('Z', '');
+  const y = clean.substr(0,4), mo = clean.substr(4,2), d = clean.substr(6,2);
+  const h = clean.substr(9,2)||'00', mi = clean.substr(11,2)||'00';
+  const dateStr = `${y}-${mo}-${d}T${h}:${mi}:00${utc ? 'Z' : ''}`;
+  const dt = new Date(dateStr);
+  // For UTC events, derive the date from local time to avoid day-shift bugs
+  let localDate;
+  if (utc) {
+    const ly = dt.getFullYear();
+    const lm = String(dt.getMonth() + 1).padStart(2, '0');
+    const ld = String(dt.getDate()).padStart(2, '0');
+    localDate = `${ly}${lm}${ld}`;
+  } else {
+    localDate = `${y}${mo}${d}`;
+  }
+  return { date: localDate, datetime: dt, allDay: false };
+}
+
+function toYMD(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}${m}${day}`;
+}
+
+function formatTime(dt) {
+  if (!dt || dt.allDay) return '';
+  const d = dt.datetime;
+  if (!d) return '';
+  let h = d.getHours(), m = d.getMinutes();
+  const ap = h >= 12 ? 'pm' : 'am';
+  h = h % 12 || 12;
+  return `${h}:${String(m).padStart(2,'0')}${ap} `;
+}
+
+// Simple RRULE expansion for weekly events within a range
+function expandEvent(evt, rangeStart, rangeEnd) {
+  const results = [];
+  const startYmd = evt.start?.date;
+  if (!startYmd) return [evt];
+  
+  if (!evt.rrule) {
+    // Check if falls in range
+    const d = ymdToDate(startYmd);
+    if (d >= rangeStart && d <= rangeEnd) results.push(evt);
+    return results;
+  }
+
+  // Parse RRULE
+  const rrule = {};
+  evt.rrule.split(';').forEach(part => {
+    const [k,v] = part.split('=');
+    rrule[k] = v;
+  });
+
+  const freq = rrule.FREQ;
+  if (!freq) return [evt];
+
+  let cur = ymdToDate(startYmd);
+  const until = rrule.UNTIL ? ymdToDate(rrule.UNTIL.substr(0,8)) : new Date(rangeEnd.getTime() + 86400000);
+  const count = parseInt(rrule.COUNT) || 9999;
+  let iterations = 0;
+
+  while (cur <= rangeEnd && cur <= until && iterations < count) {
+    if (cur >= rangeStart) {
+      results.push({ ...evt, start: { ...evt.start, date: toYMD(cur) } });
+    }
+    if (freq === 'WEEKLY') cur = new Date(cur.getTime() + 7*86400000);
+    else if (freq === 'DAILY') cur = new Date(cur.getTime() + 86400000);
+    else if (freq === 'MONTHLY') {
+      cur = new Date(cur);
+      cur.setMonth(cur.getMonth() + 1);
+    } else if (freq === 'YEARLY') {
+      cur = new Date(cur);
+      cur.setFullYear(cur.getFullYear() + 1);
+    } else break;
+    iterations++;
+  }
+  return results;
+}
+
+function ymdToDate(ymd) {
+  if (!ymd) return new Date(NaN);
+  return new Date(`${ymd.substr(0,4)}-${ymd.substr(4,2)}-${ymd.substr(6,2)}T00:00:00`);
+}
+
+// Proxy to get around CORS
+async function fetchIcal(url) {
+  if (!url) return [];
+  const proxies = [
+    u => u,
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://thingproxy.freeboard.io/fetch/${u}`,
+  ];
+  for (const proxy of proxies) {
+    try {
+      const r = await fetch(proxy(url));
+      if (r.ok) {
+        const events = parseIcal(await r.text());
+        console.log(`✅ Fetched ${events.length} events from ${url.substring(0, 60)}...`);
+        return events;
+      }
+    } catch(_) {}
+  }
+  console.warn(`❌ Failed to fetch: ${url.substring(0, 60)}...`);
+  return [];
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// HOLIDAY EMOJI MAP
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function holidayEmoji(name) {
+  if (!name) return '📅';
+  const n = name.toLowerCase();
+  if (n.includes('new year') && n.includes('eve')) return '🍾';
+  if (n.includes('new year')) return '👶';
+  if (n.includes('martin luther king') || n.includes('mlk')) return '🕊️';
+  if (n.includes('groundhog')) return '🦫';
+  if (n.includes('valentine')) return '❤️';
+  if (n.includes('president') || n.includes('washington')) return '🎩';
+  if (n.includes('st. patrick') || n.includes('patrick')) return '☘️';
+  if (n.includes('easter')) return '🐣';
+  if (n.includes('earth day')) return '🌍';
+  if (n.includes('mother')) return '🌸';
+  if (n.includes('memorial')) return '🪖';
+  if (n.includes('father')) return '👔';
+  if (n.includes('juneteenth')) return '<img src="https://i.postimg.cc/Hsg6kZbn/juneteenth-flag.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;">';
+  if (n.includes('independence') || n.includes('july 4')) return '🇺🇸';
+  if (n.includes('labor')) return '💪';
+  if (n.includes('columbus') || n.includes('indigenous')) return '<img src="https://i.postimg.cc/KY0WKdnb/image-2.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;">';
+  if (n.includes('halloween')) return '🎃';
+  if (n.includes('veteran')) return '🎖️';
+  if (n.includes('thanksgiving')) return '🦃';
+  if (n.includes('christmas eve')) return '🎅';
+  if (n.includes('christmas')) return '🎄';
+  if (n.includes('kwanzaa')) return '<img src="https://i.postimg.cc/Gh6GpH0h/image-1.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;">';
+  if (n.includes('hanukkah') || n.includes('chanukah')) return '🕎';
+  if (n.includes('diwali')) return '🪔';
+  if (n.includes('eid')) return '🌙';
+  if (n.includes('passover')) return '✡️';
+  if (n.includes('rosh') || n.includes('yom kippur')) return '🍎';
+  if (n.includes('daylight saving')) return '🌅';
+  if (n.includes('black friday')) return '🛍️';
+  if (n.includes('cinco de mayo')) return '🇲🇽';
+  if (n.includes('flag day')) return '🇺🇸';
+  if (n.includes('election')) return '🗳️';
+  if (n.includes('inauguration')) return '🏛️';
+  if (n.includes('tax')) return '💸';
+  console.log('📅 Unmatched holiday:', name);
+  return '📅';
+}
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CALENDAR RENDER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+async function buildCalendar() {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const todayYmd = toYMD(today);
+
+  // Range: Sunday of current week through 12 months ahead
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const weekStart = new Date(today);
+  weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+  const firstOfMonth = weekStart;
+  const lastOfMonth = new Date(year, month + 13, 0); // end of 12 months ahead
+
+  // Get all events — fetch both calendars in parallel and merge
+  const [cal1Events, cal2Events, bdayEvents, holidayEvents] = await Promise.all([
+    fetchIcal(CALENDAR_ICAL_URL_1),
+    fetchIcal(CALENDAR_ICAL_URL_2),
+    fetchIcal(BIRTHDAY_ICAL_URL),
+    fetchIcal(HOLIDAY_ICAL_URL)
+  ]);
+  const calEvents = [...cal1Events, ...cal2Events];
+
+  // Expand recurring events
+  const expanded = [];
+  for (const e of calEvents) expanded.push(...expandEvent(e, firstOfMonth, lastOfMonth));
+  const expandedBdays = [];
+  for (const e of bdayEvents) {
+    const orig = e.start?.date;
+    if (!orig) continue;
+    const thisYear = `${year}${orig.substr(4,4)}`;
+    expandedBdays.push({ ...e, start: { ...e.start, date: thisYear } });
+    const nextYear = `${year+1}${orig.substr(4,4)}`;
+    expandedBdays.push({ ...e, start: { ...e.start, date: nextYear } });
+  }
+  const expandedHolidays = [];
+  for (const e of holidayEvents) expandedHolidays.push(...expandEvent(e, firstOfMonth, lastOfMonth));
+
+  // Group by date
+  const byDate = {};
+  for (const e of expanded) {
+    const d = e.start?.date;
+    if (!d) continue;
+    if (!byDate[d]) byDate[d] = { events: [], bdays: [], holidays: [] };
+    byDate[d].events.push(e);
+  }
+  const filteredBdays = [];
+  for (const e of expandedBdays) {
+    const d = e.start?.date;
+    if (!d) continue;
+    if (/on\s+\w+,?\s+\w+\s+\d+/.test(e.summary || '')) {
+      filteredBdays.push(e);
+      continue;
+    }
+    if (!byDate[d]) byDate[d] = { events: [], bdays: [], holidays: [] };
+    byDate[d].bdays.push(e);
+  }
+
+  // Show debug panel if anything was filtered
+  const debugPanel = document.getElementById('debugPanel');
+  const debugList = document.getElementById('debugList');
+  if (filteredBdays.length) {
+    debugPanel.style.display = 'block';
+    debugList.innerHTML = filteredBdays.map(e =>
+      `<li><strong>${e.summary || '(no summary)'}</strong> — date: ${e.start?.date || '?'}</li>`
+    ).join('');
+  } else {
+    debugPanel.style.display = 'none';
+  }
+  for (const e of expandedHolidays) {
+    const d = e.start?.date;
+    if (!d) continue;
+    if (!byDate[d]) byDate[d] = { events: [], bdays: [], holidays: [] };
+    byDate[d].holidays.push(e);
+  }
+
+  // Build grid starting from Sunday of the week containing today
+  const startSunday = new Date(today);
+  startSunday.setDate(startSunday.getDate() - startSunday.getDay());
+
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+
+  let cursor = new Date(startSunday);
+  // ~53 weeks covers today + 12 months
+  const weeksToShow = 53;
+
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  for (let w = 0; w < weeksToShow; w++) {
+    // Check if this week contains a 1st of month
+    for (let d = 0; d < 7; d++) {
+      const check = new Date(cursor);
+      check.setDate(cursor.getDate() + d);
+      if (check.getDate() === 1) {
+        const header = document.createElement('div');
+        header.className = 'cal-month-header';
+        header.textContent = monthNames[check.getMonth()];
+        grid.appendChild(header);
+        break;
+      }
+    }
+
+    for (let dow = 0; dow < 7; dow++) {
+      const ymd = toYMD(cursor);
+      const dayData = byDate[ymd] || { events: [], bdays: [], holidays: [] };
+      const isToday = ymd === todayYmd;
+      const isCurrentMonth = cursor.getMonth() === month;
+
+      const cell = document.createElement('div');
+      cell.className = 'cal-day' +
+        (isToday ? ' today' : '') +
+        (!isCurrentMonth ? ' other-month' : '') +
+        (dayData.bdays.length ? ' has-birthday' : '') +
+        (dayData.holidays.length ? ' has-holiday' : '');
+
+      let html = `<div class="day-row"><span class="day-num">${cursor.getDate()}</span></div>`;
+
+      for (const h of dayData.holidays) {
+        html += `<div class="holiday-event">${holidayEmoji(h.summary)} ${h.summary || ''}</div>`;
+      }
+      for (const bday of dayData.bdays) {
+        const bdaySummary = (bday.summary || '').replace(/🎂\s*/g, '').trim();
+        html += `<div class="birthday-event">🎂 ${bdaySummary}</div>`;
+      }
+      for (const evt of dayData.events) {
+        const t = formatTime(evt.start);
+        html += `<div class="event">${t}${evt.summary || ''}</div>`;
+      }
+
+      cell.innerHTML = html;
+      if (isToday) cell.id = 'todayCell';
+      grid.appendChild(cell);
+      cursor.setDate(cursor.getDate() + 1);
+    }
+  }
+
+  // Scroll today into view
+  const todayCell = document.getElementById('todayCell');
+  if (todayCell) todayCell.scrollIntoView({ block: 'start' });
+
+  // ── UPCOMING ──
+  // Find next 7 dates with birthdays or holidays from today onwards
+  const upcoming = [];
+  const scanCursor = new Date(today);
+  const scanEnd = new Date(today.getTime() + 60 * 86400000);
+  while (scanCursor <= scanEnd && upcoming.length < 7) {
+    const ymd = toYMD(scanCursor);
+    const data = byDate[ymd];
+    if (data && (data.bdays.length || data.holidays.length)) {
+      upcoming.push({ date: new Date(scanCursor), ymd, ...data });
+    }
+    scanCursor.setDate(scanCursor.getDate() + 1);
+  }
+
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const cellsContainer = document.getElementById('upcomingCells');
+  cellsContainer.innerHTML = '';
+
+  for (const u of upcoming) {
+    let evtHtml = '';
+    for (const h of u.holidays) {
+      evtHtml += `<div class="upcoming-event" style="background:var(--color-holiday,var(--bg-dark));border-radius:4px;padding:1px 3px;margin-bottom:3px;">${holidayEmoji(h.summary)} ${h.summary || ''}</div>`;
+    }
+    for (const b of u.bdays) {
+      const bSummary = (b.summary || '').replace(/🎂\s*/g, '').trim();
+      evtHtml += `<div class="upcoming-event birthday">🎂 ${bSummary}</div>`;
+    }
+    cellsContainer.innerHTML += `
+      <div class="upcoming-cell">
+        <div class="upcoming-date">
+          <span class="month">${months[u.date.getMonth()]} ${u.date.getDate()}</span>
+        </div>
+        ${evtHtml}
+      </div>`;
+  }
+
+  if (!upcoming.length) {
+    cellsContainer.innerHTML = '<div class="status-msg" style="grid-column:1/-1">No upcoming events found.</div>';
+  }
+
+  // Hide setup banner if calendars are configured
+  if (CALENDAR_ICAL_URL_1 || CALENDAR_ICAL_URL_2 || BIRTHDAY_ICAL_URL) {
+    document.getElementById('setupBanner').style.display = 'none';
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// IMAGE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const dashImg = document.getElementById('dashImg');
+
+function applyDominantColor() {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 100;
+  canvas.height = 100;
+  try {
+    ctx.drawImage(dashImg, 0, 0, 100, 100);
+    const data = ctx.getImageData(0, 0, 100, 100).data;
+
+    const buckets = {};
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+      if (a < 128 || r + g + b < 60) continue;
+      const key = `${Math.round(r/32)*32},${Math.round(g/32)*32},${Math.round(b/32)*32}`;
+      buckets[key] = (buckets[key] || 0) + 1;
+    }
+    const sorted = Object.entries(buckets).sort((a, b) => b[1] - a[1]);
+    if (!sorted.length) return;
+
+    // Convert RGB to HSL
+    function toHSL(rgb) {
+      let [r, g, b] = rgb.map(v => v / 255);
+      const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+      const l = (max + min) / 2;
+      const s = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1));
+      let h = 0;
+      if (d !== 0) {
+        if (max === r) h = ((g - b) / d) % 6;
+        else if (max === g) h = (b - r) / d + 2;
+        else h = (r - g) / d + 4;
+        h = ((h * 60) + 360) % 360;
+      }
+      return { h, s, l };
+    }
+
+    function hueDiff(a, b) {
+      const d = Math.abs(a - b);
+      return Math.min(d, 360 - d);
+    }
+
+    // Background beige hue (~38°), saturation low
+    const bgHue = 38;
+
+    // Filter: must be different hue from background (>40°), have some saturation, and not too light
+    function isGoodColor(rgb) {
+      const { h, s, l } = toHSL(rgb);
+      return hueDiff(h, bgHue) > 40 && s > 0.2 && l < 0.85 && l > 0.15;
+    }
+
+    // Pick primary = most dominant good color
+    let primary = null;
+    for (const [key] of sorted) {
+      const rgb = key.split(',').map(Number);
+      if (isGoodColor(rgb)) { primary = rgb; break; }
+    }
+    if (!primary) primary = sorted[0][0].split(',').map(Number); // fallback
+
+    const primaryHue = toHSL(primary).h;
+
+    // Pick secondary = most dominant good color with hue >90° away from primary
+    let secondary = null;
+    for (const [key] of sorted) {
+      const rgb = key.split(',').map(Number);
+      if (rgb === primary) continue;
+      if (isGoodColor(rgb) && hueDiff(toHSL(rgb).h, primaryHue) > 90) { secondary = rgb; break; }
+    }
+    // Fallback: pick good color with max hue difference from primary
+    if (!secondary) {
+      secondary = sorted.reduce((best, [key]) => {
+        const rgb = key.split(',').map(Number);
+        if (!isGoodColor(rgb)) return best;
+        const diff = hueDiff(toHSL(rgb).h, primaryHue);
+        return diff > best.diff ? { rgb, diff } : best;
+      }, { rgb: null, diff: 0 }).rgb || sorted[1]?.[0].split(',').map(Number);
+    }
+
+    const [pr, pg, pb] = primary;
+    const primaryColor = `rgba(${pr},${pg},${pb},0.8)`;
+    document.documentElement.style.setProperty('--color-birthday', primaryColor);
+
+    if (secondary) {
+      const [sr, sg, sb] = secondary;
+      document.documentElement.style.setProperty('--color-holiday', `rgba(${sr},${sg},${sb},0.8)`);
+    }
+  } catch(e) {
+    // CORS blocked — keep CSS fallback colors
+  }
+}
+
+// Set crossOrigin before src so CORS header is requested
+if (DASH_IMAGE_URL) {
+  dashImg.crossOrigin = 'anonymous';
+  dashImg.src = DASH_IMAGE_URL;
+} else {
+  dashImg.crossOrigin = 'anonymous';
+}
+
+if (dashImg.complete) {
+  applyDominantColor();
+} else {
+  dashImg.addEventListener('load', applyDominantColor);
+}
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// FLIP CLOCK (hours + minutes, stacked, no labels)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function CountdownTracker(label, value) {
+  var el = document.createElement('span');
+  el.className = 'flip-clock__piece';
+  el.innerHTML = '<b class="flip-clock__card card"><b class="card__top"></b><b class="card__bottom"></b><b class="card__back"><b class="card__bottom"></b></b></b>' +
+    '<span class="flip-clock__slot">' + label + '</span>';
+  this.el = el;
+  var top = el.querySelector('.card__top'),
+      bottom = el.querySelector('.card__bottom'),
+      back = el.querySelector('.card__back'),
+      backBottom = el.querySelector('.card__back .card__bottom');
+  this.update = function(val) {
+    val = ('0' + val).slice(-2);
+    if (val !== this.currentValue) {
+      if (this.currentValue >= 0) {
+        back.setAttribute('data-value', this.currentValue);
+        bottom.setAttribute('data-value', this.currentValue);
+      }
+      this.currentValue = val;
+      top.innerText = this.currentValue;
+      backBottom.setAttribute('data-value', this.currentValue);
+      this.el.classList.remove('flip');
+      void this.el.offsetWidth;
+      this.el.classList.add('flip');
+    }
+  };
+  this.update(value);
+}
+function getTime() {
+  var t = new Date();
+  return {
+    'Total': t,
+    'Hours': t.getHours() % 12 || 12,
+    'Minutes': t.getMinutes()
+  };
+}
+function Clock(countdown, callback) {
+  countdown = countdown ? new Date(Date.parse(countdown)) : false;
+  callback = callback || function(){};
+  var updateFn = getTime;
+  this.el = document.createElement('div');
+  this.el.className = 'flip-clock';
+  var trackers = {},
+      t = updateFn(),
+      key, timeinterval;
+  for (key in t) {
+    if (key === 'Total') { continue; }
+    trackers[key] = new CountdownTracker(key, t[key]);
+    this.el.appendChild(trackers[key].el);
+  }
+  var i = 0;
+  function updateClock() {
+    timeinterval = requestAnimationFrame(updateClock);
+    if (i++ % 10) { return; }
+    var t = updateFn();
+    for (key in trackers) { trackers[key].update(t[key]); }
+  }
+  setTimeout(updateClock, 500);
+}
+var clock = new Clock();
+document.getElementById('flipClock').appendChild(clock.el);
+
+// ── MATCH CARD HEIGHT TO CLOCK ──
+function matchCardToClockHeight() {
+  const infoBox = document.querySelector('.info-box');
+  const card = document.querySelector('.top-card');
+  const img = document.getElementById('dashImg');
+  if (infoBox && card) {
+    card.style.height = '';
+    const h = infoBox.offsetHeight;
+    if (h > 0) {
+      card.style.height = h + 'px';
+      if (img) img.style.height = h + 'px';
+    } else {
+      setTimeout(matchCardToClockHeight, 200);
+    }
+  }
+}
+window.addEventListener('load', matchCardToClockHeight);
+window.addEventListener('resize', matchCardToClockHeight);
+setTimeout(matchCardToClockHeight, 800);
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INIT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+buildCalendar();
+setInterval(buildCalendar, 15 * 60 * 1000);
+setInterval(loadWeather, 30 * 60 * 1000);
+</script>
+</body>
+</html>
