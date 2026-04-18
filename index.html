@@ -458,7 +458,7 @@
       </div>
     </div>
     <div class="top-card-right">
-      <img id="dashImg" src="https://i.postimg.cc/v8Kptgc0/625c2bd214350-image-1.png" alt="Dashboard image">
+      <img id="dashImg" src="" alt="Dashboard image">
     </div>
   </div>
 </div>
@@ -505,8 +505,10 @@ const BIRTHDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/3d26a5687f5
 // 4) US Holidays calendar
 const HOLIDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics';
 
-// 3) Your gif/image — you can also just replace the <img src> above directly
-const DASH_IMAGE_URL = 'https://i.postimg.cc/v8Kptgc0/625c2bd214350-image-1.png';
+// 3) Weatherbird image index (uploaded to your GitHub repo)
+const WEATHERBIRD_INDEX_URL = 'https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbird-index.json';
+const WEATHERBIRD_BASE_URL  = 'https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/';
+const DASH_IMAGE_URL = ''; // left blank — weatherbird picker sets this dynamically
 
 // 4) Weather location (Washington DC)
 const WEATHER_LAT = 38.9072;
@@ -527,6 +529,10 @@ const WMO_ICONS = {
   95:'⛈️', 96:'⛈️', 99:'⛈️'
 };
 
+// Store current weather state for bird picker
+let currentWeatherCode = null;
+let currentTempF = null;
+
 async function loadWeather() {
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}` +
@@ -536,15 +542,57 @@ async function loadWeather() {
     const data = await res.json();
     const cur = data.current;
 
-    document.getElementById('weatherTemp').textContent = `${Math.round(cur.temperature_2m)}°`;
+    currentWeatherCode = cur.weathercode;
+    currentTempF = Math.round(cur.temperature_2m);
+
+    document.getElementById('weatherTemp').textContent = `${currentTempF}°`;
     document.getElementById('weatherIcon').textContent = getWeatherIcon(cur.weathercode, cur.is_day === 1);
     document.getElementById('weatherHumidity').textContent = Math.round(cur.relative_humidity_2m);
     document.getElementById('weatherWind').textContent = Math.round(cur.wind_speed_10m);
+
+    // Trigger bird picker now that we have weather
+    loadWeatherbirdImage();
   } catch(e) {
     document.getElementById('weatherTemp').textContent = '--°';
+    loadWeatherbirdImage(); // still try without weather
   }
 }
 
+// Store today's calendar events for bird picker
+let todayCalendarEvents = [];
+
+const FALLBACK_BIRDS = [
+  'business_casual_shirt_tie.png',
+  'worry.png',
+  'tying_tie.png',
+  'thinking.png',
+  'thinking_pointer.png',
+  'thinking_pose_business_attire.png',
+  'thinking_standing.png'
+];
+
+function getFallbackBird() {
+  const name = FALLBACK_BIRDS[Math.floor(Math.random() * FALLBACK_BIRDS.length)];
+  return WEATHERBIRD_BASE_URL + name;
+}
+
+async function loadWeatherbirdImage() {
+  try {
+    const url = await pickWeatherbird(currentWeatherCode, currentTempF, todayCalendarEvents);
+    const img = document.getElementById('dashImg');
+    if (img) {
+      img.crossOrigin = 'anonymous';
+      img.src = url || getFallbackBird();
+    }
+  } catch(e) {
+    console.warn('Weatherbird picker failed, using fallback', e);
+    const img = document.getElementById('dashImg');
+    if (img) {
+      img.crossOrigin = 'anonymous';
+      img.src = getFallbackBird();
+    }
+  }
+}
 function updateDayDate() {
   const now = new Date();
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -792,6 +840,9 @@ async function buildCalendar() {
   const expandedHolidays = [];
   for (const e of holidayEvents) expandedHolidays.push(...expandEvent(e, firstOfMonth, lastOfMonth));
 
+  // Capture today's calendar events for the bird picker
+  todayCalendarEvents = expanded.filter(e => e.start?.date === todayYmd);
+
   // Group by date
   const byDate = {};
   for (const e of expanded) {
@@ -1036,19 +1087,9 @@ function applyDominantColor() {
   }
 }
 
-// Set crossOrigin before src so CORS header is requested
-if (DASH_IMAGE_URL) {
-  dashImg.crossOrigin = 'anonymous';
-  dashImg.src = DASH_IMAGE_URL;
-} else {
-  dashImg.crossOrigin = 'anonymous';
-}
-
-if (dashImg.complete) {
-  applyDominantColor();
-} else {
-  dashImg.addEventListener('load', applyDominantColor);
-}
+// Image src is set by loadWeatherbirdImage() — triggered after weather loads
+// applyDominantColor runs on image load
+document.getElementById('dashImg').addEventListener('load', applyDominantColor);
 
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1134,6 +1175,239 @@ function matchCardToClockHeight() {
 window.addEventListener('load', matchCardToClockHeight);
 window.addEventListener('resize', matchCardToClockHeight);
 setTimeout(matchCardToClockHeight, 800);
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// WEATHERBIRD PICKER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ── Significant dates calendar ──
+// Each entry: { month (1-12), day, tags, leadDays, spanDays }
+// leadDays = how many days before to start showing holiday birds
+// spanDays = how long the event lasts (default 1)
+const SIGNIFICANT_DATES = [
+  // New Year
+  { month:1,  day:1,  tags:['new_year','celebration','confetti','party'], leadDays:1 },
+  // Martin Luther King Jr Day (3rd Monday of Jan — approximated as Jan 15-21 window)
+  { month:1,  day:15, tags:['mlk','civil_rights','peace','dove'], leadDays:3, spanDays:7 },
+  // Groundhog Day
+  { month:2,  day:2,  tags:['groundhog','winter','shadow','prediction'], leadDays:1 },
+  // Valentine's Day
+  { month:2,  day:14, tags:['valentines_day','love','heart','romance','flowers'], leadDays:5 },
+  // Presidents Day (3rd Monday of Feb — approximated)
+  { month:2,  day:17, tags:['presidents_day','patriotic','washington'], leadDays:1, spanDays:3 },
+  // St. Patrick's Day
+  { month:3,  day:17, tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:3 },
+  // Pi Day
+  { month:3,  day:14, tags:['pi_day','math','science','pie','numbers'], leadDays:0 },
+  // Spring Equinox
+  { month:3,  day:20, tags:['spring','flowers','sunshine','renewal'], leadDays:2 },
+  // April Fools
+  { month:4,  day:1,  tags:['april_fools','joke','silly','surprised'], leadDays:0 },
+  // Easter (approximate — varies; good enough for bird matching)
+  { month:4,  day:13, tags:['easter','spring','eggs','rabbit','church'], leadDays:5, spanDays:3 },
+  // Earth Day
+  { month:4,  day:22, tags:['earth_day','nature','environment','green','trees'], leadDays:2 },
+  // Kentucky Derby (1st Saturday of May)
+  { month:5,  day:3,  tags:['kentucky_derby','horse_racing','horses','racing'], leadDays:3, spanDays:3 },
+  // Cinco de Mayo
+  { month:5,  day:5,  tags:['cinco_de_mayo','mexico','fiesta','celebration'], leadDays:1 },
+  // Mother's Day (2nd Sunday of May)
+  { month:5,  day:11, tags:['mothers_day','flowers','family','love'], leadDays:3 },
+  // Memorial Day
+  { month:5,  day:26, tags:['memorial_day','patriotic','military','soldier','flag'], leadDays:3, spanDays:3 },
+  // Pride Month (entire June)
+  { month:6,  day:1,  tags:['pride','rainbow','lgbtq','celebration'], leadDays:0, spanDays:30 },
+  // Father's Day (3rd Sunday of June)
+  { month:6,  day:15, tags:['fathers_day','family','bbq','outdoors'], leadDays:3 },
+  // Juneteenth
+  { month:6,  day:19, tags:['juneteenth','freedom','celebration','history'], leadDays:2 },
+  // Summer Solstice
+  { month:6,  day:21, tags:['summer','sunshine','beach','hot'], leadDays:1 },
+  // Independence Day
+  { month:7,  day:4,  tags:['fourth_of_july','fireworks','patriotic','flag','celebration'], leadDays:5 },
+  // Indianapolis 500 (late May, approximate)
+  { month:5,  day:25, tags:['racing','indy_500','checkered_flag','speed'], leadDays:3 },
+  // Labor Day (1st Monday of Sep — approximate)
+  { month:9,  day:1,  tags:['labor_day','work','end_of_summer'], leadDays:2, spanDays:3 },
+  // 9/11 Remembrance
+  { month:9,  day:11, tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:1 },
+  // Fall Equinox
+  { month:9,  day:22, tags:['fall','autumn','leaves','harvest'], leadDays:2 },
+  // Columbus/Indigenous Peoples Day (2nd Monday Oct)
+  { month:10, day:13, tags:['indigenous_peoples_day','native_american','history'], leadDays:2, spanDays:3 },
+  // Halloween
+  { month:10, day:31, tags:['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'], leadDays:7 },
+  // Election Day (1st Tuesday after 1st Monday in Nov)
+  { month:11, day:4,  tags:['election_day','voting','democracy','government'], leadDays:3, spanDays:3 },
+  // Veterans Day
+  { month:11, day:11, tags:['veterans_day','military','soldier','patriotic','flag'], leadDays:2 },
+  // Thanksgiving
+  { month:11, day:27, tags:['thanksgiving','turkey','harvest','family','feast'], leadDays:5, spanDays:2 },
+  // Hanukkah (approximate — varies)
+  { month:12, day:14, tags:['hanukkah','menorah','jewish','celebration'], leadDays:0, spanDays:8 },
+  // Christmas
+  { month:12, day:25, tags:['christmas','tree','santa','gifts','snow','holiday'], leadDays:7 },
+  // Christmas Eve
+  { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:3 },
+  // New Year's Eve
+  { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:1 },
+  // Kwanzaa
+  { month:12, day:26, tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
+  // Tax Day
+  { month:4,  day:15, tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:2 },
+  // Super Bowl (approximate first Sunday of Feb)
+  { month:2,  day:9,  tags:['super_bowl','football','party','sports'], leadDays:3 },
+  // March Madness (mid March through early April)
+  { month:3,  day:15, tags:['march_madness','basketball','sports','bracket'], leadDays:0, spanDays:21 },
+  // MLB Opening Day (late March/early April)
+  { month:3,  day:28, tags:['baseball','cardinals','spring_training','opening_day'], leadDays:2, spanDays:4 },
+  // Stanley Cup Playoffs (mid April through June)
+  { month:4,  day:15, tags:['hockey','playoffs','sports'], leadDays:0, spanDays:60 },
+  // Back to School (late August)
+  { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
+  // Black Friday
+  { month:11, day:28, tags:['black_friday','shopping','deals','bags'], leadDays:1 },
+];
+
+// ── WMO weather code → tags ──
+function weatherCodeToTags(code, tempF) {
+  const tags = [];
+  if (tempF !== null) {
+    if (tempF <= 28) tags.push('freezing', 'cold', 'winter');
+    else if (tempF <= 40) tags.push('cold', 'chilly', 'winter');
+    else if (tempF <= 55) tags.push('cool', 'fall', 'spring');
+    else if (tempF <= 75) tags.push('mild', 'pleasant');
+    else if (tempF <= 88) tags.push('warm', 'summer', 'sunshine');
+    else tags.push('hot', 'heat', 'summer');
+  }
+  if (code === 0) tags.push('sunshine', 'sunny', 'clear');
+  else if (code === 1) tags.push('sunshine', 'partly_cloudy');
+  else if (code === 2) tags.push('cloudy', 'partly_cloudy');
+  else if (code === 3) tags.push('overcast', 'cloudy');
+  else if (code <= 48) tags.push('fog', 'foggy', 'mist');
+  else if (code <= 55) tags.push('drizzle', 'rain', 'wet');
+  else if (code <= 65) tags.push('rain', 'rainy', 'wet', 'umbrella');
+  else if (code <= 75) tags.push('snow', 'snowy', 'winter', 'cold');
+  else if (code <= 82) tags.push('rain', 'showers');
+  else if (code >= 95) tags.push('thunderstorm', 'storm', 'lightning');
+  return tags;
+}
+
+// ── Season tags ──
+function seasonTags(month) {
+  if (month >= 3 && month <= 5) return ['spring', 'flowers', 'renewal', 'rain'];
+  if (month >= 6 && month <= 8) return ['summer', 'sunshine', 'hot', 'beach', 'outdoors'];
+  if (month >= 9 && month <= 11) return ['fall', 'autumn', 'leaves', 'harvest', 'cool'];
+  return ['winter', 'cold', 'snow', 'holiday', 'cozy'];
+}
+
+// ── Calendar event → tags ──
+function calendarEventToTags(summary) {
+  if (!summary) return [];
+  const s = summary.toLowerCase();
+  const tags = [];
+  if (s.match(/dr\.?|doctor|physician|appointment|appt|clinic|hospital|medical|dentist|therapy|therapist/)) tags.push('medical', 'doctor', 'health');
+  if (s.match(/dentist|dental|teeth/)) tags.push('dentist', 'medical');
+  if (s.match(/birthday|bday/)) tags.push('birthday', 'celebration', 'cake');
+  if (s.match(/wedding|anniversary/)) tags.push('wedding', 'celebration', 'love');
+  if (s.match(/flight|airport|travel|vacation|trip|hotel/)) tags.push('travel', 'airplane', 'vacation');
+  if (s.match(/meeting|work|office|conference|zoom|call/)) tags.push('work', 'business', 'office');
+  if (s.match(/gym|workout|exercise|yoga|run|running|cycling/)) tags.push('exercise', 'sports', 'fitness');
+  if (s.match(/dinner|lunch|breakfast|restaurant|brunch/)) tags.push('food', 'restaurant', 'dining');
+  if (s.match(/concert|show|theater|theatre|movie|film/)) tags.push('music', 'entertainment', 'arts');
+  if (s.match(/game|match|sport|baseball|football|basketball|soccer|hockey/)) tags.push('sports', 'game');
+  if (s.match(/school|class|exam|test|graduation/)) tags.push('school', 'education', 'learning');
+  if (s.match(/party|celebration|gather/)) tags.push('party', 'celebration');
+  if (s.match(/haircut|salon|spa|massage/)) tags.push('grooming', 'relaxing');
+  if (s.match(/church|mass|service|synagogue|mosque/)) tags.push('religious', 'faith');
+  if (s.match(/garden|yard|lawn|plant/)) tags.push('gardening', 'outdoors', 'spring');
+  if (s.match(/cook|bake|recipe/)) tags.push('cooking', 'baking', 'food');
+  return tags;
+}
+
+// ── Score a single bird against a list of target tags ──
+function scoreBird(bird, targetTags) {
+  if (!bird.tags) return 0;
+  let score = 0;
+  const allBirdTags = Object.values(bird.tags).flat().map(t => t.toLowerCase());
+  const filename = (bird.filename || '').toLowerCase().replace(/[_\.]/g, ' ');
+
+  for (const tag of targetTags) {
+    const t = tag.toLowerCase();
+    if (allBirdTags.includes(t)) score += 10;
+    // Partial filename match as bonus
+    if (filename.includes(t)) score += 3;
+  }
+  return score;
+}
+
+// ── Main picker ──
+async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
+  let index = {};
+  try {
+    const res = await fetch(WEATHERBIRD_INDEX_URL);
+    if (res.ok) index = await res.json();
+  } catch(e) {
+    console.warn('Could not load weatherbird index', e);
+    return null;
+  }
+
+  const birds = Object.values(index);
+  if (!birds.length) return null;
+
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const day   = today.getDate();
+
+  // Build target tags in priority order
+  let targetTags = [];
+  let matchSource = 'season';
+
+  // 1. Check significant dates (highest priority)
+  for (const sd of SIGNIFICANT_DATES) {
+    const start = new Date(today.getFullYear(), sd.month - 1, sd.day - (sd.leadDays || 0));
+    const end   = new Date(today.getFullYear(), sd.month - 1, sd.day + (sd.spanDays || 1));
+    if (today >= start && today < end) {
+      targetTags = [...sd.tags];
+      matchSource = 'holiday';
+      break;
+    }
+  }
+
+  // 2. Check calendar events (high priority — can override season but not major holidays)
+  const calTags = [];
+  for (const evt of (calendarEvents || [])) {
+    calTags.push(...calendarEventToTags(evt.summary));
+  }
+  if (calTags.length && matchSource !== 'holiday') {
+    targetTags = [...new Set([...calTags, ...targetTags])];
+    matchSource = 'calendar';
+  } else if (calTags.length) {
+    // Blend calendar tags in even during holidays
+    targetTags = [...new Set([...targetTags, ...calTags])];
+  }
+
+  // 3. Add weather tags
+  const wTags = weatherCodeToTags(weatherCode, tempF);
+  targetTags = [...new Set([...targetTags, ...wTags])];
+
+  // 4. Always add season as fallback
+  const sTags = seasonTags(month);
+  targetTags = [...new Set([...targetTags, ...sTags])];
+
+  console.log(`🐦 Weatherbird picking for: [${matchSource}]`, targetTags);
+
+  // Score all birds
+  const scored = birds.map(b => ({ bird: b, score: scoreBird(b, targetTags) }));
+  scored.sort((a, b) => b.score - a.score);
+
+  // Pick winner — add some variety by randomly choosing from top 3 if scores are close
+  const top = scored.slice(0, 3).filter(s => s.score >= scored[0].score * 0.8);
+  const winner = top[Math.floor(Math.random() * top.length)];
+
+  console.log('🐦 Winner:', winner?.bird?.filename, 'score:', winner?.score);
+  return winner ? WEATHERBIRD_BASE_URL + winner.bird.filename : null;
+}
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INIT
