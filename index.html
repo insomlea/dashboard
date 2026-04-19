@@ -499,6 +499,9 @@ const CALENDAR_ICAL_URL_1 = 'https://calendar.google.com/calendar/ical/lea.m.cod
 // 2) Second Google Calendar public iCal URL (merged with the first, no visual distinction)
 const CALENDAR_ICAL_URL_2 = 'https://calendar.google.com/calendar/ical/675efc891c4436d97b4ad43c9ff80bb23f8af6333ef1b3553186e8584f2e7c1b%40group.calendar.google.com/private-adfd81abad942357d3a08f326466a788/basic.ics';  // e.g. 'https://calendar.google.com/calendar/ical/yyyyy/public/basic.ics'
 
+// 2b) Partiful calendar
+const CALENDAR_ICAL_URL_3 = 'https://calendar.google.com/calendar/ical/4std9m6utfl7cagpl2qnesosrrlgfa2t%40import.calendar.google.com/public/basic.ics';
+
 // 3) Your Birthdays calendar iCal URL (separate Google Calendar)
 const BIRTHDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/3d26a5687f59fa5678e07fc7eee7e0ef8dc103776a6e24f9aa048b79943d23fc%40group.calendar.google.com/private-a365f54ce4902b94cbc460a6872e44da/basic.ics'; // e.g. 'https://calendar.google.com/calendar/ical/xxxxx/public/basic.ics'
 
@@ -510,14 +513,19 @@ async function fetchHolidayIcal() {
     u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
     u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
     u => `https://thingproxy.freeboard.io/fetch/${u}`,
+    u => `https://cors.sh/${u}`,
+    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
   ];
   for (const proxy of proxies) {
     try {
-      const r = await fetch(proxy(HOLIDAY_ICAL_URL));
+      const r = await fetch(proxy(HOLIDAY_ICAL_URL), { headers: { 'x-requested-with': 'XMLHttpRequest' } });
       if (r.ok) {
-        const events = parseIcal(await r.text());
-        console.log(`✅ Fetched ${events.length} holiday events`);
-        return events;
+        const text = await r.text();
+        if (text.includes('VCALENDAR')) {
+          const events = parseIcal(text);
+          console.log(`✅ Fetched ${events.length} holiday events`);
+          return events;
+        }
       }
     } catch(_) {}
   }
@@ -837,13 +845,14 @@ async function buildCalendar() {
   const lastOfMonth = new Date(year, month + 13, 0); // end of 12 months ahead
 
   // Get all events — fetch both calendars in parallel and merge
-  const [cal1Events, cal2Events, bdayEvents, holidayEvents] = await Promise.all([
+  const [cal1Events, cal2Events, cal3Events, bdayEvents, holidayEvents] = await Promise.all([
     fetchIcal(CALENDAR_ICAL_URL_1),
     fetchIcal(CALENDAR_ICAL_URL_2),
+    fetchIcal(CALENDAR_ICAL_URL_3),
     fetchIcal(BIRTHDAY_ICAL_URL),
     fetchHolidayIcal()
   ]);
-  const calEvents = [...cal1Events, ...cal2Events];
+  const calEvents = [...cal1Events, ...cal2Events, ...cal3Events];
 
   // Expand recurring events
   const expanded = [];
@@ -1112,20 +1121,14 @@ setTimeout(matchCardToClockHeight, 800);
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // ── Significant dates calendar ──
-// Each entry: { month (1-12), day, tags, leadDays, spanDays }
-// leadDays = how many days before to start showing holiday birds
-// spanDays = how long the event lasts (default 1)
-const SIGNIFICANT_DATES = [
+// Static dates that don't change year to year
+const STATIC_DATES = [
   // New Year
   { month:1,  day:1,  tags:['new_year','celebration','confetti','party'], leadDays:1 },
-  // Martin Luther King Jr Day (3rd Monday of Jan — approximated as Jan 15-21 window)
-  { month:1,  day:15, tags:['mlk','civil_rights','peace','dove'], leadDays:3, spanDays:7 },
   // Groundhog Day
   { month:2,  day:2,  tags:['groundhog','winter','shadow','prediction'], leadDays:1 },
   // Valentine's Day
   { month:2,  day:14, tags:['valentines_day','love','heart','romance','flowers'], leadDays:5 },
-  // Presidents Day (3rd Monday of Feb — approximated)
-  { month:2,  day:17, tags:['presidents_day','patriotic','washington'], leadDays:1, spanDays:3 },
   // St. Patrick's Day
   { month:3,  day:17, tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:3 },
   // Pi Day
@@ -1134,71 +1137,90 @@ const SIGNIFICANT_DATES = [
   { month:3,  day:20, tags:['spring','flowers','sunshine','renewal'], leadDays:2 },
   // April Fools
   { month:4,  day:1,  tags:['april_fools','joke','silly','surprised'], leadDays:0 },
-  // Easter (approximate — varies; good enough for bird matching)
-  { month:4,  day:13, tags:['easter','spring','eggs','rabbit','church'], leadDays:5, spanDays:3 },
   // Earth Day
   { month:4,  day:22, tags:['earth_day','nature','environment','green','trees'], leadDays:2 },
-  // Kentucky Derby (1st Saturday of May)
-  { month:5,  day:3,  tags:['kentucky_derby','horse_racing','horses','racing'], leadDays:3, spanDays:3 },
+  // Tax Day
+  { month:4,  day:15, tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:2 },
   // Cinco de Mayo
   { month:5,  day:5,  tags:['cinco_de_mayo','mexico','fiesta','celebration'], leadDays:1 },
-  // Mother's Day (2nd Sunday of May)
-  { month:5,  day:11, tags:['mothers_day','flowers','family','love'], leadDays:3 },
-  // Memorial Day
-  { month:5,  day:26, tags:['memorial_day','patriotic','military','soldier','flag'], leadDays:3, spanDays:3 },
   // Pride Month (entire June)
   { month:6,  day:1,  tags:['pride','rainbow','lgbtq','celebration'], leadDays:0, spanDays:30 },
-  // Father's Day (3rd Sunday of June)
-  { month:6,  day:15, tags:['fathers_day','family','bbq','outdoors'], leadDays:3 },
   // Juneteenth
   { month:6,  day:19, tags:['juneteenth','freedom','celebration','history'], leadDays:2 },
   // Summer Solstice
   { month:6,  day:21, tags:['summer','sunshine','beach','hot'], leadDays:1 },
   // Independence Day
   { month:7,  day:4,  tags:['fourth_of_july','fireworks','patriotic','flag','celebration'], leadDays:5 },
-  // Indianapolis 500 (late May, approximate)
-  { month:5,  day:25, tags:['racing','indy_500','checkered_flag','speed'], leadDays:3 },
-  // Labor Day (1st Monday of Sep — approximate)
-  { month:9,  day:1,  tags:['labor_day','work','end_of_summer'], leadDays:2, spanDays:3 },
   // 9/11 Remembrance
   { month:9,  day:11, tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:1 },
   // Fall Equinox
   { month:9,  day:22, tags:['fall','autumn','leaves','harvest'], leadDays:2 },
-  // Columbus/Indigenous Peoples Day (2nd Monday Oct)
-  { month:10, day:13, tags:['indigenous_peoples_day','native_american','history'], leadDays:2, spanDays:3 },
   // Halloween
   { month:10, day:31, tags:['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'], leadDays:7 },
-  // Election Day (1st Tuesday after 1st Monday in Nov)
-  { month:11, day:4,  tags:['election_day','voting','democracy','government'], leadDays:3, spanDays:3 },
   // Veterans Day
   { month:11, day:11, tags:['veterans_day','military','soldier','patriotic','flag'], leadDays:2 },
-  // Thanksgiving
-  { month:11, day:27, tags:['thanksgiving','turkey','harvest','family','feast'], leadDays:5, spanDays:2 },
-  // Hanukkah (approximate — varies)
-  { month:12, day:14, tags:['hanukkah','menorah','jewish','celebration'], leadDays:0, spanDays:8 },
-  // Christmas
-  { month:12, day:25, tags:['christmas','tree','santa','gifts','snow','holiday'], leadDays:7 },
-  // Christmas Eve
-  { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:3 },
-  // New Year's Eve
-  { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:1 },
-  // Kwanzaa
-  { month:12, day:26, tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
-  // Tax Day
-  { month:4,  day:15, tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:2 },
-  // Super Bowl (approximate first Sunday of Feb)
-  { month:2,  day:9,  tags:['super_bowl','football','party','sports'], leadDays:3 },
-  // March Madness (mid March through early April)
-  { month:3,  day:15, tags:['march_madness','basketball','sports','bracket'], leadDays:0, spanDays:21 },
-  // MLB Opening Day (late March/early April)
-  { month:3,  day:28, tags:['baseball','cardinals','spring_training','opening_day'], leadDays:2, spanDays:4 },
-  // Stanley Cup Playoffs (mid April through June)
-  { month:4,  day:15, tags:['hockey','playoffs','sports'], leadDays:0, spanDays:60 },
-  // Back to School (late August)
-  { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
   // Black Friday
   { month:11, day:28, tags:['black_friday','shopping','deals','bags'], leadDays:1 },
+  // Christmas Eve
+  { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:3 },
+  // Christmas
+  { month:12, day:25, tags:['christmas','tree','santa','gifts','snow','holiday'], leadDays:7 },
+  // Kwanzaa
+  { month:12, day:26, tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
+  // New Year's Eve
+  { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:1 },
+  // Back to School (late August)
+  { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
+  // Stanley Cup Playoffs (mid April through June)
+  { month:4,  day:15, tags:['hockey','playoffs','sports'], leadDays:0, spanDays:60 },
 ];
+
+// Dynamic dates fetched from Nager.Date API — keyed by local name
+const DYNAMIC_DATE_MAP = {
+  'Martin Luther King Jr. Day':   { tags:['mlk','civil_rights','peace','dove'], leadDays:3 },
+  'Presidents Day':               { tags:['presidents_day','patriotic','washington'], leadDays:1 },
+  "Washington's Birthday":        { tags:['presidents_day','patriotic','washington'], leadDays:1 },
+  'Easter Sunday':                { tags:['easter','spring','eggs','rabbit','church'], leadDays:5 },
+  "Mother's Day":                 { tags:['mothers_day','flowers','family','love'], leadDays:3 },
+  'Memorial Day':                 { tags:['memorial_day','patriotic','military','soldier','flag'], leadDays:3 },
+  "Father's Day":                 { tags:['fathers_day','family','bbq','outdoors'], leadDays:3 },
+  'Labor Day':                    { tags:['labor_day','work','end_of_summer'], leadDays:2, spanDays:3 },
+  'Columbus Day':                 { tags:['indigenous_peoples_day','native_american','history'], leadDays:2 },
+  'Indigenous Peoples Day':       { tags:['indigenous_peoples_day','native_american','history'], leadDays:2 },
+  'Thanksgiving Day':             { tags:['thanksgiving','turkey','harvest','family','feast'], leadDays:5, spanDays:2 },
+  'Hanukkah':                    { tags:['hanukkah','menorah','jewish','celebration'], leadDays:0, spanDays:8 },
+  'Super Bowl':                   { tags:['super_bowl','football','party','sports'], leadDays:3 },
+  'Kentucky Derby':               { tags:['kentucky_derby','horse_racing','horses','racing'], leadDays:3 },
+  'Indianapolis 500':             { tags:['racing','indy_500','checkered_flag','speed'], leadDays:3 },
+  'March Madness':                { tags:['march_madness','basketball','sports','bracket'], leadDays:0, spanDays:21 },
+  'MLB Opening Day':              { tags:['baseball','cardinals','spring_training','opening_day'], leadDays:2, spanDays:4 },
+};
+
+// Fetch dynamic holidays from Nager.Date API
+let SIGNIFICANT_DATES = [...STATIC_DATES];
+
+async function loadDynamicHolidays() {
+  const year = new Date().getFullYear();
+  try {
+    const res = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/US`);
+    if (!res.ok) return;
+    const holidays = await res.json();
+    for (const h of holidays) {
+      const mapped = DYNAMIC_DATE_MAP[h.localName] || DYNAMIC_DATE_MAP[h.name];
+      if (mapped) {
+        const d = new Date(h.date);
+        SIGNIFICANT_DATES.push({
+          month: d.getUTCMonth() + 1,
+          day: d.getUTCDate(),
+          ...mapped
+        });
+      }
+    }
+    console.log(`🗓️ Loaded ${holidays.length} dynamic holidays for ${year}`);
+  } catch(e) {
+    console.warn('Could not load dynamic holidays, using static list only', e);
+  }
+}
 
 // ── WMO weather code → tags ──
 function weatherCodeToTags(code, tempF) {
@@ -1343,6 +1365,7 @@ async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INIT
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+loadDynamicHolidays(); // fetch variable-date holidays (Easter, Thanksgiving, etc.)
 buildCalendar();
 setInterval(buildCalendar, 15 * 60 * 1000);
 setInterval(loadWeather, 30 * 60 * 1000);
