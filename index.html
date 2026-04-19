@@ -456,7 +456,7 @@
         <div>💧 <span id="weatherHumidity">--</span>%</div>
         <div>💨 <span id="weatherWind">--</span> mph</div>
       </div>
-      <div id="birdReason" style="font-size:11px;color:var(--text-muted);margin-top:6px;font-style:italic;"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:6px;"><div id="birdReason" style="font-size:11px;color:var(--text-muted);font-style:italic;"></div><button onclick="birdOffset++;loadWeatherbirdImage()" style="background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-size:11px;padding:2px 8px;cursor:pointer;font-family:inherit;flex-shrink:0;">next bird →</button></div>
     </div>
     <div class="top-card-right">
       <img id="dashImg" src="" alt="Dashboard image">
@@ -586,6 +586,7 @@ const WMO_ICONS = {
 let currentWeatherCode = null;
 let currentTempF = null;
 let currentHolidayEvents = [];
+let birdOffset = 0; // incremented by the "next bird" test button
 
 async function loadWeather() {
   try {
@@ -1512,10 +1513,11 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
   const topScore = scored[0].score;
   const top = scored.slice(0, 5).filter(s => s.score >= topScore * 0.5 && s.score >= 0);
   
-  // Use today's date as seed so the pick stays consistent all day
+  // Use today's date as seed so the pick stays consistent all day.
+  // birdOffset is incremented by the "next bird" button for testing.
   const today2 = new Date();
   const daySeed = today2.getFullYear() * 10000 + (today2.getMonth()+1) * 100 + today2.getDate();
-  const winner = top[daySeed % top.length];
+  const winner = top[(daySeed + birdOffset) % top.length];
 
   console.log('🐦 Winner:', winner?.bird?.filename, 'score:', winner?.score);
   if (!winner) return { url: getFallbackBird(), reason: null };
