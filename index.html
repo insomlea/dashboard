@@ -1309,7 +1309,7 @@ async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
   let matchSource = 'season';
 
   // 1. Check significant dates (highest priority)
-  for (const sd of SIGNIFICANT_DATES) {
+  for (const sd of STATIC_DATES) {
     const start = new Date(today.getFullYear(), sd.month - 1, sd.day - (sd.leadDays || 0));
     const end   = new Date(today.getFullYear(), sd.month - 1, sd.day + (sd.spanDays || 1));
     if (today >= start && today < end) {
