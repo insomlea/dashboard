@@ -582,52 +582,73 @@
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = 'en-US';
+    function newRecognition() {
+      const r = new SpeechRecognition();
+      r.continuous = true;
+      r.interimResults = true;
+      r.lang = 'en-US';
 
-    recognition.onresult = e => {
-      const transcript = Array.from(e.results).map(r => r[0].transcript).join(' ');
-      document.getElementById('transcriptBox').value = transcript;
-      // Extract tags from any final results
-      for (let i = 0; i < e.results.length; i++) {
-        if (e.results[i].isFinal) {
-          extractTagsFromTranscript(e.results[i][0].transcript);
+      r.onresult = e => {
+        let interim = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          const t = e.results[i][0].transcript;
+          if (e.results[i].isFinal) {
+            // Append final result to transcript box
+            const box = document.getElementById('transcriptBox');
+            box.value = (box.value + ' ' + t).trim();
+            extractTagsFromTranscript(t);
+          } else {
+            interim += t;
+          }
         }
-      }
-    };
+        // Show interim in a subtle way
+        if (interim) {
+          document.getElementById('micHint').textContent = '🔴 ' + interim;
+        }
+      };
 
-    recognition.onend = () => {
-      isRecording = false;
-      document.getElementById('micBtn').classList.remove('recording');
-    };
+      r.onend = () => {
+        if (isRecording) {
+          // Restart if we're still supposed to be recording
+          recognition = newRecognition();
+          try { recognition.start(); } catch(e) {}
+        } else {
+          document.getElementById('micBtn').classList.remove('recording');
+          document.getElementById('micHint').textContent = 'Hold space to record (or click mic)';
+        }
+      };
 
-    recognition.onerror = e => {
-      isRecording = false;
-      document.getElementById('micBtn').classList.remove('recording');
-      document.getElementById('micHint').textContent = 'Mic error: ' + e.error;
-    };
+      r.onerror = e => {
+        if (e.error === 'no-speech') return; // ignore silence
+        document.getElementById('micHint').textContent = 'Mic error: ' + e.error;
+      };
+
+      return r;
+    }
+
+    recognition = newRecognition();
   } else {
     document.getElementById('micBtn').disabled = true;
     document.getElementById('micHint').textContent = 'Speech not supported — type your description instead';
   }
 
   function startMic() {
-    if (!recognition || isRecording) return;
+    if (isRecording) return;
     isRecording = true;
     document.getElementById('micBtn').classList.add('recording');
     document.getElementById('micHint').textContent = '🔴 Recording... release space to stop';
-    try { recognition.start(); } catch(e) {}
+    recognition = newRecognition();
+    try { recognition.start(); } catch(e) {
+      document.getElementById('micHint').textContent = 'Could not start mic: ' + e.message;
+    }
   }
 
   function stopMic() {
-    if (!recognition || !isRecording) return;
+    if (!isRecording) return;
     isRecording = false;
     document.getElementById('micBtn').classList.remove('recording');
     document.getElementById('micHint').textContent = 'Hold space to record (or click mic)';
-    // Small delay so final result fires before we stop
-    setTimeout(() => { try { recognition.stop(); } catch(e) {} }, 300);
+    try { recognition.stop(); } catch(e) {}
   }
 
   // Spacebar push-to-talk
