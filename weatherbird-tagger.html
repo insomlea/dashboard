@@ -603,12 +603,12 @@
 
     recognition.onend = () => {
       if (isRecording) {
-        // Wait 2 seconds before restarting to avoid rapid cycling
-        setTimeout(() => {
-          if (isRecording) {
-            try { recognition.start(); } catch(e) {}
-          }
-        }, 2000);
+        try { recognition.start(); } catch(e) {
+          // If start fails, try again after a short delay
+          setTimeout(() => {
+            if (isRecording) try { recognition.start(); } catch(e2) {}
+          }, 300);
+        }
       } else {
         document.getElementById('micBtn').classList.remove('recording');
         document.getElementById('micHint').textContent = 'Click mic to resume listening';
