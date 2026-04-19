@@ -502,6 +502,30 @@ const CALENDAR_ICAL_URL_2 = 'https://calendar.google.com/calendar/ical/675efc891
 // 2b) Partiful calendar
 const CALENDAR_ICAL_URL_3 = 'https://calendar.google.com/calendar/ical/4std9m6utfl7cagpl2qnesosrrlgfa2t%40import.calendar.google.com/public/basic.ics';
 
+async function fetchPartifulIcal() {
+  const proxies = [
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://cors.sh/${u}`,
+    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+  ];
+  for (const proxy of proxies) {
+    try {
+      const r = await fetch(proxy(CALENDAR_ICAL_URL_3), { headers: { 'x-requested-with': 'XMLHttpRequest' } });
+      if (r.ok) {
+        const text = await r.text();
+        if (text.includes('VCALENDAR')) {
+          const events = parseIcal(text);
+          console.log(`✅ Fetched ${events.length} Partiful events`);
+          return events;
+        }
+      }
+    } catch(_) {}
+  }
+  console.warn('❌ Failed to fetch Partiful calendar');
+  return [];
+}
+
 // 3) Your Birthdays calendar iCal URL (separate Google Calendar)
 const BIRTHDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/3d26a5687f59fa5678e07fc7eee7e0ef8dc103776a6e24f9aa048b79943d23fc%40group.calendar.google.com/private-a365f54ce4902b94cbc460a6872e44da/basic.ics'; // e.g. 'https://calendar.google.com/calendar/ical/xxxxx/public/basic.ics'
 
@@ -848,7 +872,7 @@ async function buildCalendar() {
   const [cal1Events, cal2Events, cal3Events, bdayEvents, holidayEvents] = await Promise.all([
     fetchIcal(CALENDAR_ICAL_URL_1),
     fetchIcal(CALENDAR_ICAL_URL_2),
-    fetchIcal(CALENDAR_ICAL_URL_3),
+    fetchPartifulIcal(),
     fetchIcal(BIRTHDAY_ICAL_URL),
     fetchHolidayIcal()
   ]);
@@ -903,9 +927,22 @@ async function buildCalendar() {
   } else {
     debugPanel.style.display = 'none';
   }
+  const HOLIDAY_WHITELIST = [
+    'new year', 'martin luther king', 'mlk', 'valentine', 'presidents day', "washington's birthday",
+    'st. patrick', 'patrick', 'easter', "mother's day", 'memorial day', 'juneteenth',
+    "father's day", 'independence day', 'fourth of july', 'july 4', 'labor day',
+    'indigenous peoples', 'columbus day', 'halloween', 'election day', 'veterans day',
+    'thanksgiving', 'christmas eve', 'christmas day', 'christmas', 'kwanzaa', 'hanukkah',
+    'chanukah', "new year's eve", 'earth day', 'arbor day', 'groundhog',
+    'cinco de mayo', 'mardi gras', 'pi day', 'april fools', 'flag day',
+    'patriot', 'diwali', 'eid', 'passover', 'rosh hashana', 'yom kippur'
+  ];
+
   for (const e of expandedHolidays) {
     const d = e.start?.date;
     if (!d) continue;
+    const name = (e.summary || '').toLowerCase();
+    if (!HOLIDAY_WHITELIST.some(w => name.includes(w))) continue;
     if (!byDate[d]) byDate[d] = { events: [], bdays: [], holidays: [] };
     byDate[d].holidays.push(e);
   }
