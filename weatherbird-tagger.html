@@ -671,29 +671,17 @@
   const STOPWORDS = new Set(['the','and','with','that','this','have','from','they','been','were','are','was','for','but','not','you','all','can','her','his','him','its','our','out','who','what','when','will','one','two','three','into','also','some','there','their','than','then','she','which','about','more','very','just','like','make','want','your','over','time','know','take','them','these','those','would','could','should','such','each','how','other','only','come','made','here','being','says','said']);
 
   function extractTagsFromTranscript(text) {
-    const words = text.toLowerCase()
+    // Split on "and" — each chunk becomes one tag (words joined with underscore)
+    const chunks = text.toLowerCase()
       .replace(/[^a-z0-9\s]/g, ' ')
-      .split(/\s+/)
-      .filter(w => w.length > 2 && !STOPWORDS.has(w));
+      .split(/\band\b/);
 
-    // Also look for multi-word phrases
-    const phrases = [];
-    const lc = text.toLowerCase();
-    const knownPhrases = [
-      'new year', 'halloween', 'christmas', 'thanksgiving', 'fourth of july',
-      'valentines day', 'st patricks', 'memorial day', 'labor day', 'mothers day',
-      'fathers day', 'independence day', 'earth day', 'april fools', 'mardi gras',
-      'march madness', 'spring training', 'opening day', 'snow storm', 'thunder storm',
-      'lightning bolt', 'baseball bat', 'football helmet', 'basketball hoop',
-      'birthday cake', 'wedding dress', 'graduation cap', 'doctor coat', 'chef hat',
-      'santa claus', 'easter egg', 'pumpkin patch', 'candy corn', 'hot dog',
-      'ice cream', 'coffee cup', 'fishing rod', 'space suit', 'race car',
-    ];
-    knownPhrases.forEach(p => {
-      if (lc.includes(p)) phrases.push(p.replace(/\s+/g, '_'));
+    chunks.forEach(chunk => {
+      const words = chunk.trim().split(/\s+/).filter(w => w.length > 1 && !STOPWORDS.has(w));
+      if (words.length === 0) return;
+      const tag = words.join('_');
+      if (tag) addTag(tag);
     });
-
-    [...words, ...phrases].forEach(addTag);
   }
 
 

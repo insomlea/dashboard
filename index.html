@@ -1168,54 +1168,60 @@ setTimeout(matchCardToClockHeight, 800);
 // ── Significant dates calendar ──
 // Static dates that don't change year to year
 const STATIC_DATES = [
-  // New Year
-  { month:1,  day:1,  tags:['new_year','celebration','confetti','party'], leadDays:1 },
-  // Groundhog Day
-  { month:2,  day:2,  tags:['groundhog','winter','shadow','prediction'], leadDays:1 },
-  // Valentine's Day
-  { month:2,  day:14, tags:['valentines_day','love','heart','romance','flowers'], leadDays:5 },
-  // St. Patrick's Day
-  { month:3,  day:17, tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:3 },
-  // Pi Day
+  // New Year's Day — 3 days ahead
+  { month:1,  day:1,  tags:['new_year','celebration','confetti','party'], leadDays:3 },
+  // Groundhog Day — day of only
+  { month:2,  day:2,  tags:['groundhog','winter','shadow','prediction'], leadDays:0 },
+  // Valentine's Day — 1 week ahead
+  { month:2,  day:14, tags:['valentines_day','love','heart','romance','flowers'], leadDays:7 },
+  // St. Patrick's Day — 1 week ahead
+  { month:3,  day:17, tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:7 },
+  // Pi Day — day of only
   { month:3,  day:14, tags:['pi_day','math','science','pie','numbers'], leadDays:0 },
-  // Spring Equinox
-  { month:3,  day:20, tags:['spring','flowers','sunshine','renewal'], leadDays:2 },
-  // April Fools
+  // Spring Equinox — day of only
+  { month:3,  day:20, tags:['spring','flowers','sunshine','renewal'], leadDays:0 },
+  // April Fools — day of only
   { month:4,  day:1,  tags:['april_fools','joke','silly','surprised'], leadDays:0 },
-  // Earth Day
-  { month:4,  day:22, tags:['earth_day','nature','environment','green','trees'], leadDays:2 },
-  // Tax Day
-  { month:4,  day:15, tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:2 },
-  // Cinco de Mayo
-  { month:5,  day:5,  tags:['cinco_de_mayo','mexico','fiesta','celebration'], leadDays:1 },
+  // Earth Day — day of only
+  { month:4,  day:22, tags:['earth_day','nature','environment','green','trees'], leadDays:0 },
+  // Tax Day — day of only
+  { month:4,  day:15, tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:0 },
+  // Cinco de Mayo — day of only
+  { month:5,  day:5,  tags:['cinco_de_mayo','mexico','fiesta','celebration'], leadDays:0 },
   // Pride Month (entire June)
   { month:6,  day:1,  tags:['pride','rainbow','lgbtq','celebration'], leadDays:0, spanDays:30 },
-  // Juneteenth
-  { month:6,  day:19, tags:['juneteenth','freedom','celebration','history'], leadDays:2 },
-  // Summer Solstice
-  { month:6,  day:21, tags:['summer','sunshine','beach','hot'], leadDays:1 },
-  // Independence Day
+  // Juneteenth — day of only
+  { month:6,  day:19, tags:['juneteenth','freedom','celebration','history'], leadDays:0 },
+  // Summer Solstice — day of only
+  { month:6,  day:21, tags:['summer','sunshine','beach','hot'], leadDays:0 },
+  // Independence Day — 5 days ahead
   { month:7,  day:4,  tags:['fourth_of_july','fireworks','patriotic','flag','celebration'], leadDays:5 },
-  // 9/11 Remembrance
-  { month:9,  day:11, tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:1 },
-  // Fall Equinox
-  { month:9,  day:22, tags:['fall','autumn','leaves','harvest'], leadDays:2 },
-  // Halloween
+  // 9/11 Remembrance — day of only
+  { month:9,  day:11, tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:0 },
+  // Lea's Birthday — day of only
+  { month:9,  day:4,  tags:['birthday','cake','celebration','party'], leadDays:0 },
+  // Fall Equinox — day of only
+  { month:9,  day:22, tags:['fall','autumn','leaves','harvest'], leadDays:0 },
+  // Halloween — 7 days ahead
   { month:10, day:31, tags:['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'], leadDays:7 },
-  // Veterans Day
-  { month:11, day:11, tags:['veterans_day','military','soldier','patriotic','flag'], leadDays:2 },
-  // Black Friday
-  { month:11, day:28, tags:['black_friday','shopping','deals','bags'], leadDays:1 },
+  // Veterans Day — day of only
+  { month:11, day:11, tags:['veterans_day','military','soldier','patriotic','flag'], leadDays:0 },
+  // Black Friday — day of only
+  { month:11, day:28, tags:['black_friday','shopping','deals','bags'], leadDays:0 },
+  // Thanksgiving — 2 weeks ahead
+  { month:11, day:26, tags:['thanksgiving','turkey','harvest','family','feast'], leadDays:14, spanDays:2 },
   // Christmas Eve
-  { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:3 },
-  // Christmas
-  { month:12, day:25, tags:['christmas','tree','santa','gifts','snow','holiday'], leadDays:7 },
-  // Kwanzaa
+  { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:0 },
+  // Christmas — 2 weeks ahead
+  { month:12, day:25, tags:['christmas','tree','santa','gifts','snow','holiday'], leadDays:14 },
+  // Kwanzaa — day of, spans 7 days
   { month:12, day:26, tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
-  // New Year's Eve
-  { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:1 },
-  // Back to School (late August)
+  // New Year's Eve — 3 days ahead
+  { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:3 },
+  // Back to School — 1 week ahead
   { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
+  // Christopher's Birthday — day of only
+  { month:3,  day:15, tags:['birthday','cake','celebration','party'], leadDays:0 },
 ];
 
 
@@ -1224,12 +1230,12 @@ const STATIC_DATES = [
 function weatherCodeToTags(code, tempF) {
   const tags = [];
   if (tempF !== null) {
-    if (tempF <= 28) tags.push('freezing', 'cold', 'winter');
-    else if (tempF <= 40) tags.push('cold', 'chilly', 'winter');
-    else if (tempF <= 55) tags.push('cool', 'fall', 'spring');
+    if (tempF <= 28) tags.push('freezing', 'cold');
+    else if (tempF <= 40) tags.push('cold', 'chilly');
+    else if (tempF <= 55) tags.push('cool');
     else if (tempF <= 75) tags.push('mild', 'pleasant');
-    else if (tempF <= 88) tags.push('warm', 'summer', 'sunshine');
-    else tags.push('hot', 'heat', 'summer');
+    else if (tempF <= 88) tags.push('warm');
+    else tags.push('hot');
   }
   if (code === 0) tags.push('sunshine', 'sunny', 'clear');
   else if (code === 1) tags.push('sunshine', 'partly_cloudy');
@@ -1354,9 +1360,14 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
   const scored = birds.map(b => ({ bird: b, score: scoreBird(b, targetTags) }));
   scored.sort((a, b) => b.score - a.score);
 
-  // Pick from top 3 for variety
-  const top = scored.slice(0, 3).filter(s => s.score >= scored[0].score * 0.8);
-  const winner = top[Math.floor(Math.random() * top.length)];
+  // Pick from top 5 for variety, with a lower threshold
+  const topScore = scored[0].score;
+  const top = scored.slice(0, 5).filter(s => s.score >= topScore * 0.5 && s.score >= 0);
+  
+  // Use today's date as seed so the pick stays consistent all day
+  const today2 = new Date();
+  const daySeed = today2.getFullYear() * 10000 + (today2.getMonth()+1) * 100 + today2.getDate();
+  const winner = top[daySeed % top.length];
 
   console.log('🐦 Winner:', winner?.bird?.filename, 'score:', winner?.score);
   if (!winner) return { url: getFallbackBird(), reason: null };
@@ -1366,8 +1377,8 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
   if (matchSource === 'holiday' && holidayName) {
     reason = `Showing for ${holidayName}`;
   } else {
-    const weatherTag = targetTags.find(t => t.match(/snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|cool|freezing|cloudy/));
-    const seasonTag = targetTags.find(t => t.match(/winter|spring|summer|fall|autumn/));
+    const weatherTag = targetTags.find(t => t.match(/^(snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|freezing|cloudy|overcast|drizzle|thunderstorm)$/));
+    const seasonTag = targetTags.find(t => t.match(/^(winter|spring|summer|fall|autumn)$/));
     if (weatherTag && seasonTag) reason = `Picked for ${weatherTag} ${seasonTag} weather`;
     else if (weatherTag) reason = `Picked for ${weatherTag} weather`;
     else if (seasonTag) reason = `Picked for ${seasonTag}`;
