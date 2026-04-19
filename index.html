@@ -1234,7 +1234,7 @@ setTimeout(matchCardToClockHeight, 800);
 // Static dates that don't change year to year
 const STATIC_DATES = [
   // New Year's Day — 3 days ahead
-  { month:1,  day:1,  tags:['new_year','celebration','confetti','party'], leadDays:3 },
+  { month:1,  day:1,  tags:['new_years_day','celebration','confetti','party'], leadDays:3 },
   // Groundhog Day — day of only
   { month:2,  day:2,  tags:['groundhog','winter','shadow','prediction'], leadDays:0 },
   // Valentine's Day — 1 week ahead
@@ -1277,8 +1277,8 @@ const STATIC_DATES = [
   { month:11, day:26, tags:['thanksgiving','turkey','harvest','family','feast'], leadDays:14, spanDays:2 },
   // Christmas Eve
   { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:0 },
-  // Christmas — 2 weeks ahead
-  { month:12, day:25, tags:['christmas','tree','santa','gifts','snow','holiday'], leadDays:14 },
+  // Christmas Day — 2 weeks ahead
+  { month:12, day:25, tags:['christmas_day','tree','santa','gifts','snow','holiday'], leadDays:14 },
   // Kwanzaa — day of, spans 7 days
   { month:12, day:26, tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
   // New Year's Eve — 3 days ahead
@@ -1355,10 +1355,26 @@ function scoreBird(bird, targetTags) {
   let score = 0;
   const filename = (bird.filename || '').toLowerCase().replace(/[_.]/g, ' ');
 
-  // Collect all tags from the nested tags object
+  // Collect all tags — handle BOTH index formats:
+  //   New (build_index.py): flat object with string values  { holiday: "christmas_eve", season: "winter", ... }
+  //   Old (manual tagger):  nested arrays                   { manual: ["christmas_eve", "winter"] }
   let allBirdTags = [];
   if (bird.tags && typeof bird.tags === 'object') {
-    allBirdTags = Object.values(bird.tags).flat().map(t => String(t).toLowerCase());
+    for (const val of Object.values(bird.tags)) {
+      if (Array.isArray(val)) {
+        allBirdTags.push(...val.map(t => String(t).toLowerCase()));
+      } else if (typeof val === 'string' && val.trim()) {
+        allBirdTags.push(val.trim().toLowerCase());
+      }
+    }
+  }
+  // Also read top-level fields the new schema may write directly
+  // e.g. bird.holiday, bird.season, bird.weather, bird.objects
+  for (const field of ['holiday','season','weather','object','objects']) {
+    const v = bird[field];
+    if (!v) continue;
+    if (Array.isArray(v)) allBirdTags.push(...v.map(t => String(t).toLowerCase()));
+    else if (typeof v === 'string' && v.trim()) allBirdTags.push(v.trim().toLowerCase());
   }
   // Also include description words
   if (bird.description) {
@@ -1366,7 +1382,6 @@ function scoreBird(bird, targetTags) {
   }
 
   // If this bird is sports-themed, only score it if target tags include a sport
-  // Check both index tags AND filename for sports keywords
   const birdIsSports = SPORTS_TAGS.some(s => allBirdTags.includes(s) || filename.includes(s) || (bird.filename || '').toLowerCase().includes(s));
   const targetHasSports = SPORTS_TAGS.some(s => targetTags.map(t => t.toLowerCase()).includes(s));
   if (birdIsSports && !targetHasSports) return -1;
@@ -1405,7 +1420,8 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
   // Holiday name → rich tags map
   const HOLIDAY_TAG_MAP = {
     'new year\'s eve':      ['new_years_eve','celebration','countdown','party'],
-    'new year':              ['new_year','celebration','confetti','party'],
+    'new year\'s day':      ['new_years_day','celebration','confetti','party'],
+    'new year':              ['new_years_day','celebration','confetti','party'],
     'martin luther king':    ['mlk','civil_rights','peace','dove'],
     'groundhog':             ['groundhog','winter','shadow','prediction'],
     'valentine':             ['valentines_day','love','heart','romance','flowers'],
@@ -1435,8 +1451,9 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
     'thanksgiving':          ['thanksgiving','turkey','harvest','family','feast'],
     'hanukkah':              ['hanukkah','menorah','jewish','celebration'],
     'chanukah':              ['hanukkah','menorah','jewish','celebration'],
-    'christmas eve':         ['christmas_eve','santa','gifts','night'],
-    'christmas':             ['christmas','tree','santa','gifts','snow','holiday'],
+    'christmas eve':         ['christmas_eve','santa','gifts','night','candles'],
+    'christmas day':         ['christmas_day','tree','santa','gifts','snow','holiday'],
+    'christmas':             ['christmas_day','tree','santa','gifts','snow','holiday'],
     'kwanzaa':               ['kwanzaa','celebration','candles','african_heritage'],
     'mardi gras':            ['mardi_gras','carnival','celebration','colorful'],
     'super bowl':            ['super_bowl','football','party','sports'],
