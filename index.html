@@ -1175,52 +1175,7 @@ const STATIC_DATES = [
   { month:4,  day:15, tags:['hockey','playoffs','sports'], leadDays:0, spanDays:60 },
 ];
 
-// Dynamic dates fetched from Nager.Date API — keyed by local name
-const DYNAMIC_DATE_MAP = {
-  'Martin Luther King Jr. Day':   { tags:['mlk','civil_rights','peace','dove'], leadDays:3 },
-  'Presidents Day':               { tags:['presidents_day','patriotic','washington'], leadDays:1 },
-  "Washington's Birthday":        { tags:['presidents_day','patriotic','washington'], leadDays:1 },
-  'Easter Sunday':                { tags:['easter','spring','eggs','rabbit','church'], leadDays:5 },
-  "Mother's Day":                 { tags:['mothers_day','flowers','family','love'], leadDays:3 },
-  'Memorial Day':                 { tags:['memorial_day','patriotic','military','soldier','flag'], leadDays:3 },
-  "Father's Day":                 { tags:['fathers_day','family','bbq','outdoors'], leadDays:3 },
-  'Labor Day':                    { tags:['labor_day','work','end_of_summer'], leadDays:2, spanDays:3 },
-  'Columbus Day':                 { tags:['indigenous_peoples_day','native_american','history'], leadDays:2 },
-  'Indigenous Peoples Day':       { tags:['indigenous_peoples_day','native_american','history'], leadDays:2 },
-  'Thanksgiving Day':             { tags:['thanksgiving','turkey','harvest','family','feast'], leadDays:5, spanDays:2 },
-  'Hanukkah':                    { tags:['hanukkah','menorah','jewish','celebration'], leadDays:0, spanDays:8 },
-  'Super Bowl':                   { tags:['super_bowl','football','party','sports'], leadDays:3 },
-  'Kentucky Derby':               { tags:['kentucky_derby','horse_racing','horses','racing'], leadDays:3 },
-  'Indianapolis 500':             { tags:['racing','indy_500','checkered_flag','speed'], leadDays:3 },
-  'March Madness':                { tags:['march_madness','basketball','sports','bracket'], leadDays:0, spanDays:21 },
-  'MLB Opening Day':              { tags:['baseball','cardinals','spring_training','opening_day'], leadDays:2, spanDays:4 },
-};
 
-// Fetch dynamic holidays from Nager.Date API
-let SIGNIFICANT_DATES = [...STATIC_DATES];
-
-async function loadDynamicHolidays() {
-  const year = new Date().getFullYear();
-  try {
-    const res = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/US`);
-    if (!res.ok) return;
-    const holidays = await res.json();
-    for (const h of holidays) {
-      const mapped = DYNAMIC_DATE_MAP[h.localName] || DYNAMIC_DATE_MAP[h.name];
-      if (mapped) {
-        const d = new Date(h.date);
-        SIGNIFICANT_DATES.push({
-          month: d.getUTCMonth() + 1,
-          day: d.getUTCDate(),
-          ...mapped
-        });
-      }
-    }
-    console.log(`🗓️ Loaded ${holidays.length} dynamic holidays for ${year}`);
-  } catch(e) {
-    console.warn('Could not load dynamic holidays, using static list only', e);
-  }
-}
 
 // ── WMO weather code → tags ──
 function weatherCodeToTags(code, tempF) {
@@ -1365,7 +1320,6 @@ async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INIT
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-loadDynamicHolidays(); // fetch variable-date holidays (Easter, Thanksgiving, etc.)
 buildCalendar();
 setInterval(buildCalendar, 15 * 60 * 1000);
 setInterval(loadWeather, 30 * 60 * 1000);
