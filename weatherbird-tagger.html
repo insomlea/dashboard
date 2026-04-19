@@ -426,7 +426,10 @@
     </div>
 
     <div class="actions">
-      <button class="btn secondary" id="skipBtn">Skip</button>
+      <div style="display:flex;gap:12px;">
+        <button class="btn secondary" id="backBtn">← Back</button>
+        <button class="btn secondary" id="skipBtn">Skip</button>
+      </div>
       <div class="actions-right">
         <button class="btn" id="saveBtn">Save & Next →</button>
         <button class="btn success" id="downloadBtn">⬇ Download index</button>
@@ -555,17 +558,26 @@
     const url = URL.createObjectURL(file);
     document.getElementById('birdImg').src = url;
     document.getElementById('birdFilename').textContent = file.name;
-    document.getElementById('transcriptBox').value = '';
-    document.getElementById('tagsWrap').innerHTML = '';
-    currentTags = new Set();
 
-
+    // Restore saved data if this bird was previously tagged
+    const saved = index[file.name];
+    if (saved) {
+      document.getElementById('transcriptBox').value = saved.description || '';
+      (saved.tags && saved.tags.manual || []).forEach(t => currentTags.add(t));
+    } else {
+      document.getElementById('transcriptBox').value = '';
+      // Pre-fill tags from filename
+      const nameTags = file.name.replace(/\.png|\.jpg|\.jpeg/i, '').split('_').filter(w => w.length > 2);
+      nameTags.forEach(t => currentTags.add(t.trim().toLowerCase().replace(/[^a-z0-9_]/g, '_')));
+    }
+    renderTags();
 
     const pct = Math.round((currentIndex / files.length) * 100);
     document.getElementById('progressFill').style.width = pct + '%';
     document.getElementById('progressLabel').textContent = `${currentIndex + 1} / ${files.length}`;
 
-
+    // Update back button state
+    document.getElementById('backBtn').disabled = currentIndex === 0;
   };
 
   // Manual tag add
@@ -704,6 +716,16 @@
     saveCurrentBird();
     currentIndex++;
     while (currentIndex < files.length && index[files[currentIndex].name]) currentIndex++;
+    window.showBird();
+  });
+
+  document.getElementById('backBtn').addEventListener('click', () => {
+    // Save current state before going back (so progress isn't lost)
+    const transcript = document.getElementById('transcriptBox').value;
+    if (transcript) extractTagsFromTranscript(transcript);
+    saveCurrentBird();
+    // Step back, skipping nothing (we want to be able to re-edit any previous bird)
+    currentIndex = Math.max(0, currentIndex - 1);
     window.showBird();
   });
 

@@ -1337,13 +1337,79 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
   let matchSource = 'season';
   let holidayName = null;
 
+  // Holiday name → rich tags map
+  const HOLIDAY_TAG_MAP = {
+    'new year\'s eve':      ['new_years_eve','celebration','countdown','party'],
+    'new year':              ['new_year','celebration','confetti','party'],
+    'martin luther king':    ['mlk','civil_rights','peace','dove'],
+    'groundhog':             ['groundhog','winter','shadow','prediction'],
+    'valentine':             ['valentines_day','love','heart','romance','flowers'],
+    'presidents':            ['presidents_day','patriotic','washington'],
+    "washington's birthday": ['presidents_day','patriotic','washington'],
+    'st. patrick':           ['st_patricks_day','irish','shamrock','green','luck'],
+    'patrick':               ['st_patricks_day','irish','shamrock','green','luck'],
+    'pi day':                ['pi_day','math','science','pie','numbers'],
+    'april fools':           ['april_fools','joke','silly','surprised'],
+    'earth day':             ['earth_day','nature','environment','green','trees'],
+    'arbor day':             ['arbor_day','trees','nature','planting'],
+    'tax day':               ['tax_day','taxes','stressed','paperwork','money'],
+    'easter':                ['easter','spring','eggs','rabbit','church'],
+    'cinco de mayo':         ['cinco_de_mayo','mexico','fiesta','celebration'],
+    'mother':                ['mothers_day','flowers','family','love'],
+    'memorial':              ['memorial_day','patriotic','military','soldier','flag'],
+    'father':                ['fathers_day','family','bbq','outdoors'],
+    'juneteenth':            ['juneteenth','freedom','celebration','history'],
+    'independence':          ['fourth_of_july','fireworks','patriotic','flag','celebration'],
+    'july 4':                ['fourth_of_july','fireworks','patriotic','flag','celebration'],
+    'labor day':             ['labor_day','work','end_of_summer'],
+    'indigenous':            ['indigenous_peoples_day','native_american','history'],
+    'columbus':              ['indigenous_peoples_day','native_american','history'],
+    'halloween':             ['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'],
+    'election':              ['election_day','voting','democracy','government'],
+    'veterans':              ['veterans_day','military','soldier','patriotic','flag'],
+    'thanksgiving':          ['thanksgiving','turkey','harvest','family','feast'],
+    'hanukkah':              ['hanukkah','menorah','jewish','celebration'],
+    'chanukah':              ['hanukkah','menorah','jewish','celebration'],
+    'christmas eve':         ['christmas_eve','santa','gifts','night'],
+    'christmas':             ['christmas','tree','santa','gifts','snow','holiday'],
+    'kwanzaa':               ['kwanzaa','celebration','candles','african_heritage'],
+    'mardi gras':            ['mardi_gras','carnival','celebration','colorful'],
+    'super bowl':            ['super_bowl','football','party','sports'],
+    'black friday':          ['black_friday','shopping','deals','bags'],
+    'diwali':                ['diwali','lights','celebration','candles'],
+    'passover':              ['passover','jewish','celebration','spring'],
+    'rosh hashana':          ['rosh_hashana','jewish','new_year','celebration'],
+    'yom kippur':            ['yom_kippur','jewish','somber','fasting'],
+    'eid':                   ['eid','muslim','celebration','feast'],
+    'pride':                 ['pride','rainbow','lgbtq','celebration'],
+  };
+
+  function tagsForHoliday(name) {
+    const n = name.toLowerCase();
+    for (const [key, tags] of Object.entries(HOLIDAY_TAG_MAP)) {
+      if (n.includes(key)) return tags;
+    }
+    return n.split(/\s+/).filter(w => w.length > 3);
+  }
+
   // 1. Check today's holidays from the US holidays calendar
   const todayHolidays = (holidayEvents || []).filter(e => e.start?.date === todayYmd);
   if (todayHolidays.length) {
     holidayName = todayHolidays[0].summary || '';
-    targetTags = holidayName.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+    targetTags = tagsForHoliday(holidayName);
     matchSource = 'holiday';
-    console.log('🐦 Holiday today:', holidayName);
+    console.log('🐦 Holiday today:', holidayName, '→', targetTags);
+  }
+
+  // Also check STATIC_DATES (birthdays, etc.)
+  for (const sd of STATIC_DATES) {
+    const start = new Date(today.getFullYear(), sd.month - 1, sd.day - (sd.leadDays || 0));
+    const end   = new Date(today.getFullYear(), sd.month - 1, sd.day + (sd.spanDays || 1));
+    if (today >= start && today < end) {
+      targetTags = [...new Set([...sd.tags, ...targetTags])];
+      matchSource = 'holiday';
+      break;
+    }
   }
 
   // 2. Add weather tags
