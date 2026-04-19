@@ -413,7 +413,7 @@
     <div class="mic-section">
       <button class="mic-btn" id="micBtn" title="Hold to record">🎤</button>
       <textarea class="transcript-box" id="transcriptBox" placeholder="Click mic and describe what you see (not the bird itself)..." rows="3"></textarea>
-      <div class="mic-hint" id="micHint">Click mic to start · click again to stop</div>
+      <div class="mic-hint" id="micHint">Hold space to record (or click mic)</div>
     </div>
 
     <div class="tags-section">
@@ -559,13 +559,7 @@
     document.getElementById('tagsWrap').innerHTML = '';
     currentTags = new Set();
 
-    // Auto-start mic
-    if (recognition && !isRecording) {
-      isRecording = true;
-      document.getElementById('micBtn').classList.add('recording');
-      document.getElementById('micHint').textContent = '🔴 Listening... click mic to pause';
-      try { recognition.start(); } catch(e) {}
-    }
+
 
     const pct = Math.round((currentIndex / files.length) * 100);
     document.getElementById('progressFill').style.width = pct + '%';
@@ -589,7 +583,7 @@
 
   if (SpeechRecognition) {
     recognition = new SpeechRecognition();
-    recognition.continuous = true;
+    recognition.continuous = false;
     recognition.interimResults = true;
     recognition.lang = 'en-US';
 
@@ -602,17 +596,8 @@
     };
 
     recognition.onend = () => {
-      if (isRecording) {
-        try { recognition.start(); } catch(e) {
-          // If start fails, try again after a short delay
-          setTimeout(() => {
-            if (isRecording) try { recognition.start(); } catch(e2) {}
-          }, 300);
-        }
-      } else {
-        document.getElementById('micBtn').classList.remove('recording');
-        document.getElementById('micHint').textContent = 'Click mic to resume listening';
-      }
+      isRecording = false;
+      document.getElementById('micBtn').classList.remove('recording');
     };
 
     recognition.onerror = e => {
@@ -625,19 +610,38 @@
     document.getElementById('micHint').textContent = 'Speech not supported — type your description instead';
   }
 
-  document.getElementById('micBtn').addEventListener('click', () => {
-    if (!recognition) return;
-    if (isRecording) {
-      isRecording = false;
-      recognition.stop();
-      document.getElementById('micBtn').classList.remove('recording');
-      document.getElementById('micHint').textContent = 'Click mic to resume listening';
-    } else {
-      isRecording = true;
-      document.getElementById('micBtn').classList.add('recording');
-      document.getElementById('micHint').textContent = '🔴 Listening... click mic to pause';
-      try { recognition.start(); } catch(e) {}
+  function startMic() {
+    if (!recognition || isRecording) return;
+    isRecording = true;
+    document.getElementById('micBtn').classList.add('recording');
+    document.getElementById('micHint').textContent = '🔴 Recording... release space to stop';
+    try { recognition.start(); } catch(e) {}
+  }
+
+  function stopMic() {
+    if (!recognition || !isRecording) return;
+    isRecording = false;
+    recognition.stop();
+    document.getElementById('micBtn').classList.remove('recording');
+    document.getElementById('micHint').textContent = 'Hold space to record';
+  }
+
+  // Spacebar push-to-talk
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      startMic();
     }
+  });
+  document.addEventListener('keyup', e => {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+      stopMic();
+    }
+  });
+
+  // Mic button click also works
+  document.getElementById('micBtn').addEventListener('click', () => {
+    if (isRecording) stopMic(); else startMic();
   });
 
   // ── Tag extraction from transcript ──
