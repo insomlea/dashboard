@@ -538,5 +538,3845 @@
   "election_day_vote_patriotic.png": {
     "filename": "election_day_vote_patriotic.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/election_day_vote_patriotic.png"
+  },
+  "election_day_vote_uncle_sam.png": {
+    "filename": "election_day_vote_uncle_sam.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/election_day_vote_uncle_sam.png",
+    "description": "A patriotic bird character holding a voting sign while wearing an Uncle Sam-style top hat.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "voting"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [
+        "election_day"
+      ],
+      "associations": [
+        "patriotic",
+        "civic_duty",
+        "american",
+        "democracy"
+      ]
+    }
+  },
+  "election_day_vote_uncle_sam_2.png": {
+    "filename": "election_day_vote_uncle_sam_2.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/election_day_vote_uncle_sam_2.png",
+    "description": "A patriotic character in a star-spangled top hat holding a sign that says 'VOTE!' with an enthusiastic expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "voting"
+      ],
+      "themes": [
+        "civic_engagement",
+        "politics"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "enthusiastic"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [
+        "election_day"
+      ],
+      "associations": [
+        "patriotic",
+        "american",
+        "democracy",
+        "civic_duty"
+      ]
+    }
+  },
+  "election_day_voting_ballot_box.png": {
+    "filename": "election_day_voting_ballot_box.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/election_day_voting_ballot_box.png",
+    "description": "A bird stands at a voting booth holding a ballot, encouraging civic participation.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "voting"
+      ],
+      "themes": [
+        "voting",
+        "civics",
+        "democracy"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "voting_booth"
+      ],
+      "food": [],
+      "significant_dates": [
+        "election_day"
+      ],
+      "associations": [
+        "patriotic",
+        "civic_duty",
+        "democracy"
+      ]
+    }
+  },
+  "elephant_friend_zoo_visit.png": {
+    "filename": "elephant_friend_zoo_visit.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/elephant_friend_zoo_visit.png",
+    "description": "A small cartoon bird stands next to a large gray elephant, appearing surprised or amazed by the size comparison.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [
+        "elephant"
+      ],
+      "moods": [
+        "surprised",
+        "amazed",
+        "shocked"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "size_comparison",
+        "contrast"
+      ]
+    }
+  },
+  "elephant_hug_friendship.png": {
+    "filename": "elephant_hug_friendship.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/elephant_hug_friendship.png",
+    "description": "A large elephant holds a small bird character in its trunk with an affectionate or playful expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [
+        "elephant"
+      ],
+      "moods": [
+        "happy",
+        "playful",
+        "affectionate"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "friendship",
+        "size_difference",
+        "interaction"
+      ]
+    }
+  },
+  "elevator_rushing_running_late.png": {
+    "filename": "elevator_rushing_running_late.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/elevator_rushing_running_late.png",
+    "description": "The Weatherbird is peeking around a wooden pillar or wall with a surprised expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "surprised",
+        "shocked",
+        "nervous"
+      ],
+      "places": [
+        "building",
+        "indoor"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": []
+    }
+  },
+  "elvis_judge_gavel_pompadour.png": {
+    "filename": "elvis_judge_gavel_pompadour.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/elvis_judge_gavel_pompadour.png",
+    "description": "A cool bird character wearing sunglasses and a black suit, holding a gavel and striking a confident pose with musical notes floating around.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "music",
+        "work"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy",
+        "confident"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "music",
+        "legal",
+        "cool",
+        "fun"
+      ]
+    }
+  },
+  "emmy_award_tuxedo_red_carpet.png": {
+    "filename": "emmy_award_tuxedo_red_carpet.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/emmy_award_tuxedo_red_carpet.png",
+    "description": "A cheerful character in formal attire holding a glowing lightbulb and a scientific tool, suggesting a brilliant idea or scientific discovery.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "science",
+        "research"
+      ],
+      "themes": [
+        "science",
+        "innovation",
+        "education"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "enthusiastic"
+      ],
+      "places": [
+        "laboratory"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "scientific_discovery",
+        "genius",
+        "eureka_moment",
+        "intellectual",
+        "innovation",
+        "stem"
+      ]
+    }
+  },
+  "face_mask_pink_gloves_covid.png": {
+    "filename": "face_mask_pink_gloves_covid.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/face_mask_pink_gloves_covid.png",
+    "description": "A bird wearing a medical mask and gloves holds up a thumbs up gesture.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "medical",
+        "health"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "optimistic"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "pandemic",
+        "healthcare",
+        "safety",
+        "wellness",
+        "protective_gear"
+      ]
+    }
+  },
+  "factory_smokestack_sweating_hot.png": {
+    "filename": "factory_smokestack_sweating_hot.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/factory_smokestack_sweating_hot.png",
+    "description": "A bird character holds papers and stands next to an industrial factory with a smoking chimney, appearing concerned about pollution or environmental issues.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "smoke"
+      ],
+      "sports": [],
+      "activities": [
+        "reading"
+      ],
+      "themes": [
+        "work",
+        "environmental"
+      ],
+      "animals": [],
+      "moods": [
+        "nervous",
+        "concerned"
+      ],
+      "places": [
+        "city",
+        "factory"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "pollution",
+        "industry",
+        "environmental_awareness",
+        "documentation"
+      ]
+    }
+  },
+  "fall_pumpkin_harvest.png": {
+    "filename": "fall_pumpkin_harvest.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fall_pumpkin_harvest.png",
+    "description": "A cheerful character holds up two large pumpkins with an excited expression.",
+    "tags": {
+      "holidays": [
+        "halloween"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "harvesting"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "farm"
+      ],
+      "food": [
+        "pumpkin"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "autumn",
+        "spooky",
+        "harvest"
+      ]
+    }
+  },
+  "fall_pumpkin_patch_wheelbarrow.png": {
+    "filename": "fall_pumpkin_patch_wheelbarrow.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fall_pumpkin_patch_wheelbarrow.png",
+    "description": "A cheerful bird sits in a red wagon filled with pumpkins of various sizes during harvest season.",
+    "tags": {
+      "holidays": [
+        "halloween",
+        "thanksgiving"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "shopping",
+        "gardening"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "farm"
+      ],
+      "food": [
+        "pumpkin"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "autumn_harvest",
+        "fall_harvest",
+        "spooky",
+        "thanksgiving_prep"
+      ]
+    }
+  },
+  "farmer_apple_harvest_overalls.png": {
+    "filename": "farmer_apple_harvest_overalls.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/farmer_apple_harvest_overalls.png",
+    "description": "A farmer in overalls and a straw hat proudly displays fresh red apples from a harvest basket.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "farming",
+        "gardening",
+        "harvesting"
+      ],
+      "themes": [
+        "agriculture",
+        "harvest"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "proud"
+      ],
+      "places": [
+        "farm"
+      ],
+      "food": [
+        "apple"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "farmer",
+        "rural",
+        "countryside",
+        "produce"
+      ]
+    }
+  },
+  "farmer_overalls_autumn_puddle.png": {
+    "filename": "farmer_overalls_autumn_puddle.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/farmer_overalls_autumn_puddle.png",
+    "description": "A worker in overalls and cap stands on sandy ground next to water, looking thoughtful with hand to chin.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "water"
+      ],
+      "sports": [],
+      "activities": [
+        "working",
+        "construction",
+        "labor"
+      ],
+      "themes": [
+        "work"
+      ],
+      "animals": [],
+      "moods": [
+        "thoughtful",
+        "concerned"
+      ],
+      "places": [
+        "beach",
+        "water",
+        "construction_site"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "manual_labor",
+        "blue_collar"
+      ]
+    }
+  },
+  "farmer_overalls_corn_harvest.png": {
+    "filename": "farmer_overalls_corn_harvest.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/farmer_overalls_corn_harvest.png",
+    "description": "A character happily holding a bowl of popcorn with a wide smile.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "eating",
+        "snacking"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [
+        "popcorn"
+      ],
+      "significant_dates": [],
+      "associations": []
+    }
+  },
+  "farmers_market_fresh_produce_basket.png": {
+    "filename": "farmers_market_fresh_produce_basket.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/farmers_market_fresh_produce_basket.png",
+    "description": "A cheerful character holding a large apple and carrying a basket of fresh produce including fruits and vegetables.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "shopping",
+        "gardening",
+        "cooking"
+      ],
+      "themes": [
+        "school",
+        "health",
+        "nutrition"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "farm",
+        "market"
+      ],
+      "food": [
+        "apple",
+        "vegetables",
+        "produce",
+        "fruit"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "back_to_school",
+        "healthy_eating",
+        "harvest"
+      ]
+    }
+  },
+  "farmers_market_vegetable_basket_sale.png": {
+    "filename": "farmers_market_vegetable_basket_sale.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/farmers_market_vegetable_basket_sale.png",
+    "description": "A cheerful farmer carries a basket of fresh vegetables and produce with a sale sign.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer",
+        "fall"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [
+        "farming",
+        "shopping",
+        "gardening"
+      ],
+      "themes": [
+        "farm",
+        "agriculture"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "farm",
+        "market"
+      ],
+      "food": [
+        "tomatoes",
+        "lettuce",
+        "vegetables",
+        "produce"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "farmers_market",
+        "harvest",
+        "fresh_produce",
+        "agriculture"
+      ]
+    }
+  },
+  "fathers_day_baby_hearts.png": {
+    "filename": "fathers_day_baby_hearts.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fathers_day_baby_hearts.png",
+    "description": "A parent bird lovingly holds a smaller baby bird, both wearing straw hats, surrounded by floating hearts.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "family",
+        "parenting",
+        "love"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "loving",
+        "warm",
+        "affectionate"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "family_bonding",
+        "parental_love",
+        "tender_moment"
+      ]
+    }
+  },
+  "fbi_agent_badge_sunglasses.png": {
+    "filename": "fbi_agent_badge_sunglasses.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fbi_agent_badge_sunglasses.png",
+    "description": "An FBI agent displaying a badge and wearing sunglasses with an authoritative stance.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "work",
+        "law_enforcement"
+      ],
+      "animals": [],
+      "moods": [
+        "confident",
+        "serious"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "law_enforcement",
+        "federal_agent",
+        "authority",
+        "investigation"
+      ]
+    }
+  },
+  "film_director_clapperboard_beret.png": {
+    "filename": "film_director_clapperboard_beret.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/film_director_clapperboard_beret.png",
+    "description": "A bird holding a film clapperboard, appearing to be involved in movie or video production.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "filmmaking",
+        "directing",
+        "video_production"
+      ],
+      "themes": [
+        "art",
+        "media",
+        "entertainment"
+      ],
+      "animals": [],
+      "moods": [
+        "focused",
+        "creative"
+      ],
+      "places": [
+        "film_set",
+        "studio"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "film_industry",
+        "production",
+        "cinema"
+      ]
+    }
+  },
+  "fine_dining_wine_thumbs_up.png": {
+    "filename": "fine_dining_wine_thumbs_up.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fine_dining_wine_thumbs_up.png",
+    "description": "A bird enjoying a fine dining experience with a salad and wine, giving a thumbs up approval.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "dining",
+        "eating",
+        "cooking"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "satisfied"
+      ],
+      "places": [
+        "restaurant"
+      ],
+      "food": [
+        "salad",
+        "wine"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "gourmet",
+        "celebration",
+        "approval"
+      ]
+    }
+  },
+  "firefighter_helmet_axe_uniform.png": {
+    "filename": "firefighter_helmet_axe_uniform.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/firefighter_helmet_axe_uniform.png",
+    "description": "A firefighter in full gear holding a fire hose, ready for action.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "work",
+        "emergency_services"
+      ],
+      "animals": [],
+      "moods": [
+        "alert",
+        "determined"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "firefighting",
+        "first_responder",
+        "safety",
+        "heroic"
+      ]
+    }
+  },
+  "fishing_inner_tube_summer.png": {
+    "filename": "fishing_inner_tube_summer.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fishing_inner_tube_summer.png",
+    "description": "A bird in fishing attire holding a fishing rod and tackle, enthusiastically ready for a fishing trip.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "spring",
+        "summer"
+      ],
+      "weather": [],
+      "sports": [
+        "fishing"
+      ],
+      "activities": [
+        "fishing"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy"
+      ],
+      "places": [
+        "water",
+        "outdoors"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "outdoor_recreation",
+        "leisure"
+      ]
+    }
+  },
+  "fishing_net_caught_fish.png": {
+    "filename": "fishing_net_caught_fish.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fishing_net_caught_fish.png",
+    "description": "A cartoon character pushes a shopping cart while wearing pink curlers and casual clothing.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "shopping"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "consumerism",
+        "retail",
+        "domestic_life"
+      ]
+    }
+  },
+  "flood_rooftop_rescue_rising_water.png": {
+    "filename": "flood_rooftop_rescue_rising_water.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/flood_rooftop_rescue_rising_water.png",
+    "description": "A bird is doing roofing work on a house, measuring and writing calculations while sitting on a sloped roof surrounded by water.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "rain",
+        "flooding"
+      ],
+      "sports": [],
+      "activities": [
+        "roofing",
+        "construction",
+        "measuring",
+        "working"
+      ],
+      "themes": [
+        "work",
+        "home_repair",
+        "building"
+      ],
+      "animals": [],
+      "moods": [
+        "focused",
+        "busy",
+        "determined"
+      ],
+      "places": [
+        "roof",
+        "house"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "home_improvement",
+        "labor",
+        "renovation",
+        "flood_damage",
+        "repair_work"
+      ]
+    }
+  },
+  "flood_stranded_grass_island_newspaper.png": {
+    "filename": "flood_stranded_grass_island_newspaper.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/flood_stranded_grass_island_newspaper.png",
+    "description": "A cheerful bird stands on a grassy island in the water, holding a paper airplane and looking excited.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "spring",
+        "summer"
+      ],
+      "weather": [
+        "water"
+      ],
+      "sports": [],
+      "activities": [
+        "flying",
+        "playing"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "playful"
+      ],
+      "places": [
+        "island",
+        "water"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "outdoor_fun",
+        "carefree",
+        "childhood",
+        "adventure"
+      ]
+    }
+  },
+  "football_catch_helmet_cleats.png": {
+    "filename": "football_catch_helmet_cleats.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/football_catch_helmet_cleats.png",
+    "description": "A football player in uniform attempts to catch a football while sliding on grass.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [
+        "football"
+      ],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "excited",
+        "focused"
+      ],
+      "places": [
+        "field"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "football_season",
+        "sports_action"
+      ]
+    }
+  },
+  "football_contract_signing_mizzou.png": {
+    "filename": "football_contract_signing_mizzou.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/football_contract_signing_mizzou.png",
+    "description": "A cheerful character in a sports uniform celebrates holding a football and a test paper with an excellent grade.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "football"
+      ],
+      "activities": [],
+      "themes": [
+        "school",
+        "sports"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "back_to_school",
+        "victory",
+        "achievement"
+      ]
+    }
+  },
+  "football_go_team_cheerful.png": {
+    "filename": "football_go_team_cheerful.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/football_go_team_cheerful.png",
+    "description": "A cheerful bird wearing a team spirit shirt holds a football overhead while celebrating enthusiastically.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "football"
+      ],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "enthusiastic"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "team_spirit",
+        "sports_fan",
+        "celebration",
+        "victory"
+      ]
+    }
+  },
+  "football_horse_tv_watching.png": {
+    "filename": "football_horse_tv_watching.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/football_horse_tv_watching.png",
+    "description": "A bird sits at a computer desk, excited and engaged with the screen while holding a gaming controller.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "gaming",
+        "computer_use",
+        "working"
+      ],
+      "themes": [
+        "technology",
+        "work"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "office",
+        "home"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "digital_age",
+        "entertainment",
+        "tech_culture"
+      ]
+    }
+  },
+  "football_money_bags_wealth.png": {
+    "filename": "football_money_bags_wealth.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/football_money_bags_wealth.png",
+    "description": "A bird character proudly displays multiple money bags marked with dollar signs.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "money",
+        "wealth",
+        "business",
+        "finance"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "proud"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "success",
+        "prosperity",
+        "greed",
+        "fortune"
+      ]
+    }
+  },
+  "football_player_fish_crawfish.png": {
+    "filename": "football_player_fish_crawfish.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/football_player_fish_crawfish.png",
+    "description": "A cheerful character in baseball attire running with a fresh catch of fish and lobster.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "baseball"
+      ],
+      "activities": [
+        "fishing"
+      ],
+      "themes": [],
+      "animals": [
+        "fish",
+        "lobster"
+      ],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [
+        "fish",
+        "lobster",
+        "seafood"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "sports",
+        "outdoor_activities"
+      ]
+    }
+  },
+  "football_player_two_footballs_helmet.png": {
+    "filename": "football_player_two_footballs_helmet.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/football_player_two_footballs_helmet.png",
+    "description": "A bird character in football uniform celebrating with a football in each hand.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "football"
+      ],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "sports",
+        "victory",
+        "celebration"
+      ]
+    }
+  },
+  "formal_tuxedo_cane_pink_glasses.png": {
+    "filename": "formal_tuxedo_cane_pink_glasses.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/formal_tuxedo_cane_pink_glasses.png",
+    "description": "A well-dressed bird character in formal attire holding a hat and cane, appearing upset or distressed.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "hot"
+      ],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "formal"
+      ],
+      "animals": [],
+      "moods": [
+        "sad",
+        "upset",
+        "frustrated",
+        "uncomfortable"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "heat_exhaustion",
+        "summer_discomfort"
+      ]
+    }
+  },
+  "fourth_of_july_fireworks_sale.png": {
+    "filename": "fourth_of_july_fireworks_sale.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fourth_of_july_fireworks_sale.png",
+    "description": "A cheerful character holding a lit match and an upward-pointing sale sign, giving a thumbs up.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "shopping"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "sales",
+        "marketing",
+        "retail",
+        "deals",
+        "promotional"
+      ]
+    }
+  },
+  "fourth_of_july_uncle_sam_sparkler.png": {
+    "filename": "fourth_of_july_uncle_sam_sparkler.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fourth_of_july_uncle_sam_sparkler.png",
+    "description": "A patriotic Uncle Sam character holding a sparkler with a celebratory expression.",
+    "tags": {
+      "holidays": [
+        "fourth_of_july"
+      ],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "celebrating"
+      ],
+      "themes": [
+        "patriotic"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [
+        "fourth_of_july"
+      ],
+      "associations": [
+        "patriotic",
+        "independence_day",
+        "fireworks",
+        "american"
+      ]
+    }
+  },
+  "freezing_cold_ice_floe_shivering.png": {
+    "filename": "freezing_cold_ice_floe_shivering.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/freezing_cold_ice_floe_shivering.png",
+    "description": "A bird stands on a small ice floe in water, bundled up in winter clothing with a worried expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "winter"
+      ],
+      "weather": [
+        "cold",
+        "snow",
+        "ice"
+      ],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "nervous",
+        "worried"
+      ],
+      "places": [
+        "ocean"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "winter_activities",
+        "survival"
+      ]
+    }
+  },
+  "freezing_cold_snow_shovel_icicles.png": {
+    "filename": "freezing_cold_snow_shovel_icicles.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/freezing_cold_snow_shovel_icicles.png",
+    "description": "A bird is bundled up in winter clothing, holding an icy thermometer and shivering in the cold.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "winter"
+      ],
+      "weather": [
+        "cold",
+        "ice",
+        "snow"
+      ],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "cold",
+        "uncomfortable",
+        "nervous"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "winter_activities",
+        "freezing_weather",
+        "bundled_up"
+      ]
+    }
+  },
+  "freezing_cold_winter_shivering.png": {
+    "filename": "freezing_cold_winter_shivering.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/freezing_cold_winter_shivering.png",
+    "description": "A bundled-up bird is shivering in the cold while standing in snow.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "winter"
+      ],
+      "weather": [
+        "cold",
+        "snow"
+      ],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "nervous",
+        "uncomfortable"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "winter_activities",
+        "cold_weather"
+      ]
+    }
+  },
+  "freezing_winter_icicles_scarf.png": {
+    "filename": "freezing_winter_icicles_scarf.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/freezing_winter_icicles_scarf.png",
+    "description": "A cheerful character dressed for cold weather holds a shovel and waves while snow falls around them.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "winter"
+      ],
+      "weather": [
+        "snow",
+        "cold"
+      ],
+      "sports": [],
+      "activities": [
+        "shoveling"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "winter_activities",
+        "snow_removal"
+      ]
+    }
+  },
+  "fried_chicken_drumstick_bib.png": {
+    "filename": "fried_chicken_drumstick_bib.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/fried_chicken_drumstick_bib.png",
+    "description": "A bird is holding up a hot piece of fried chicken, looking excited and happy about the food.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [
+        "hot"
+      ],
+      "sports": [],
+      "activities": [
+        "cooking",
+        "eating"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [
+        "fried_chicken"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "food_enjoyment"
+      ]
+    }
+  },
+  "friendly_dog_companion.png": {
+    "filename": "friendly_dog_companion.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/friendly_dog_companion.png",
+    "description": "A cartoon bird character interacts with a brown dog, appearing to have a friendly conversation or moment together.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [
+        "dog"
+      ],
+      "moods": [
+        "happy",
+        "friendly",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "companionship",
+        "animals"
+      ]
+    }
+  },
+  "gas_pump_hose_wrapped_squeeze.png": {
+    "filename": "gas_pump_hose_wrapped_squeeze.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/gas_pump_hose_wrapped_squeeze.png",
+    "description": "The Weatherbird enthusiastically holds up a gas pump nozzle with fuel dripping, expressing excitement about gasoline or fuel prices.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "work"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy"
+      ],
+      "places": [
+        "gas_station"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "fuel",
+        "energy",
+        "economy",
+        "commerce"
+      ]
+    }
+  },
+  "gas_pump_nozzle_filling_up.png": {
+    "filename": "gas_pump_nozzle_filling_up.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/gas_pump_nozzle_filling_up.png",
+    "description": "A cartoon bird character enthusiastically holds a welding torch or blowtorch with a determined expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "welding",
+        "working",
+        "construction"
+      ],
+      "themes": [
+        "work",
+        "labor"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy",
+        "determined"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "manual_labor",
+        "craftwork",
+        "industrial"
+      ]
+    }
+  },
+  "gateway_arch_50th_birthday_cake.png": {
+    "filename": "gateway_arch_50th_birthday_cake.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/gateway_arch_50th_birthday_cake.png",
+    "description": "A celebratory scene with a large birthday cake decorated with the number 50 and lit candles.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [
+        "celebrating"
+      ],
+      "themes": [
+        "birthday"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [
+        "cake",
+        "candles"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "celebration",
+        "milestone",
+        "golden_anniversary"
+      ]
+    }
+  },
+  "gateway_arch_money_shopping.png": {
+    "filename": "gateway_arch_money_shopping.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/gateway_arch_money_shopping.png",
+    "description": "A bird character carrying shopping bags while walking with an excited expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "shopping"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "shopping",
+        "consumerism"
+      ]
+    }
+  },
+  "gateway_arch_sunny_day.png": {
+    "filename": "gateway_arch_sunny_day.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/gateway_arch_sunny_day.png",
+    "description": "A bird character is fishing with a large yellow fishing rod in bright sunshine.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [
+        "fishing"
+      ],
+      "activities": [
+        "fishing"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "outdoor_recreation",
+        "leisure"
+      ]
+    }
+  },
+  "gateway_arch_tourist_map_reading.png": {
+    "filename": "gateway_arch_tourist_map_reading.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/gateway_arch_tourist_map_reading.png",
+    "description": "A bird character holding a fishing rod with an excited expression while standing near water.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [
+        "fishing"
+      ],
+      "activities": [
+        "fishing"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy"
+      ],
+      "places": [
+        "water",
+        "outdoor"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "outdoor_recreation",
+        "leisure"
+      ]
+    }
+  },
+  "giant_golden_baseball_glove_trophy.png": {
+    "filename": "giant_golden_baseball_glove_trophy.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/giant_golden_baseball_glove_trophy.png",
+    "description": "A character carrying an oversized yellow baseball glove while running on a grassy field.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "spring",
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [
+        "baseball"
+      ],
+      "activities": [
+        "playing",
+        "running"
+      ],
+      "themes": [
+        "sports"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy"
+      ],
+      "places": [
+        "field"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "outdoor_activities",
+        "athletic"
+      ]
+    }
+  },
+  "goat_grass_bowtie_glasses.png": {
+    "filename": "goat_grass_bowtie_glasses.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/goat_grass_bowtie_glasses.png",
+    "description": "A cheerful bird character is playfully posing with a small goat in an outdoor grassy setting.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "spring",
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [
+        "farming",
+        "petting"
+      ],
+      "themes": [
+        "farm",
+        "animals"
+      ],
+      "animals": [
+        "goat"
+      ],
+      "moods": [
+        "happy",
+        "excited",
+        "playful"
+      ],
+      "places": [
+        "farm",
+        "countryside",
+        "grass"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "pastoral",
+        "rural",
+        "barnyard"
+      ]
+    }
+  },
+  "golf_wine_toast_celebration.png": {
+    "filename": "golf_wine_toast_celebration.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/golf_wine_toast_celebration.png",
+    "description": "A character in golf attire holding a champagne glass and golf club on a grass course, celebrating.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "golf"
+      ],
+      "activities": [
+        "golfing",
+        "celebrating"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "golf_course"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "victory",
+        "celebration",
+        "leisure"
+      ]
+    }
+  },
+  "gooey_butter_cake_st_louis.png": {
+    "filename": "gooey_butter_cake_st_louis.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/gooey_butter_cake_st_louis.png",
+    "description": "A bird is excitedly holding a 'BIZ' sign while standing on a table with a Gooey Butter Cake, a St. Louis delicacy.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "cooking"
+      ],
+      "themes": [
+        "food",
+        "business"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy"
+      ],
+      "places": [
+        "kitchen"
+      ],
+      "food": [
+        "butter_cake",
+        "dessert"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "st_louis",
+        "local_culture",
+        "advertising"
+      ]
+    }
+  },
+  "graduate_cap_diploma_celebration.png": {
+    "filename": "graduate_cap_diploma_celebration.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/graduate_cap_diploma_celebration.png",
+    "description": "A cheerful bird character dressed as a chef or cook, running or moving energetically with an excited expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "cooking"
+      ],
+      "themes": [
+        "work"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "energetic"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "culinary"
+      ]
+    }
+  },
+  "graduation_cap_books_backpack.png": {
+    "filename": "graduation_cap_books_backpack.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/graduation_cap_books_backpack.png",
+    "description": "A cheerful bird character wearing a graduation cap and carrying books while walking with enthusiasm.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "reading",
+        "studying"
+      ],
+      "themes": [
+        "graduation",
+        "school",
+        "education"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "back_to_school",
+        "academic_achievement"
+      ]
+    }
+  },
+  "grammy_award_tuxedo_music_notes.png": {
+    "filename": "grammy_award_tuxedo_music_notes.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/grammy_award_tuxedo_music_notes.png",
+    "description": "A bird in a suit holds a golden gramophone award aloft while listening to music with sunglasses and pink headphones.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "listening",
+        "music"
+      ],
+      "themes": [
+        "music",
+        "awards"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "music_awards",
+        "entertainment",
+        "celebration"
+      ]
+    }
+  },
+  "green_snake_encounter_summer.png": {
+    "filename": "green_snake_encounter_summer.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/green_snake_encounter_summer.png",
+    "description": "A bird character encounters a green snake that has emerged from a boot.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "hiking",
+        "camping",
+        "outdoor_exploration"
+      ],
+      "themes": [],
+      "animals": [
+        "snake"
+      ],
+      "moods": [
+        "surprised",
+        "startled",
+        "nervous"
+      ],
+      "places": [
+        "outdoors",
+        "wilderness",
+        "countryside"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "danger",
+        "wildlife_encounter",
+        "outdoor_hazards",
+        "nature"
+      ]
+    }
+  },
+  "halloween_ghost_costume_go_magazine.png": {
+    "filename": "halloween_ghost_costume_go_magazine.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_ghost_costume_go_magazine.png",
+    "description": "A ghost-like figure holding a sign that says 'GO!' against a blue background.",
+    "tags": {
+      "holidays": [
+        "halloween"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "spooky"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "encouraging"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "spooky",
+        "halloween",
+        "costume",
+        "motivation",
+        "support"
+      ]
+    }
+  },
+  "halloween_ghost_reading_newspaper.png": {
+    "filename": "halloween_ghost_reading_newspaper.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_ghost_reading_newspaper.png",
+    "description": "The Weatherbird sits at a table holding a sign that reads 'STL LIFE', appearing excited and enthusiastic about St. Louis.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "city"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "local_pride",
+        "st_louis"
+      ]
+    }
+  },
+  "halloween_ghost_trick_or_treat_candy.png": {
+    "filename": "halloween_ghost_trick_or_treat_candy.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_ghost_trick_or_treat_candy.png",
+    "description": "A bird offers a bowl of candy to a ghost figure against a blue background.",
+    "tags": {
+      "holidays": [
+        "halloween"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "trick_or_treating",
+        "candy_giving"
+      ],
+      "themes": [
+        "spooky",
+        "costume"
+      ],
+      "animals": [
+        "ghost"
+      ],
+      "moods": [
+        "happy",
+        "friendly"
+      ],
+      "places": [],
+      "food": [
+        "candy"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "spooky",
+        "halloween_costume",
+        "trick_or_treat"
+      ]
+    }
+  },
+  "halloween_mad_scientist_costume.png": {
+    "filename": "halloween_mad_scientist_costume.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_mad_scientist_costume.png",
+    "description": "A character in work gear holding a flashlight while crouching down to examine or work on something in a cardboard box.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "working",
+        "inspecting",
+        "searching"
+      ],
+      "themes": [
+        "work"
+      ],
+      "animals": [],
+      "moods": [
+        "focused",
+        "curious"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "labor",
+        "maintenance",
+        "investigation"
+      ]
+    }
+  },
+  "halloween_mad_scientist_potion.png": {
+    "filename": "halloween_mad_scientist_potion.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_mad_scientist_potion.png",
+    "description": "A bird character holds a broken paint can while standing among spilled paint and a paintbrush on the ground.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "painting"
+      ],
+      "themes": [
+        "art"
+      ],
+      "animals": [],
+      "moods": [
+        "nervous",
+        "clumsy"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "mishap",
+        "accident",
+        "mess"
+      ]
+    }
+  },
+  "halloween_skeleton_blues_jersey.png": {
+    "filename": "halloween_skeleton_blues_jersey.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_skeleton_blues_jersey.png",
+    "description": "A skeleton in a blue and yellow sports uniform holds a clipboard while the Weatherbird looks on with surprise and alarm.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "baseball"
+      ],
+      "activities": [],
+      "themes": [
+        "sports",
+        "coaching"
+      ],
+      "animals": [],
+      "moods": [
+        "surprised",
+        "shocked",
+        "nervous"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "sports_humor",
+        "death_humor",
+        "team_management"
+      ]
+    }
+  },
+  "halloween_skeleton_full_moon.png": {
+    "filename": "halloween_skeleton_full_moon.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_skeleton_full_moon.png",
+    "description": "A frog character is being examined by a skeleton holding an X-ray, depicting a medical or anatomical scene.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "medical"
+      ],
+      "animals": [
+        "frog"
+      ],
+      "moods": [
+        "nervous",
+        "anxious"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "spooky",
+        "anatomical"
+      ]
+    }
+  },
+  "halloween_vampire_ghost_trick_or_treat.png": {
+    "filename": "halloween_vampire_ghost_trick_or_treat.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_vampire_ghost_trick_or_treat.png",
+    "description": "The Weatherbird in a vampire costume holding a calendar showing October 31st, a bag of candy, and a lollipop, preparing for Halloween night.",
+    "tags": {
+      "holidays": [
+        "halloween"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "trick_or_treating",
+        "candy_collecting"
+      ],
+      "themes": [
+        "costume",
+        "spooky"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [
+        "candy",
+        "lollipop"
+      ],
+      "significant_dates": [
+        "halloween"
+      ],
+      "associations": [
+        "spooky",
+        "costume_party",
+        "october",
+        "trick_or_treat"
+      ]
+    }
+  },
+  "halloween_witch_broomstick_crescent_moon.png": {
+    "filename": "halloween_witch_broomstick_crescent_moon.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_witch_broomstick_crescent_moon.png",
+    "description": "A witch character flying on a broomstick against a night sky with a crescent moon.",
+    "tags": {
+      "holidays": [
+        "halloween"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "flying"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "sky"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "spooky",
+        "magical",
+        "witch_craft"
+      ]
+    }
+  },
+  "halloween_witch_costume_candy_pumpkin.png": {
+    "filename": "halloween_witch_costume_candy_pumpkin.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/halloween_witch_costume_candy_pumpkin.png",
+    "description": "A cheerful character dressed as a witch holding a jack-o'-lantern bucket filled with candy.",
+    "tags": {
+      "holidays": [
+        "halloween"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "trick_or_treating"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [
+        "candy"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "spooky",
+        "halloween_costume",
+        "costume_party"
+      ]
+    }
+  },
+  "hazmat_suit_medical_mask_gloves.png": {
+    "filename": "hazmat_suit_medical_mask_gloves.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/hazmat_suit_medical_mask_gloves.png",
+    "description": "A figure in full protective medical gear including a face mask, goggles, gloves, and a hazmat suit.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "medical",
+        "health"
+      ],
+      "animals": [],
+      "moods": [
+        "nervous",
+        "cautious"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "pandemic",
+        "safety",
+        "protection",
+        "healthcare",
+        "epidemic"
+      ]
+    }
+  },
+  "healthy_eating_broccoli_dinner.png": {
+    "filename": "healthy_eating_broccoli_dinner.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/healthy_eating_broccoli_dinner.png",
+    "description": "A bird character is cooking outdoors at a picnic table with a red and white checkered tablecloth, holding a fork and beverage while preparing food.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [
+        "cooking",
+        "picnicking",
+        "grilling"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "picnic_area"
+      ],
+      "food": [
+        "bbq",
+        "grilled_food"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "outdoor_cooking",
+        "summer_activities"
+      ]
+    }
+  },
+  "horse_racing_jockey_derby.png": {
+    "filename": "horse_racing_jockey_derby.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/horse_racing_jockey_derby.png",
+    "description": "A jockey riding a thoroughbred horse at full gallop during a horse race.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "horse_racing",
+        "racing"
+      ],
+      "activities": [
+        "racing",
+        "riding"
+      ],
+      "themes": [],
+      "animals": [
+        "horse"
+      ],
+      "moods": [
+        "excited",
+        "determined"
+      ],
+      "places": [
+        "racetrack"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "competitive",
+        "sport",
+        "speed"
+      ]
+    }
+  },
+  "horse_veterinarian_carrot_love.png": {
+    "filename": "horse_veterinarian_carrot_love.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/horse_veterinarian_carrot_love.png",
+    "description": "The Weatherbird is affectionately holding a horse while displaying a heart of love above them.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "love"
+      ],
+      "animals": [
+        "horse"
+      ],
+      "moods": [
+        "happy",
+        "affectionate",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [
+        "valentines_day"
+      ],
+      "associations": [
+        "companionship",
+        "friendship",
+        "caring"
+      ]
+    }
+  },
+  "hot_air_balloon_50th_anniversary_aviator.png": {
+    "filename": "hot_air_balloon_50th_anniversary_aviator.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/hot_air_balloon_50th_anniversary_aviator.png",
+    "description": "A pilot in leather flight gear celebrates turning 50 years old with a hot air balloon.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [
+        "flying",
+        "traveling"
+      ],
+      "themes": [
+        "birthday",
+        "aviation"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "sky"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "milestone",
+        "adventure",
+        "celebration"
+      ]
+    }
+  },
+  "hot_air_balloon_flight.png": {
+    "filename": "hot_air_balloon_flight.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/hot_air_balloon_flight.png",
+    "description": "A cheerful hot air balloon with a smiling face floating in the sky.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [
+        "traveling",
+        "flying"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "sky"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "adventure",
+        "whimsical"
+      ]
+    }
+  },
+  "hot_air_balloon_ride_blue_sky.png": {
+    "filename": "hot_air_balloon_ride_blue_sky.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/hot_air_balloon_ride_blue_sky.png",
+    "description": "A bird is piloting a hot air balloon with a large orange and white striped envelope.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [
+        "traveling",
+        "adventuring"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy"
+      ],
+      "places": [
+        "sky"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "adventure",
+        "exploration",
+        "flight",
+        "leisure"
+      ]
+    }
+  },
+  "hot_air_balloon_sunny_day.png": {
+    "filename": "hot_air_balloon_sunny_day.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/hot_air_balloon_sunny_day.png",
+    "description": "A giant illuminated light bulb glows brightly above a small bird character who appears excited and inspired by the idea.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "ideas",
+        "innovation",
+        "inspiration",
+        "school",
+        "work"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy",
+        "inspired"
+      ],
+      "places": [
+        "outdoors"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "bright_idea",
+        "creativity",
+        "enlightenment",
+        "thinking"
+      ]
+    }
+  },
+  "hot_summer_sun_sweating.png": {
+    "filename": "hot_summer_sun_sweating.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/hot_summer_sun_sweating.png",
+    "description": "A character shields their eyes from bright sunshine while running or moving quickly.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [
+        "sunshine",
+        "hot",
+        "bright"
+      ],
+      "sports": [],
+      "activities": [
+        "running"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "excited",
+        "energetic"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "hot_weather",
+        "sunny_day"
+      ]
+    }
+  },
+  "hot_summer_sun_sweating_2.png": {
+    "filename": "hot_summer_sun_sweating_2.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/hot_summer_sun_sweating_2.png",
+    "description": "A bird wearing sunglasses shielding his eyes from intense bright sunlight while running or moving quickly.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "summer"
+      ],
+      "weather": [
+        "sunshine",
+        "hot",
+        "bright"
+      ],
+      "sports": [],
+      "activities": [
+        "running"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "uncomfortable",
+        "squinting"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "summer_heat",
+        "uv_protection"
+      ]
+    }
+  },
+  "house_for_sale_coonskin_cap.png": {
+    "filename": "house_for_sale_coonskin_cap.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/house_for_sale_coonskin_cap.png",
+    "description": "A realtor or real estate agent enthusiastically holding a house model and a sale sign.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "shopping",
+        "selling"
+      ],
+      "themes": [
+        "work",
+        "real_estate"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "happy"
+      ],
+      "places": [
+        "house"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "business",
+        "sales",
+        "property_market"
+      ]
+    }
+  },
+  "jack_in_the_box_clipboard_survey.png": {
+    "filename": "jack_in_the_box_clipboard_survey.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/jack_in_the_box_clipboard_survey.png",
+    "description": "A clown character entertains and presents a clipboard to an amused audience member.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "entertainment",
+        "performing",
+        "circus"
+      ],
+      "themes": [
+        "birthday",
+        "party"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "amused"
+      ],
+      "places": [
+        "circus"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "clown",
+        "performance",
+        "fun",
+        "celebration"
+      ]
+    }
+  },
+  "jazz_dancing_pinstripe_suit_music.png": {
+    "filename": "jazz_dancing_pinstripe_suit_music.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/jazz_dancing_pinstripe_suit_music.png",
+    "description": "A bird character is dancing and playing music while riding a unicycle.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "dancing",
+        "playing_music",
+        "performing"
+      ],
+      "themes": [
+        "music"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "entertainment",
+        "circus",
+        "performance_art"
+      ]
+    }
+  },
+  "jockey_horse_racing_silks_whip.png": {
+    "filename": "jockey_horse_racing_silks_whip.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/jockey_horse_racing_silks_whip.png",
+    "description": "A golfer in colorful athletic wear holds a golf club while looking puzzled.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "golf"
+      ],
+      "activities": [
+        "golf",
+        "sports"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "confused",
+        "puzzled"
+      ],
+      "places": [
+        "golf_course"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "golf"
+      ]
+    }
+  },
+  "josephine_baker_stamp_tribute.png": {
+    "filename": "josephine_baker_stamp_tribute.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/josephine_baker_stamp_tribute.png",
+    "description": "A bird holds up a portrait of a smiling woman's face with a heart floating above.",
+    "tags": {
+      "holidays": [
+        "valentines_day"
+      ],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "art"
+      ],
+      "themes": [
+        "love",
+        "romance"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "loving"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [
+        "valentines_day"
+      ],
+      "associations": [
+        "romance",
+        "affection",
+        "admiration"
+      ]
+    }
+  },
+  "jumping_fish_water_splashing.png": {
+    "filename": "jumping_fish_water_splashing.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/jumping_fish_water_splashing.png",
+    "description": "A surprised bird is fishing in shallow water while fish jump out of the water around him.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "rain"
+      ],
+      "sports": [],
+      "activities": [
+        "fishing"
+      ],
+      "themes": [],
+      "animals": [
+        "fish"
+      ],
+      "moods": [
+        "surprised",
+        "excited",
+        "nervous"
+      ],
+      "places": [
+        "water",
+        "beach"
+      ],
+      "food": [
+        "fish"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "fishing",
+        "outdoor_recreation"
+      ]
+    }
+  },
+  "jumprope.png": {
+    "filename": "jumprope.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/jumprope.png",
+    "description": "A cheerful character jumping rope with an enthusiastic expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "jumping_rope",
+        "exercise"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "energetic"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "fitness",
+        "active",
+        "playful"
+      ]
+    }
+  },
+  "juneteenth_flag_celebration.png": {
+    "filename": "juneteenth_flag_celebration.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/juneteenth_flag_celebration.png",
+    "description": "A cheerful bird character holding a colorful flag with green, black, and red stripes while wearing casual clothing and giving a thumbs up.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "cheerful"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "patriotic",
+        "flag_waving",
+        "celebration",
+        "pride"
+      ]
+    }
+  },
+  "ketchup_mustard_summer_cookout.png": {
+    "filename": "ketchup_mustard_summer_cookout.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/ketchup_mustard_summer_cookout.png",
+    "description": "A cheerful bird character celebrating with colorful drinks and a joyful expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "celebrating",
+        "drinking",
+        "partying"
+      ],
+      "themes": [
+        "birthday",
+        "party"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "cheerful"
+      ],
+      "places": [],
+      "food": [
+        "drinks"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "celebration",
+        "festive",
+        "fun"
+      ]
+    }
+  },
+  "labor_day_construction_worker_toolbox.png": {
+    "filename": "labor_day_construction_worker_toolbox.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/labor_day_construction_worker_toolbox.png",
+    "description": "A construction worker or handyman holding a wrench and toolbag, ready for a job.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "construction",
+        "repair",
+        "building"
+      ],
+      "themes": [
+        "work",
+        "labor"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "confident"
+      ],
+      "places": [
+        "construction_site"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "manual_labor",
+        "tradework",
+        "professional_services"
+      ]
+    }
+  },
+  "lavender_bouquet_fragrant_summer.png": {
+    "filename": "lavender_bouquet_fragrant_summer.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/lavender_bouquet_fragrant_summer.png",
+    "description": "A cheerful bird character happily holds bundles of lavender flowers while celebrating.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "spring",
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [
+        "gardening",
+        "celebrating"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "garden"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "nature",
+        "flowers",
+        "joy"
+      ]
+    }
+  },
+  "library_books_cart_glasses.png": {
+    "filename": "library_books_cart_glasses.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/library_books_cart_glasses.png",
+    "description": "A bird transporting a large stack of colorful books and documents on a wheeled cart while looking confused.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "reading",
+        "studying",
+        "organizing",
+        "transporting"
+      ],
+      "themes": [
+        "school",
+        "work",
+        "education"
+      ],
+      "animals": [],
+      "moods": [
+        "confused",
+        "puzzled",
+        "busy"
+      ],
+      "places": [
+        "library",
+        "school"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "back_to_school",
+        "knowledge",
+        "learning"
+      ]
+    }
+  },
+  "lincoln_top_hat_beard_thumbs_up.png": {
+    "filename": "lincoln_top_hat_beard_thumbs_up.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/lincoln_top_hat_beard_thumbs_up.png",
+    "description": "A bird character dressed in a formal business suit with a top hat, holding a briefcase and displaying a confident expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "work",
+        "business"
+      ],
+      "animals": [],
+      "moods": [
+        "confident",
+        "happy"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "professional",
+        "corporate",
+        "businessman"
+      ]
+    }
+  },
+  "lottery_salesman_briefcase_fedora.png": {
+    "filename": "lottery_salesman_briefcase_fedora.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/lottery_salesman_briefcase_fedora.png",
+    "description": "A cheerful bird character tipping his hat while promoting lottery gambling with an enthusiastic expression.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "gambling"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "lottery",
+        "chance",
+        "luck",
+        "persuasion"
+      ]
+    }
+  },
+  "mardi_gras_beads_top_hat.png": {
+    "filename": "mardi_gras_beads_top_hat.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mardi_gras_beads_top_hat.png",
+    "description": "A festive bird character celebrating with colorful beaded necklaces while waving enthusiastically.",
+    "tags": {
+      "holidays": [
+        "mardi_gras"
+      ],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "celebrating",
+        "partying"
+      ],
+      "themes": [
+        "festival",
+        "parade"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "celebratory"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "mardi_gras_beads",
+        "new_orleans",
+        "festivities",
+        "fun"
+      ]
+    }
+  },
+  "mardi_gras_jester_beads.png": {
+    "filename": "mardi_gras_jester_beads.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mardi_gras_jester_beads.png",
+    "description": "A festive bird character celebrating with beaded necklaces and holding a drink.",
+    "tags": {
+      "holidays": [
+        "mardi_gras"
+      ],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "celebrating",
+        "partying"
+      ],
+      "themes": [
+        "party",
+        "carnival"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [
+        "drink"
+      ],
+      "significant_dates": [],
+      "associations": [
+        "mardi_gras_celebration",
+        "new_orleans",
+        "festive",
+        "colorful"
+      ]
+    }
+  },
+  "mardi_gras_jester_costume_beads.png": {
+    "filename": "mardi_gras_jester_costume_beads.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mardi_gras_jester_costume_beads.png",
+    "description": "A festive jester character juggling colorful balls with a cheerful, energetic expression.",
+    "tags": {
+      "holidays": [
+        "mardi_gras"
+      ],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "juggling"
+      ],
+      "themes": [
+        "carnival"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "playful"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "festive",
+        "colorful",
+        "jester",
+        "performance",
+        "celebration"
+      ]
+    }
+  },
+  "mardi_gras_jester_costume_newspaper.png": {
+    "filename": "mardi_gras_jester_costume_newspaper.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mardi_gras_jester_costume_newspaper.png",
+    "description": "The Weatherbird is excited and energetic, holding a sign promoting Mardi Gras festivities.",
+    "tags": {
+      "holidays": [
+        "mardi_gras"
+      ],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "partying",
+        "celebrating"
+      ],
+      "themes": [
+        "festival"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "energetic"
+      ],
+      "places": [
+        "new_orleans"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "carnival",
+        "celebration",
+        "colorful",
+        "festive",
+        "party"
+      ]
+    }
+  },
+  "mardi_gras_soulard_welcome_sign.png": {
+    "filename": "mardi_gras_soulard_welcome_sign.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mardi_gras_soulard_welcome_sign.png",
+    "description": "A friendly character welcomes visitors to Soulard with an enthusiastic greeting sign.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "traveling"
+      ],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "welcoming"
+      ],
+      "places": [
+        "soulard"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "tourism",
+        "neighborhood",
+        "hospitality",
+        "welcome"
+      ]
+    }
+  },
+  "math_homework_books_confused.png": {
+    "filename": "math_homework_books_confused.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/math_homework_books_confused.png",
+    "description": "A confused bird holds up a sign with an X while standing next to a stack of books, pondering the answer to a difficult question.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "reading",
+        "studying"
+      ],
+      "themes": [
+        "school",
+        "education"
+      ],
+      "animals": [],
+      "moods": [
+        "confused",
+        "nervous",
+        "uncertain"
+      ],
+      "places": [
+        "school"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "back_to_school",
+        "learning",
+        "academic"
+      ]
+    }
+  },
+  "melting_snow_dripping_spring.png": {
+    "filename": "melting_snow_dripping_spring.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/melting_snow_dripping_spring.png",
+    "description": "A colorful bird character stands under heavy rainfall, appearing happy and content despite the wet weather.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "rain",
+        "rainfall"
+      ],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "content",
+        "relaxed"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "rainy_day"
+      ]
+    }
+  },
+  "memorial_day_flag_pledge.png": {
+    "filename": "memorial_day_flag_pledge.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/memorial_day_flag_pledge.png",
+    "description": "A cheerful bird character proudly waves an American flag while standing on grass.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "spring",
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "proud"
+      ],
+      "places": [
+        "outdoors"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "patriotic",
+        "american",
+        "flag_waving",
+        "celebration"
+      ]
+    }
+  },
+  "microphone_performer_bowtie_singing.png": {
+    "filename": "microphone_performer_bowtie_singing.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/microphone_performer_bowtie_singing.png",
+    "description": "A cheerful bird character holding a microphone with an enthusiastic expression and wide smile.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "singing",
+        "performing",
+        "broadcasting"
+      ],
+      "themes": [
+        "music",
+        "entertainment"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited",
+        "enthusiastic"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "performance",
+        "entertainment",
+        "media"
+      ]
+    }
+  },
+  "military_camouflage_salute_beret.png": {
+    "filename": "military_camouflage_salute_beret.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/military_camouflage_salute_beret.png",
+    "description": "A character dressed in military camouflage uniform and combat boots, saluting while wearing a green military cap.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "military",
+        "armed_forces"
+      ],
+      "animals": [],
+      "moods": [
+        "excited",
+        "proud"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "patriotic",
+        "military_service",
+        "army",
+        "soldier"
+      ]
+    }
+  },
+  "military_jet_fighter_flyover.png": {
+    "filename": "military_jet_fighter_flyover.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/military_jet_fighter_flyover.png",
+    "description": "The Weatherbird gives a thumbs up while a military jet fighter plane flies overhead.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "military"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "patriotic",
+        "aviation"
+      ]
+    }
+  },
+  "military_uniform_general_portrait.png": {
+    "filename": "military_uniform_general_portrait.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/military_uniform_general_portrait.png",
+    "description": "A police officer holds a framed portrait of an angry old man with white hair.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "work",
+        "law_enforcement"
+      ],
+      "animals": [],
+      "moods": [
+        "angry",
+        "serious"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "authority",
+        "law_and_order"
+      ]
+    }
+  },
+  "military_uniform_salute_veterans_day.png": {
+    "filename": "military_uniform_salute_veterans_day.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/military_uniform_salute_veterans_day.png",
+    "description": "A bird in military uniform saluting while wearing a green army jacket and boots.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "military",
+        "service"
+      ],
+      "animals": [],
+      "moods": [
+        "proud"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "patriotic",
+        "armed_forces",
+        "veteran"
+      ]
+    }
+  },
+  "mlb_reporter_microphone_clipboard.png": {
+    "filename": "mlb_reporter_microphone_clipboard.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mlb_reporter_microphone_clipboard.png",
+    "description": "A cheerful bird character dressed as a sports broadcaster holding a microphone labeled MLB and a clipboard.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "baseball"
+      ],
+      "activities": [
+        "broadcasting",
+        "reporting"
+      ],
+      "themes": [
+        "sports",
+        "work",
+        "media"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "professional",
+        "sports_commentary"
+      ]
+    }
+  },
+  "mlk_day_2022_formal_attire.png": {
+    "filename": "mlk_day_2022_formal_attire.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mlk_day_2022_formal_attire.png",
+    "description": "A stressed bird holding a calendar or schedule showing late evening time, appearing worried about time management.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "work",
+        "time_management"
+      ],
+      "themes": [
+        "work",
+        "stress"
+      ],
+      "animals": [],
+      "moods": [
+        "nervous",
+        "stressed",
+        "anxious",
+        "worried"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "busy",
+        "deadline",
+        "procrastination",
+        "time_crunch"
+      ]
+    }
+  },
+  "mlk_day_memorial_tribute.png": {
+    "filename": "mlk_day_memorial_tribute.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mlk_day_memorial_tribute.png",
+    "description": "A bird in a green jacket holds a sign reading 'MLK RIP' in tribute to Martin Luther King Jr.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "respectful",
+        "solemn"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [
+        "mlk_day"
+      ],
+      "associations": [
+        "patriotic",
+        "memorial",
+        "tribute",
+        "civil_rights"
+      ]
+    }
+  },
+  "monarch_butterflies_jogging_fall.png": {
+    "filename": "monarch_butterflies_jogging_fall.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/monarch_butterflies_jogging_fall.png",
+    "description": "A cheerful bird character riding a bicycle while juggling and releasing a stream of colorful butterflies.",
+    "tags": {
+      "holidays": [],
+      "seasons": [
+        "spring",
+        "summer"
+      ],
+      "weather": [
+        "sunshine"
+      ],
+      "sports": [
+        "cycling"
+      ],
+      "activities": [
+        "juggling",
+        "cycling",
+        "playing"
+      ],
+      "themes": [],
+      "animals": [
+        "butterfly"
+      ],
+      "moods": [
+        "happy",
+        "excited",
+        "playful"
+      ],
+      "places": [
+        "outdoor"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "spring_activities",
+        "outdoor_recreation",
+        "nature",
+        "whimsical",
+        "fun"
+      ]
+    }
+  },
+  "money_bag_flying_away_tears.png": {
+    "filename": "money_bag_flying_away_tears.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/money_bag_flying_away_tears.png",
+    "description": "An excited bird catches a falling money bag with dollar signs, expressing surprise and joy at unexpected wealth.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [],
+      "animals": [],
+      "moods": [
+        "excited",
+        "surprised",
+        "happy"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "money",
+        "luck",
+        "fortune",
+        "wealth",
+        "financial_gain",
+        "windfall"
+      ]
+    }
+  },
+  "mothers_day_reading_stl_life.png": {
+    "filename": "mothers_day_reading_stl_life.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mothers_day_reading_stl_life.png",
+    "description": "An adult and child holding a sign that says 'STL LIFE', celebrating St. Louis and local pride.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "family",
+        "community"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [
+        "city"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "local_pride",
+        "st_louis",
+        "family_bonding"
+      ]
+    }
+  },
+  "mothers_day_red_flowers_gift.png": {
+    "filename": "mothers_day_red_flowers_gift.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mothers_day_red_flowers_gift.png",
+    "description": "A character holding a bouquet of red flowers and a gift tag that says 'FOR MOM'",
+    "tags": {
+      "holidays": [
+        "mothers_day"
+      ],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "gift_giving"
+      ],
+      "themes": [
+        "family",
+        "appreciation"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [
+        "mothers_day"
+      ],
+      "associations": [
+        "spring",
+        "celebration",
+        "gratitude"
+      ]
+    }
+  },
+  "mummy_bandages_halloween_costume.png": {
+    "filename": "mummy_bandages_halloween_costume.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mummy_bandages_halloween_costume.png",
+    "description": "A bird wrapped tightly in bandages from head to toe, looking distressed with one eye bulging out.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "medical",
+        "halloween"
+      ],
+      "animals": [],
+      "moods": [
+        "nervous",
+        "distressed",
+        "anxious"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [
+        "halloween"
+      ],
+      "associations": [
+        "spooky",
+        "injured",
+        "mummy"
+      ]
+    }
+  },
+  "mvc_basketball_spinning.png": {
+    "filename": "mvc_basketball_spinning.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mvc_basketball_spinning.png",
+    "description": "The Weatherbird is dressed as a basketball player wearing an MVC jersey, spinning a basketball on one finger.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [
+        "basketball"
+      ],
+      "activities": [],
+      "themes": [
+        "school",
+        "sports"
+      ],
+      "animals": [],
+      "moods": [
+        "happy",
+        "excited"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "back_to_school",
+        "college_sports"
+      ]
+    }
+  },
+  "nervous_student_test_taking.png": {
+    "filename": "nervous_student_test_taking.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/nervous_student_test_taking.png",
+    "description": "A bird character holding a pencil and paper with math problems, appearing to be working on schoolwork or calculations.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [],
+      "sports": [],
+      "activities": [
+        "studying",
+        "writing",
+        "math"
+      ],
+      "themes": [
+        "school",
+        "work",
+        "education"
+      ],
+      "animals": [],
+      "moods": [
+        "focused",
+        "busy"
+      ],
+      "places": [
+        "school"
+      ],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "back_to_school",
+        "learning"
+      ]
+    }
+  },
+  "nervous_sweating_puddle_stress.png": {
+    "filename": "nervous_sweating_puddle_stress.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/nervous_sweating_puddle_stress.png",
+    "description": "The Weatherbird stands in a puddle of water, looking confused or surprised with a thermometer in his mouth.",
+    "tags": {
+      "holidays": [],
+      "seasons": [],
+      "weather": [
+        "rain",
+        "wet"
+      ],
+      "sports": [],
+      "activities": [],
+      "themes": [
+        "medical"
+      ],
+      "animals": [],
+      "moods": [
+        "confused",
+        "surprised",
+        "nervous"
+      ],
+      "places": [],
+      "food": [],
+      "significant_dates": [],
+      "associations": [
+        "weather_related",
+        "temperature"
+      ]
+    }
   }
 }
