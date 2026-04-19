@@ -530,7 +530,7 @@ async function fetchPartifulIcal() {
 const BIRTHDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/3d26a5687f59fa5678e07fc7eee7e0ef8dc103776a6e24f9aa048b79943d23fc%40group.calendar.google.com/private-a365f54ce4902b94cbc460a6872e44da/basic.ics'; // e.g. 'https://calendar.google.com/calendar/ical/xxxxx/public/basic.ics'
 
 // 4) US Holidays calendar
-const HOLIDAY_ICAL_URL = 'https://www.officeholidays.com/ics-all/usa';
+const HOLIDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics';
 // Force proxy for holiday URL since it always needs CORS bypass
 async function fetchHolidayIcal() {
   const proxies = [
