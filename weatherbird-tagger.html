@@ -593,15 +593,13 @@
         for (let i = e.resultIndex; i < e.results.length; i++) {
           const t = e.results[i][0].transcript;
           if (e.results[i].isFinal) {
-            // Append final result to transcript box
+            // Append final result to transcript box only
             const box = document.getElementById('transcriptBox');
             box.value = (box.value + ' ' + t).trim();
-            extractTagsFromTranscript(t);
           } else {
             interim += t;
           }
         }
-        // Show interim in a subtle way
         if (interim) {
           document.getElementById('micHint').textContent = '🔴 ' + interim;
         }
@@ -698,10 +696,7 @@
     [...words, ...phrases].forEach(addTag);
   }
 
-  // Also extract when user types in transcript box
-  document.getElementById('transcriptBox').addEventListener('blur', e => {
-    if (e.target.value) extractTagsFromTranscript(e.target.value);
-  });
+
 
   // ── Save & Skip ──
   function saveCurrentBird() {
@@ -715,9 +710,11 @@
   }
 
   document.getElementById('saveBtn').addEventListener('click', () => {
+    // Extract tags from whatever is currently in the transcript box
+    const transcript = document.getElementById('transcriptBox').value;
+    if (transcript) extractTagsFromTranscript(transcript);
     saveCurrentBird();
     currentIndex++;
-    // Skip already-indexed
     while (currentIndex < files.length && index[files[currentIndex].name]) currentIndex++;
     window.showBird();
   });
