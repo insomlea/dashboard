@@ -1276,6 +1276,9 @@ function calendarEventToTags(summary) {
   return tags;
 }
 
+// Sports keywords — birds with these tags are only eligible when target tags include sports
+const SPORTS_TAGS = ['baseball','football','basketball','soccer','hockey','golf','racing','sports','tennis','volleyball','olympics','marathon'];
+
 // ── Score a single bird against a list of target tags ──
 function scoreBird(bird, targetTags) {
   let score = 0;
@@ -1290,6 +1293,11 @@ function scoreBird(bird, targetTags) {
   if (bird.description) {
     allBirdTags.push(...bird.description.toLowerCase().split(/\s+/));
   }
+
+  // If this bird is sports-themed, only score it if target tags include a sport
+  const birdIsSports = SPORTS_TAGS.some(s => allBirdTags.includes(s) || filename.includes(s));
+  const targetHasSports = SPORTS_TAGS.some(s => targetTags.map(t => t.toLowerCase()).includes(s));
+  if (birdIsSports && !targetHasSports) return -1;
 
   for (const tag of targetTags) {
     const t = tag.toLowerCase().replace(/_/g, ' ');
