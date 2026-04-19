@@ -1278,16 +1278,24 @@ function calendarEventToTags(summary) {
 
 // ── Score a single bird against a list of target tags ──
 function scoreBird(bird, targetTags) {
-  if (!bird.tags) return 0;
   let score = 0;
-  const allBirdTags = Object.values(bird.tags).flat().map(t => t.toLowerCase());
-  const filename = (bird.filename || '').toLowerCase().replace(/[_\.]/g, ' ');
+  const filename = (bird.filename || '').toLowerCase().replace(/[_.]/g, ' ');
+
+  // Collect all tags from the nested tags object
+  let allBirdTags = [];
+  if (bird.tags && typeof bird.tags === 'object') {
+    allBirdTags = Object.values(bird.tags).flat().map(t => String(t).toLowerCase());
+  }
+  // Also include description words
+  if (bird.description) {
+    allBirdTags.push(...bird.description.toLowerCase().split(/\s+/));
+  }
 
   for (const tag of targetTags) {
-    const t = tag.toLowerCase();
-    if (allBirdTags.includes(t)) score += 10;
-    // Partial filename match as bonus
-    if (filename.includes(t)) score += 3;
+    const t = tag.toLowerCase().replace(/_/g, ' ');
+    const tUnderscore = tag.toLowerCase();
+    if (allBirdTags.includes(tUnderscore) || allBirdTags.includes(t)) score += 10;
+    if (filename.includes(t)) score += 5;
   }
   return score;
 }
@@ -1300,11 +1308,11 @@ async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
     if (res.ok) index = await res.json();
   } catch(e) {
     console.warn('Could not load weatherbird index', e);
-    return null;
+    return { url: getFallbackBird(), reason: null };
   }
 
   const birds = Object.values(index);
-  if (!birds.length) return null;
+  if (!birds.length) return { url: getFallbackBird(), reason: null };
 
   const today = new Date();
   const month = today.getMonth() + 1;
