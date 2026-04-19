@@ -589,7 +589,7 @@
 
   if (SpeechRecognition) {
     recognition = new SpeechRecognition();
-    recognition.continuous = false;
+    recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'en-US';
 
@@ -602,20 +602,17 @@
     };
 
     recognition.onend = () => {
-      // Auto-restart unless manually stopped
       if (isRecording) {
+        // Wait 2 seconds before restarting to avoid rapid cycling
         setTimeout(() => {
-          try { recognition.start(); } catch(e) {}
-        }, 100);
+          if (isRecording) {
+            try { recognition.start(); } catch(e) {}
+          }
+        }, 2000);
       } else {
         document.getElementById('micBtn').classList.remove('recording');
         document.getElementById('micHint').textContent = 'Click mic to resume listening';
       }
-    };
-
-    recognition.onspeechend = () => {
-      // Speech ended but we want to keep listening — stop triggers onend which restarts
-      try { recognition.stop(); } catch(e) {}
     };
 
     recognition.onerror = e => {
