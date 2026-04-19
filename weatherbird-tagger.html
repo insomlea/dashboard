@@ -583,15 +583,18 @@
 
   if (SpeechRecognition) {
     recognition = new SpeechRecognition();
-    recognition.continuous = false;
+    recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'en-US';
 
     recognition.onresult = e => {
       const transcript = Array.from(e.results).map(r => r[0].transcript).join(' ');
       document.getElementById('transcriptBox').value = transcript;
-      if (e.results[e.results.length - 1].isFinal) {
-        extractTagsFromTranscript(transcript);
+      // Extract tags from any final results
+      for (let i = 0; i < e.results.length; i++) {
+        if (e.results[i].isFinal) {
+          extractTagsFromTranscript(e.results[i][0].transcript);
+        }
       }
     };
 
@@ -621,9 +624,10 @@
   function stopMic() {
     if (!recognition || !isRecording) return;
     isRecording = false;
-    recognition.stop();
     document.getElementById('micBtn').classList.remove('recording');
-    document.getElementById('micHint').textContent = 'Hold space to record';
+    document.getElementById('micHint').textContent = 'Hold space to record (or click mic)';
+    // Small delay so final result fires before we stop
+    setTimeout(() => { try { recognition.stop(); } catch(e) {} }, 300);
   }
 
   // Spacebar push-to-talk
