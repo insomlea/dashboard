@@ -518,5 +518,25 @@
   "easter_bunny_costume_spring.png": {
     "filename": "easter_bunny_costume_spring.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/easter_bunny_costume_spring.png"
+  },
+  "easter_bunny_egg_surprise.png": {
+    "filename": "easter_bunny_egg_surprise.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/easter_bunny_egg_surprise.png"
+  },
+  "easter_egg_basket_spring.png": {
+    "filename": "easter_egg_basket_spring.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/easter_egg_basket_spring.png"
+  },
+  "election_day_ballot_box_votes.png": {
+    "filename": "election_day_ballot_box_votes.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/election_day_ballot_box_votes.png"
+  },
+  "election_day_vote_clipboard_checklist.png": {
+    "filename": "election_day_vote_clipboard_checklist.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/election_day_vote_clipboard_checklist.png"
+  },
+  "election_day_vote_patriotic.png": {
+    "filename": "election_day_vote_patriotic.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/election_day_vote_patriotic.png"
   }
 }
