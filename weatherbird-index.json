@@ -282,5 +282,209 @@
   "chess_pieces_king_queen.png": {
     "filename": "chess_pieces_king_queen.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/chess_pieces_king_queen.png"
+  },
+  "chinese_new_year_dragon_mask.png": {
+    "filename": "chinese_new_year_dragon_mask.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/chinese_new_year_dragon_mask.png"
+  },
+  "chinese_new_year_lion_dance_mask.png": {
+    "filename": "chinese_new_year_lion_dance_mask.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/chinese_new_year_lion_dance_mask.png"
+  },
+  "christmas_angel_halo_praying.png": {
+    "filename": "christmas_angel_halo_praying.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_angel_halo_praying.png"
+  },
+  "christmas_cookies_gingerbread_santa_hat.png": {
+    "filename": "christmas_cookies_gingerbread_santa_hat.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_cookies_gingerbread_santa_hat.png"
+  },
+  "christmas_elf_gift_box.png": {
+    "filename": "christmas_elf_gift_box.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_elf_gift_box.png"
+  },
+  "christmas_elf_gift_santa_hat.png": {
+    "filename": "christmas_elf_gift_santa_hat.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_elf_gift_santa_hat.png"
+  },
+  "christmas_eve_flamingo_pine_tree.png": {
+    "filename": "christmas_eve_flamingo_pine_tree.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_eve_flamingo_pine_tree.png"
+  },
+  "christmas_gift_seed_present.png": {
+    "filename": "christmas_gift_seed_present.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_gift_seed_present.png"
+  },
+  "christmas_gift_shopping_bags.png": {
+    "filename": "christmas_gift_shopping_bags.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_gift_shopping_bags.png"
+  },
+  "christmas_gift_wrapping_bowtie.png": {
+    "filename": "christmas_gift_wrapping_bowtie.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_gift_wrapping_bowtie.png"
+  },
+  "christmas_gingerbread_house_baking.png": {
+    "filename": "christmas_gingerbread_house_baking.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_gingerbread_house_baking.png"
+  },
+  "christmas_military_soldier_salute.png": {
+    "filename": "christmas_military_soldier_salute.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_military_soldier_salute.png"
+  },
+  "christmas_poinsettia_tree_santa_hat.png": {
+    "filename": "christmas_poinsettia_tree_santa_hat.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_poinsettia_tree_santa_hat.png"
+  },
+  "christmas_santa_gift_giving.png": {
+    "filename": "christmas_santa_gift_giving.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_santa_gift_giving.png"
+  },
+  "christmas_santa_suit_string_lights.png": {
+    "filename": "christmas_santa_suit_string_lights.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_santa_suit_string_lights.png"
+  },
+  "christmas_shopping_packages_bowtie.png": {
+    "filename": "christmas_shopping_packages_bowtie.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_shopping_packages_bowtie.png"
+  },
+  "christmas_tree_santa_hat_decorating.png": {
+    "filename": "christmas_tree_santa_hat_decorating.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/christmas_tree_santa_hat_decorating.png"
+  },
+  "clapping_dancing_bowtie_celebration.png": {
+    "filename": "clapping_dancing_bowtie_celebration.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/clapping_dancing_bowtie_celebration.png"
+  },
+  "cobra_snake_encounter_surprise.png": {
+    "filename": "cobra_snake_encounter_surprise.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/cobra_snake_encounter_surprise.png"
+  },
+  "coffee_shop_barista_green_apron.png": {
+    "filename": "coffee_shop_barista_green_apron.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/coffee_shop_barista_green_apron.png"
+  },
+  "coffee_shop_barista_green_apron_2.png": {
+    "filename": "coffee_shop_barista_green_apron_2.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/coffee_shop_barista_green_apron_2.png"
+  },
+  "cold_autumn_jacket_shivering.png": {
+    "filename": "cold_autumn_jacket_shivering.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/cold_autumn_jacket_shivering.png"
+  },
+  "cold_autumn_shivering_green_jacket.png": {
+    "filename": "cold_autumn_shivering_green_jacket.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/cold_autumn_shivering_green_jacket.png"
+  },
+  "cold_winter_ice_floe_shivering.png": {
+    "filename": "cold_winter_ice_floe_shivering.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/cold_winter_ice_floe_shivering.png"
+  },
+  "cold_winter_shivering_hoodie.png": {
+    "filename": "cold_winter_shivering_hoodie.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/cold_winter_shivering_hoodie.png"
+  },
+  "confederate_flag_breaking_apart.png": {
+    "filename": "confederate_flag_breaking_apart.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/confederate_flag_breaking_apart.png"
+  },
+  "confused_new_year_hangover.png": {
+    "filename": "confused_new_year_hangover.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/confused_new_year_hangover.png"
+  },
+  "confused_professor_book_bowtie.png": {
+    "filename": "confused_professor_book_bowtie.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/confused_professor_book_bowtie.png"
+  },
+  "confused_shrug_business_casual.png": {
+    "filename": "confused_shrug_business_casual.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/confused_shrug_business_casual.png"
+  },
+  "construction_worker_hello_jobs_sign.png": {
+    "filename": "construction_worker_hello_jobs_sign.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/construction_worker_hello_jobs_sign.png"
+  },
+  "corn_harvest_farmer_overalls.png": {
+    "filename": "corn_harvest_farmer_overalls.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/corn_harvest_farmer_overalls.png"
+  },
+  "cougar_cat_companion_bowtie.png": {
+    "filename": "cougar_cat_companion_bowtie.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/cougar_cat_companion_bowtie.png"
+  },
+  "covid_virus_pandemic_worried.png": {
+    "filename": "covid_virus_pandemic_worried.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/covid_virus_pandemic_worried.png"
+  },
+  "cowboy_target_practice_shooting.png": {
+    "filename": "cowboy_target_practice_shooting.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/cowboy_target_practice_shooting.png"
+  },
+  "crow_perched_on_arm.png": {
+    "filename": "crow_perched_on_arm.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/crow_perched_on_arm.png"
+  },
+  "cycling_helmet_summer_ride.png": {
+    "filename": "cycling_helmet_summer_ride.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/cycling_helmet_summer_ride.png"
+  },
+  "dancing_music_notes_suit.png": {
+    "filename": "dancing_music_notes_suit.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/dancing_music_notes_suit.png"
+  },
+  "daylight_saving_time_clock_change.png": {
+    "filename": "daylight_saving_time_clock_change.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/daylight_saving_time_clock_change.png"
+  },
+  "dentist_giant_tooth_bowtie.png": {
+    "filename": "dentist_giant_tooth_bowtie.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/dentist_giant_tooth_bowtie.png"
+  },
+  "diner_waiter_serving_pie.png": {
+    "filename": "diner_waiter_serving_pie.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/diner_waiter_serving_pie.png"
+  },
+  "dinosaur_skull_mask_halloween.png": {
+    "filename": "dinosaur_skull_mask_halloween.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/dinosaur_skull_mask_halloween.png"
+  },
+  "doctor_clipboard_lab_coat.png": {
+    "filename": "doctor_clipboard_lab_coat.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/doctor_clipboard_lab_coat.png"
+  },
+  "doctor_clipboard_stethoscope_checkup.png": {
+    "filename": "doctor_clipboard_stethoscope_checkup.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/doctor_clipboard_stethoscope_checkup.png"
+  },
+  "doctor_clipboard_stethoscope_lab_coat.png": {
+    "filename": "doctor_clipboard_stethoscope_lab_coat.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/doctor_clipboard_stethoscope_lab_coat.png"
+  },
+  "doctor_lab_coat_syringe_vaccination.png": {
+    "filename": "doctor_lab_coat_syringe_vaccination.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/doctor_lab_coat_syringe_vaccination.png"
+  },
+  "doctor_lab_coat_syringe_vaccine.png": {
+    "filename": "doctor_lab_coat_syringe_vaccine.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/doctor_lab_coat_syringe_vaccine.png"
+  },
+  "doctor_prescription_smoking_test_tube.png": {
+    "filename": "doctor_prescription_smoking_test_tube.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/doctor_prescription_smoking_test_tube.png"
+  },
+  "doctor_syringe_flu_shot_season.png": {
+    "filename": "doctor_syringe_flu_shot_season.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/doctor_syringe_flu_shot_season.png"
+  },
+  "dog_camera_photography_portrait.png": {
+    "filename": "dog_camera_photography_portrait.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/dog_camera_photography_portrait.png"
+  },
+  "dog_kiss_love_heart.png": {
+    "filename": "dog_kiss_love_heart.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/dog_kiss_love_heart.png"
+  },
+  "downtown_banner_bowtie_glasses.png": {
+    "filename": "downtown_banner_bowtie_glasses.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/downtown_banner_bowtie_glasses.png"
   }
 }
