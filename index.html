@@ -585,6 +585,7 @@ const WMO_ICONS = {
 // Store current weather state for bird picker
 let currentWeatherCode = null;
 let currentTempF = null;
+let currentHolidayEvents = [];
 
 async function loadWeather() {
   try {
@@ -631,7 +632,7 @@ function getFallbackBird() {
 
 async function loadWeatherbirdImage() {
   try {
-    const result = await pickWeatherbird(currentWeatherCode, currentTempF, todayCalendarEvents);
+    const result = await pickWeatherbird(currentWeatherCode, currentTempF, currentHolidayEvents);
     const img = document.getElementById('dashImg');
     const reasonEl = document.getElementById('birdReason');
     const url = result?.url || getFallbackBird();
@@ -901,6 +902,7 @@ async function buildCalendar() {
 
   // Capture today's calendar events for the bird picker
   todayCalendarEvents = expanded.filter(e => e.start?.date === todayYmd);
+  currentHolidayEvents = expandedHolidays;
 
   // Group by date
   const byDate = {};
@@ -1214,8 +1216,6 @@ const STATIC_DATES = [
   { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:1 },
   // Back to School (late August)
   { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
-  // Stanley Cup Playoffs (mid April through June)
-  { month:4,  day:15, tags:['hockey','playoffs','sports'], leadDays:0, spanDays:60 },
 ];
 
 
@@ -1301,7 +1301,7 @@ function scoreBird(bird, targetTags) {
 }
 
 // ── Main picker ──
-async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
+async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
   let index = {};
   try {
     const res = await fetch(WEATHERBIRD_INDEX_URL);
@@ -1316,41 +1316,26 @@ async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
 
   const today = new Date();
   const month = today.getMonth() + 1;
-  const day   = today.getDate();
+  const todayYmd = toYMD(today);
 
-  // Build target tags in priority order
   let targetTags = [];
   let matchSource = 'season';
+  let holidayName = null;
 
-  // 1. Check significant dates (highest priority)
-  for (const sd of STATIC_DATES) {
-    const start = new Date(today.getFullYear(), sd.month - 1, sd.day - (sd.leadDays || 0));
-    const end   = new Date(today.getFullYear(), sd.month - 1, sd.day + (sd.spanDays || 1));
-    if (today >= start && today < end) {
-      targetTags = [...sd.tags];
-      matchSource = 'holiday';
-      break;
-    }
+  // 1. Check today's holidays from the US holidays calendar
+  const todayHolidays = (holidayEvents || []).filter(e => e.start?.date === todayYmd);
+  if (todayHolidays.length) {
+    holidayName = todayHolidays[0].summary || '';
+    targetTags = holidayName.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+    matchSource = 'holiday';
+    console.log('🐦 Holiday today:', holidayName);
   }
 
-  // 2. Check calendar events (high priority — can override season but not major holidays)
-  const calTags = [];
-  for (const evt of (calendarEvents || [])) {
-    calTags.push(...calendarEventToTags(evt.summary));
-  }
-  if (calTags.length && matchSource !== 'holiday') {
-    targetTags = [...new Set([...calTags, ...targetTags])];
-    matchSource = 'calendar';
-  } else if (calTags.length) {
-    // Blend calendar tags in even during holidays
-    targetTags = [...new Set([...targetTags, ...calTags])];
-  }
-
-  // 3. Add weather tags
+  // 2. Add weather tags
   const wTags = weatherCodeToTags(weatherCode, tempF);
   targetTags = [...new Set([...targetTags, ...wTags])];
 
-  // 4. Always add season as fallback
+  // 3. Always add season as fallback
   const sTags = seasonTags(month);
   targetTags = [...new Set([...targetTags, ...sTags])];
 
@@ -1360,20 +1345,17 @@ async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
   const scored = birds.map(b => ({ bird: b, score: scoreBird(b, targetTags) }));
   scored.sort((a, b) => b.score - a.score);
 
-  // Pick winner — add some variety by randomly choosing from top 3 if scores are close
+  // Pick from top 3 for variety
   const top = scored.slice(0, 3).filter(s => s.score >= scored[0].score * 0.8);
   const winner = top[Math.floor(Math.random() * top.length)];
 
   console.log('🐦 Winner:', winner?.bird?.filename, 'score:', winner?.score);
-  if (!winner) return { url: null, reason: null };
+  if (!winner) return { url: getFallbackBird(), reason: null };
 
   // Build human-readable reason
   let reason = '';
-  if (matchSource === 'holiday') {
-    const holidayTag = targetTags.find(t => t.match(/christmas|halloween|thanksgiving|easter|valentine|juneteenth|kwanzaa|independence|memorial|labor|mlk|groundhog|pride|mothers|fathers|hanukkah|diwali|eid|passover|pi_day|april_fools|earth_day|arbor|cinco|mardi/));
-    reason = holidayTag ? `Showing for ${holidayTag.replace(/_/g, ' ')}` : "Showing for today's holiday";
-  } else if (matchSource === 'calendar') {
-    reason = 'Picked based on your calendar events';
+  if (matchSource === 'holiday' && holidayName) {
+    reason = `Showing for ${holidayName}`;
   } else {
     const weatherTag = targetTags.find(t => t.match(/snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|cool|freezing|cloudy/));
     const seasonTag = targetTags.find(t => t.match(/winter|spring|summer|fall|autumn/));
