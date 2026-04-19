@@ -793,6 +793,66 @@ function ymdToDate(ymd) {
   return new Date(`${ymd.substr(0,4)}-${ymd.substr(4,2)}-${ymd.substr(6,2)}T00:00:00`);
 }
 
+// ── Floating holiday validator ──
+// Some holidays fall on a computed weekday (e.g. "2nd Sunday of May") rather than
+// a fixed date. RRULE FREQ=YEARLY just bumps the year on the original date, which
+// produces the wrong date in other years. This function returns the *correct* date
+// for a given floating holiday name and year, so we can filter bad expansions out.
+function getCorrectFloatingHolidayDate(name, year) {
+  if (!name) return null;
+  const n = name.toLowerCase();
+
+  // Helper: nth weekday of a month (weekday: 0=Sun … 6=Sat, nth: 1-based)
+  function nthWeekday(yr, month0, weekday, nth) {
+    const d = new Date(yr, month0, 1);
+    let count = 0;
+    while (true) {
+      if (d.getDay() === weekday) { count++; if (count === nth) return new Date(d); }
+      d.setDate(d.getDate() + 1);
+    }
+  }
+  // Helper: last weekday of a month
+  function lastWeekday(yr, month0, weekday) {
+    const last = new Date(yr, month0 + 1, 0); // last day of month
+    while (last.getDay() !== weekday) last.setDate(last.getDate() - 1);
+    return new Date(last);
+  }
+
+  if (n.includes("mother")) return nthWeekday(year, 4, 0, 2);        // 2nd Sun May
+  if (n.includes("father")) return nthWeekday(year, 5, 0, 3);        // 3rd Sun Jun
+  if (n.includes("memorial")) return lastWeekday(year, 4, 1);        // Last Mon May
+  if (n.includes("labor")) return nthWeekday(year, 8, 1, 1);         // 1st Mon Sep
+  if (n.includes("martin luther king") || n.includes("mlk")) return nthWeekday(year, 0, 1, 3); // 3rd Mon Jan
+  if (n.includes("president") || n.includes("washington")) return nthWeekday(year, 1, 1, 3);   // 3rd Mon Feb
+  if (n.includes("columbus") || n.includes("indigenous")) return nthWeekday(year, 9, 1, 2);    // 2nd Mon Oct
+  if (n.includes("thanksgiving")) return nthWeekday(year, 10, 4, 4); // 4th Thu Nov
+  if (n.includes("election")) {
+    // First Tuesday after first Monday in November (even years only)
+    if (year % 2 !== 0) return null; // only even years
+    const firstMon = nthWeekday(year, 10, 1, 1);
+    const tue = new Date(firstMon); tue.setDate(tue.getDate() + 1);
+    return tue;
+  }
+  return null; // not a floating holiday — fixed date, no correction needed
+}
+
+// Filter out holiday events that have been incorrectly date-expanded by RRULE YEARLY.
+// For floating holidays, we recompute the correct date for the event's year and
+// discard any occurrence that doesn't land on that date.
+function validateHolidayDate(evt) {
+  const ymd = evt.start?.date;
+  if (!ymd) return false;
+  const year = parseInt(ymd.substr(0, 4));
+  const correct = getCorrectFloatingHolidayDate(evt.summary, year);
+  if (!correct) return true; // fixed-date holiday, always valid
+  const correctYmd = toYMD(correct);
+  if (correctYmd !== ymd) {
+    console.warn(`🗓️ Dropping bad holiday expansion: "${evt.summary}" on ${ymd} (should be ${correctYmd})`);
+    return false;
+  }
+  return true;
+}
+
 // Proxy to get around CORS
 async function fetchIcal(url) {
   if (!url) return [];
@@ -898,7 +958,12 @@ async function buildCalendar() {
     expandedBdays.push({ ...e, start: { ...e.start, date: nextYear } });
   }
   const expandedHolidays = [];
-  for (const e of holidayEvents) expandedHolidays.push(...expandEvent(e, firstOfMonth, lastOfMonth));
+  for (const e of holidayEvents) {
+    const occurrences = expandEvent(e, firstOfMonth, lastOfMonth);
+    for (const occ of occurrences) {
+      if (validateHolidayDate(occ)) expandedHolidays.push(occ);
+    }
+  }
 
   // Capture today's calendar events for the bird picker
   todayCalendarEvents = expanded.filter(e => e.start?.date === todayYmd);
