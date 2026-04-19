@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weatherbird Tagger</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@300;400&display=swap');
+
+  :root {
+    --bg: #1a1612;
+    --card: #242018;
+    --border: #3a3228;
+    --text: #f0e8d8;
+    --muted: #7a6f5e;
+    --accent: #e8c97a;
+    --accent2: #c87d4a;
+    --danger: #c84a4a;
+    --success: #4ac87a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .setup {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 24px;
+  }
+
+  .setup h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .setup p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .setup ol {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 2;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .file-input-wrapper {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .btn {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: opacity 0.15s;
+  }
+
+  .btn:hover { opacity: 0.85; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border);
+  }
+
+  .btn.danger {
+    background: var(--danger);
+    color: white;
+  }
+
+  .btn.success {
+    background: var(--success);
+    color: var(--bg);
+  }
+
+  .file-count {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── TAGGER ── */
+  #tagger {
+    display: none;
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .progress-bar-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    height: 4px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 6px;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  .bird-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .bird-image-wrap {
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  .bird-image-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .bird-filename {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+
+  /* ── MIC BUTTON ── */
+  .mic-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .mic-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-size: 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mic-btn:hover { background: rgba(232,201,122,0.1); }
+
+  .mic-btn.recording {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: white;
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(200,74,74,0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(200,74,74,0); }
+  }
+
+  .transcript-box {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    min-height: 60px;
+    resize: none;
+    line-height: 1.6;
+  }
+
+  .transcript-box:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .mic-hint {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── TAGS ── */
+  .tags-section {
+    width: 100%;
+  }
+
+  .tags-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .tags-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 36px;
+  }
+
+  .tag {
+    background: rgba(232,201,122,0.12);
+    border: 1px solid rgba(232,201,122,0.3);
+    color: var(--accent);
+    border-radius: 99px;
+    padding: 4px 12px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .tag:hover {
+    background: rgba(200,74,74,0.15);
+    border-color: var(--danger);
+    color: var(--danger);
+  }
+
+  .tag .remove { font-size: 14px; line-height: 1; }
+
+  .tag-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .tag-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .tag-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  /* ── ACTIONS ── */
+  .actions {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .actions-right {
+    display: flex;
+    gap: 12px;
+  }
+
+  /* ── DONE ── */
+  #done-panel {
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px 32px;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #done-panel h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--accent);
+  }
+
+  #done-panel p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<h1>Weatherbird Tagger</h1>
+<p class="subtitle">Voice-powered image indexer</p>
+
+<!-- SETUP -->
+<div class="setup" id="setup-panel">
+  <h2>Getting started</h2>
+  <p>This tool lets you describe each Weatherbird image out loud and automatically extracts tags for the picker. No AI — just your voice.</p>
+  <ol>
+    <li>Select all images from your <strong>weatherbirds</strong> folder below</li>
+    <li>Click the mic button and describe what you see (ignoring the bird)</li>
+    <li>Edit or remove tags as needed</li>
+    <li>Click <strong>Save & Next</strong> to move on</li>
+    <li>When done, download and upload <strong>weatherbird-index.json</strong> to GitHub</li>
+  </ol>
+  <div class="file-input-wrapper">
+    <label class="btn" for="folderInput">📁 Select weatherbirds folder</label>
+    <input type="file" id="folderInput" multiple accept="image/png,image/jpeg" webkitdirectory>
+    <span class="file-count" id="fileCount">No files selected</span>
+  </div>
+  <br><br>
+  <p style="font-size:11px;color:var(--muted)">Tip: You can also load an existing <strong>weatherbird-index.json</strong> to resume where you left off.</p>
+  <div class="file-input-wrapper" style="margin-top:8px;">
+    <label class="btn secondary" for="indexInput">📄 Load existing index (optional)</label>
+    <input type="file" id="indexInput" accept=".json">
+    <span class="file-count" id="indexStatus"></span>
+  </div>
+  <br>
+  <button class="btn" id="startBtn" disabled>Start tagging →</button>
+</div>
+
+<!-- TAGGER -->
+<div id="tagger">
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 / 0</div>
+
+  <div class="bird-card">
+    <div class="bird-image-wrap">
+      <img id="birdImg" src="" alt="Weatherbird">
+    </div>
+    <div class="bird-filename" id="birdFilename"></div>
+
+    <div class="mic-section">
+      <button class="mic-btn" id="micBtn" title="Hold to record">🎤</button>
+      <textarea class="transcript-box" id="transcriptBox" placeholder="Click mic and describe what you see (not the bird itself)..." rows="3"></textarea>
+      <div class="mic-hint" id="micHint">Click mic to start · click again to stop</div>
+    </div>
+
+    <div class="tags-section">
+      <div class="tags-label">Tags (click to remove)</div>
+      <div class="tags-wrap" id="tagsWrap"></div>
+      <div class="tag-input-row">
+        <input type="text" class="tag-input" id="tagInput" placeholder="Add a tag manually...">
+        <button class="btn secondary" id="addTagBtn">Add</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn secondary" id="skipBtn">Skip</button>
+      <div class="actions-right">
+        <button class="btn" id="saveBtn">Save & Next →</button>
+        <button class="btn success" id="downloadBtn">⬇ Download index</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DONE -->
+<div id="done-panel">
+  <h2>All done! 🎉</h2>
+  <p>You've tagged all your Weatherbirds. Download the index and upload it to the root of your GitHub repo.</p>
+  <button class="btn success" id="finalDownloadBtn">⬇ Download weatherbird-index.json</button>
+</div>
+
+<script>
+  // ── State ──
+  let files = [];
+  let currentIndex = 0;
+  let index = {};
+  let recognition = null;
+  let isRecording = false;
+
+  // ── File loading ──
+  document.getElementById('folderInput').addEventListener('change', e => {
+    files = Array.from(e.target.files)
+      .filter(f => f.name.match(/\.(png|jpg|jpeg)$/i))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    document.getElementById('fileCount').textContent = `${files.length} images found`;
+    document.getElementById('startBtn').disabled = files.length === 0;
+  });
+
+  document.getElementById('indexInput').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        index = JSON.parse(ev.target.result);
+        document.getElementById('indexStatus').textContent = `Loaded ${Object.keys(index).length} existing entries`;
+      } catch(err) {
+        document.getElementById('indexStatus').textContent = 'Error reading index file';
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  document.getElementById('startBtn').addEventListener('click', () => {
+    document.getElementById('setup-panel').style.display = 'none';
+    document.getElementById('tagger').style.display = 'block';
+    // Skip already-indexed files
+    while (currentIndex < files.length && index[files[currentIndex].name]) {
+      currentIndex++;
+    }
+    showBird();
+  });
+
+  // ── Bird display ──
+  function showBird() {
+    if (currentIndex >= files.length) {
+      document.getElementById('tagger').style.display = 'none';
+      const dp = document.getElementById('done-panel');
+      dp.style.display = 'flex';
+      return;
+    }
+
+    const file = files[currentIndex];
+    const url = URL.createObjectURL(file);
+    document.getElementById('birdImg').src = url;
+    document.getElementById('birdFilename').textContent = file.name;
+    document.getElementById('transcriptBox').value = '';
+    document.getElementById('tagsWrap').innerHTML = '';
+
+    const pct = Math.round((currentIndex / files.length) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = `${currentIndex + 1} / ${files.length}`;
+
+    // Pre-fill tags from filename as suggestions
+    const nameTags = file.name.replace(/\.png|\.jpg|\.jpeg/i, '').split('_').filter(w => w.length > 2);
+    nameTags.forEach(addTag);
+  }
+
+  // ── Tags ──
+  let currentTags = new Set();
+
+  function addTag(tag) {
+    tag = tag.trim().toLowerCase().replace(/[^a-z0-9_]/g, '_');
+    if (!tag || currentTags.has(tag)) return;
+    currentTags.add(tag);
+    renderTags();
+  }
+
+  function removeTag(tag) {
+    currentTags.delete(tag);
+    renderTags();
+  }
+
+  function renderTags() {
+    const wrap = document.getElementById('tagsWrap');
+    wrap.innerHTML = '';
+    currentTags.forEach(tag => {
+      const el = document.createElement('div');
+      el.className = 'tag';
+      el.innerHTML = `${tag} <span class="remove">×</span>`;
+      el.addEventListener('click', () => removeTag(tag));
+      wrap.appendChild(el);
+    });
+  }
+
+  // Reset tags when showing new bird
+  const origShowBird = showBird;
+  function showBird() {
+    currentTags = new Set();
+    origShowBird();
+  }
+  // Re-override (fix closure)
+  window.showBird = function() {
+    currentTags = new Set();
+    if (currentIndex >= files.length) {
+      document.getElementById('tagger').style.display = 'none';
+      const dp = document.getElementById('done-panel');
+      dp.style.display = 'flex';
+      return;
+    }
+    const file = files[currentIndex];
+    const url = URL.createObjectURL(file);
+    document.getElementById('birdImg').src = url;
+    document.getElementById('birdFilename').textContent = file.name;
+    document.getElementById('transcriptBox').value = '';
+    document.getElementById('tagsWrap').innerHTML = '';
+    currentTags = new Set();
+
+    // Auto-start mic
+    if (recognition && !isRecording) {
+      isRecording = true;
+      document.getElementById('micBtn').classList.add('recording');
+      document.getElementById('micHint').textContent = '🔴 Listening... click mic to pause';
+      try { recognition.start(); } catch(e) {}
+    }
+
+    const pct = Math.round((currentIndex / files.length) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = `${currentIndex + 1} / ${files.length}`;
+
+
+  };
+
+  // Manual tag add
+  document.getElementById('addTagBtn').addEventListener('click', () => {
+    const val = document.getElementById('tagInput').value;
+    addTag(val);
+    document.getElementById('tagInput').value = '';
+  });
+  document.getElementById('tagInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('addTagBtn').click();
+  });
+
+  // ── Speech recognition ──
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = e => {
+      const transcript = Array.from(e.results).map(r => r[0].transcript).join(' ');
+      document.getElementById('transcriptBox').value = transcript;
+      if (e.results[e.results.length - 1].isFinal) {
+        extractTagsFromTranscript(transcript);
+      }
+    };
+
+    recognition.onend = () => {
+      // Auto-restart unless manually stopped
+      if (isRecording) {
+        setTimeout(() => {
+          try { recognition.start(); } catch(e) {}
+        }, 100);
+      } else {
+        document.getElementById('micBtn').classList.remove('recording');
+        document.getElementById('micHint').textContent = 'Click mic to resume listening';
+      }
+    };
+
+    recognition.onspeechend = () => {
+      // Speech ended but we want to keep listening — stop triggers onend which restarts
+      try { recognition.stop(); } catch(e) {}
+    };
+
+    recognition.onerror = e => {
+      isRecording = false;
+      document.getElementById('micBtn').classList.remove('recording');
+      document.getElementById('micHint').textContent = 'Mic error: ' + e.error;
+    };
+  } else {
+    document.getElementById('micBtn').disabled = true;
+    document.getElementById('micHint').textContent = 'Speech not supported — type your description instead';
+  }
+
+  document.getElementById('micBtn').addEventListener('click', () => {
+    if (!recognition) return;
+    if (isRecording) {
+      isRecording = false;
+      recognition.stop();
+      document.getElementById('micBtn').classList.remove('recording');
+      document.getElementById('micHint').textContent = 'Click mic to resume listening';
+    } else {
+      isRecording = true;
+      document.getElementById('micBtn').classList.add('recording');
+      document.getElementById('micHint').textContent = '🔴 Listening... click mic to pause';
+      try { recognition.start(); } catch(e) {}
+    }
+  });
+
+  // ── Tag extraction from transcript ──
+  const STOPWORDS = new Set(['the','and','with','that','this','have','from','they','been','were','are','was','for','but','not','you','all','can','her','his','him','its','our','out','who','what','when','will','one','two','three','into','also','some','there','their','than','then','she','which','about','more','very','just','like','make','want','your','over','time','know','take','them','these','those','would','could','should','such','each','how','other','only','come','made','here','being','says','said']);
+
+  function extractTagsFromTranscript(text) {
+    const words = text.toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/)
+      .filter(w => w.length > 2 && !STOPWORDS.has(w));
+
+    // Also look for multi-word phrases
+    const phrases = [];
+    const lc = text.toLowerCase();
+    const knownPhrases = [
+      'new year', 'halloween', 'christmas', 'thanksgiving', 'fourth of july',
+      'valentines day', 'st patricks', 'memorial day', 'labor day', 'mothers day',
+      'fathers day', 'independence day', 'earth day', 'april fools', 'mardi gras',
+      'march madness', 'spring training', 'opening day', 'snow storm', 'thunder storm',
+      'lightning bolt', 'baseball bat', 'football helmet', 'basketball hoop',
+      'birthday cake', 'wedding dress', 'graduation cap', 'doctor coat', 'chef hat',
+      'santa claus', 'easter egg', 'pumpkin patch', 'candy corn', 'hot dog',
+      'ice cream', 'coffee cup', 'fishing rod', 'space suit', 'race car',
+    ];
+    knownPhrases.forEach(p => {
+      if (lc.includes(p)) phrases.push(p.replace(/\s+/g, '_'));
+    });
+
+    [...words, ...phrases].forEach(addTag);
+  }
+
+  // Also extract when user types in transcript box
+  document.getElementById('transcriptBox').addEventListener('blur', e => {
+    if (e.target.value) extractTagsFromTranscript(e.target.value);
+  });
+
+  // ── Save & Skip ──
+  function saveCurrentBird() {
+    const file = files[currentIndex];
+    index[file.name] = {
+      filename: file.name,
+      url: `https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/${file.name}`,
+      tags: { manual: Array.from(currentTags) },
+      description: document.getElementById('transcriptBox').value || ''
+    };
+  }
+
+  document.getElementById('saveBtn').addEventListener('click', () => {
+    saveCurrentBird();
+    currentIndex++;
+    // Skip already-indexed
+    while (currentIndex < files.length && index[files[currentIndex].name]) currentIndex++;
+    window.showBird();
+  });
+
+  document.getElementById('skipBtn').addEventListener('click', () => {
+    currentIndex++;
+    while (currentIndex < files.length && index[files[currentIndex].name]) currentIndex++;
+    window.showBird();
+  });
+
+  // ── Download index ──
+  function downloadIndex() {
+    const blob = new Blob([JSON.stringify(index, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'weatherbird-index.json';
+    a.click();
+  }
+
+  document.getElementById('downloadBtn').addEventListener('click', downloadIndex);
+  document.getElementById('finalDownloadBtn').addEventListener('click', downloadIndex);
+
+  window.showBird();
+</script>
+</body>
+</html>
