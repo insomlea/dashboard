@@ -456,6 +456,7 @@
         <div>💧 <span id="weatherHumidity">--</span>%</div>
         <div>💨 <span id="weatherWind">--</span> mph</div>
       </div>
+      <div id="birdReason" style="font-size:11px;color:var(--text-muted);margin-top:6px;font-style:italic;"></div>
     </div>
     <div class="top-card-right">
       <img id="dashImg" src="" alt="Dashboard image">
@@ -630,11 +631,16 @@ function getFallbackBird() {
 
 async function loadWeatherbirdImage() {
   try {
-    const url = await pickWeatherbird(currentWeatherCode, currentTempF, todayCalendarEvents);
+    const result = await pickWeatherbird(currentWeatherCode, currentTempF, todayCalendarEvents);
     const img = document.getElementById('dashImg');
+    const reasonEl = document.getElementById('birdReason');
+    const url = result?.url || getFallbackBird();
     if (img) {
       img.crossOrigin = 'anonymous';
-      img.src = url || getFallbackBird();
+      img.src = url;
+    }
+    if (reasonEl && result?.reason) {
+      reasonEl.textContent = result.reason;
     }
   } catch(e) {
     console.warn('Weatherbird picker failed, using fallback', e);
@@ -1351,7 +1357,24 @@ async function pickWeatherbird(weatherCode, tempF, calendarEvents) {
   const winner = top[Math.floor(Math.random() * top.length)];
 
   console.log('🐦 Winner:', winner?.bird?.filename, 'score:', winner?.score);
-  return winner ? WEATHERBIRD_BASE_URL + winner.bird.filename : null;
+  if (!winner) return { url: null, reason: null };
+
+  // Build human-readable reason
+  let reason = '';
+  if (matchSource === 'holiday') {
+    const holidayTag = targetTags.find(t => t.match(/christmas|halloween|thanksgiving|easter|valentine|juneteenth|kwanzaa|independence|memorial|labor|mlk|groundhog|pride|mothers|fathers|hanukkah|diwali|eid|passover|pi_day|april_fools|earth_day|arbor|cinco|mardi/));
+    reason = holidayTag ? `Showing for ${holidayTag.replace(/_/g, ' ')}` : "Showing for today's holiday";
+  } else if (matchSource === 'calendar') {
+    reason = 'Picked based on your calendar events';
+  } else {
+    const weatherTag = targetTags.find(t => t.match(/snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|cool|freezing|cloudy/));
+    const seasonTag = targetTags.find(t => t.match(/winter|spring|summer|fall|autumn/));
+    if (weatherTag && seasonTag) reason = `Picked for ${weatherTag} ${seasonTag} weather`;
+    else if (weatherTag) reason = `Picked for ${weatherTag} weather`;
+    else if (seasonTag) reason = `Picked for ${seasonTag}`;
+  }
+
+  return { url: WEATHERBIRD_BASE_URL + winner.bird.filename, reason };
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
