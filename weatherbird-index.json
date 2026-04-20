@@ -7815,14 +7815,18 @@
     "tags": {
       "holidays": [],
       "seasons": [
-        "summer",
+        "summer"
       ],
       "weather": [
         "sunny",
         "hot"
       ],
       "sports": [],
-      "activities": [],
+      "activities": [
+        "cooling_off"
+        "summer_heat"
+        "hot_day"
+      ],
       "themes": [],
       "animals": [],
       "moods": [],
