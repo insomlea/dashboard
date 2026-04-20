@@ -504,6 +504,9 @@ const CALENDAR_ICAL_URL_2 = 'https://calendar.google.com/calendar/ical/675efc891
 // 2b) Partiful calendar
 const CALENDAR_ICAL_URL_3 = 'https://calendar.google.com/calendar/ical/4std9m6utfl7cagpl2qnesosrrlgfa2t%40import.calendar.google.com/public/basic.ics';
 
+// 2c) Fun / local+national events calendar
+const CALENDAR_ICAL_URL_4 = 'https://calendar.google.com/calendar/ical/06b63b7fbe98ce1a17928c35fdc1d6af0aa78225b389ecb90173045b21ac7829%40group.calendar.google.com/public/basic.ics';
+
 async function fetchPartifulIcal() {
   const proxies = [
     u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
@@ -634,7 +637,7 @@ function getFallbackBird() {
 
 async function loadWeatherbirdImage() {
   try {
-    const result = await pickWeatherbird(currentWeatherCode, currentTempF, currentHolidayEvents);
+    const result = await pickWeatherbird(currentWeatherCode, currentTempF, currentHolidayEvents, todayCalendarEvents);
     const img = document.getElementById('dashImg');
     const reasonEl = document.getElementById('birdReason');
     const url = result?.url || getFallbackBird();
@@ -938,14 +941,15 @@ async function buildCalendar() {
   const lastOfMonth = new Date(year, month + 13, 0); // end of 12 months ahead
 
   // Get all events — fetch both calendars in parallel and merge
-  const [cal1Events, cal2Events, cal3Events, bdayEvents, holidayEvents] = await Promise.all([
+  const [cal1Events, cal2Events, cal3Events, cal4Events, bdayEvents, holidayEvents] = await Promise.all([
     fetchIcal(CALENDAR_ICAL_URL_1),
     fetchIcal(CALENDAR_ICAL_URL_2),
     fetchPartifulIcal(),
+    fetchIcal(CALENDAR_ICAL_URL_4),
     fetchIcal(BIRTHDAY_ICAL_URL),
     fetchHolidayIcal()
   ]);
-  const calEvents = [...cal1Events, ...cal2Events, ...cal3Events];
+  const calEvents = [...cal1Events, ...cal2Events, ...cal3Events, ...cal4Events];
 
   // Expand recurring events
   const expanded = [];
@@ -1397,8 +1401,128 @@ function scoreBird(bird, targetTags) {
   return score;
 }
 
+// ── Fun calendar event → bird tags ──
+// Maps keywords found in event summaries to weatherbird tag lists.
+// Falls back to extracting any meaningful words (4+ chars, not stopwords) as raw tags.
+const STOPWORDS = new Set(['with','this','that','from','have','will','been','were','they','their','there','what','when','where','into','more','also','some','than','then','just','over','after','before','about','like','only','such','each','much','most','many','even','well','very','here','upon','both','through','first','last','next','week','year','month','today','event','local','national','annual','new','the','and','for','are','but','not','you','all','any','can','her','was','our','one','had','his','him','how','its','who','did','get','has','him','let','may','now','own','see','set','put','say','she','him','use','way','day','old','too','use','via']);
+
+const FUN_EVENT_TAG_MAP = {
+  // Animals
+  'elephant': ['elephant', 'zoo', 'animal'],
+  'giraffe':  ['giraffe',  'zoo', 'animal'],
+  'panda':    ['panda',    'zoo', 'animal'],
+  'penguin':  ['penguin',  'zoo', 'animal', 'cold'],
+  'lion':     ['lion',     'zoo', 'animal'],
+  'tiger':    ['tiger',    'zoo', 'animal'],
+  'bear':     ['bear',     'animal', 'forest'],
+  'dolphin':  ['dolphin',  'ocean', 'animal'],
+  'whale':    ['whale',    'ocean', 'animal'],
+  'gorilla':  ['gorilla',  'zoo', 'animal'],
+  'monkey':   ['monkey',   'zoo', 'animal'],
+  'flamingo': ['flamingo', 'zoo', 'pink', 'animal'],
+  'hippo':    ['hippo',    'zoo', 'animal'],
+  'rhino':    ['rhino',    'zoo', 'animal'],
+  'cheetah':  ['cheetah',  'zoo', 'animal'],
+  'zebra':    ['zebra',    'zoo', 'animal'],
+  'zoo':      ['zoo',      'animal', 'outdoors'],
+  // Music & arts
+  'concert':  ['concert',  'music', 'entertainment'],
+  'festival': ['festival', 'celebration', 'outdoors', 'music'],
+  'parade':   ['parade',   'celebration', 'street', 'colorful'],
+  'opera':    ['opera',    'theater', 'music', 'arts'],
+  'symphony': ['symphony', 'orchestra', 'music', 'arts'],
+  'ballet':   ['ballet',   'dance', 'arts', 'theater'],
+  'museum':   ['museum',   'art', 'history', 'indoors'],
+  'gallery':  ['gallery',  'art', 'photography'],
+  'theater':  ['theater',  'entertainment', 'arts'],
+  'theatre':  ['theatre',  'entertainment', 'arts'],
+  'movie':    ['movie',    'film', 'entertainment'],
+  'film':     ['film',     'movie', 'entertainment'],
+  // Food & drink
+  'food':     ['food',     'restaurant', 'dining'],
+  'dinner':   ['dinner',   'restaurant', 'dining'],
+  'lunch':    ['lunch',    'restaurant', 'dining'],
+  'brunch':   ['brunch',   'breakfast', 'dining'],
+  'pizza':    ['pizza',    'food', 'dining'],
+  'bbq':      ['bbq',      'summer', 'outdoors', 'food'],
+  'barbecue': ['bbq',      'summer', 'outdoors', 'food'],
+  'brewery':  ['brewery',  'beer', 'drink'],
+  'winery':   ['winery',   'wine', 'drink'],
+  'market':   ['market',   'shopping', 'food', 'outdoors'],
+  // Sports
+  'marathon': ['marathon', 'running', 'sports', 'race'],
+  'race':     ['race',     'sports', 'running'],
+  'baseball': ['baseball', 'sports', 'game'],
+  'soccer':   ['soccer',   'sports', 'game'],
+  'football': ['football', 'sports', 'game'],
+  'basketball':['basketball','sports','game'],
+  'hockey':   ['hockey',   'sports', 'ice', 'game'],
+  'tennis':   ['tennis',   'sports', 'game'],
+  'golf':     ['golf',     'sports', 'outdoors'],
+  'swim':     ['swimming', 'sports', 'water'],
+  'cycling':  ['cycling',  'sports', 'outdoors', 'bike'],
+  'triathlon':['triathlon','sports','running','swimming'],
+  // Nature & outdoors
+  'hike':     ['hiking',   'nature', 'outdoors', 'trail'],
+  'hiking':   ['hiking',   'nature', 'outdoors'],
+  'park':     ['park',     'outdoors', 'nature'],
+  'garden':   ['garden',   'nature', 'flowers', 'spring'],
+  'beach':    ['beach',    'summer', 'ocean', 'outdoors'],
+  'nature':   ['nature',   'outdoors', 'trees'],
+  'forest':   ['forest',   'nature', 'trees', 'outdoors'],
+  'trail':    ['trail',    'hiking', 'nature', 'outdoors'],
+  'flower':   ['flowers',  'spring', 'nature', 'garden'],
+  'cherry blossom': ['cherry_blossom', 'spring', 'flowers', 'japan'],
+  'blossom':  ['blossom',  'spring', 'flowers'],
+  'snow':     ['snow',     'winter', 'cold'],
+  // Community & civic
+  'election': ['election_day', 'voting', 'democracy'],
+  'vote':     ['voting',   'election', 'democracy'],
+  'inaugur':  ['inauguration','government','ceremony'],
+  'protest':  ['protest',  'march', 'civic'],
+  'cleanup':  ['cleanup',  'volunteer', 'outdoors', 'community'],
+  'volunteer':['volunteer','community','helping'],
+  'fair':     ['fair',     'carnival', 'celebration', 'outdoors'],
+  'carnival': ['carnival', 'celebration', 'colorful'],
+  'circus':   ['circus',   'entertainment', 'colorful', 'performance'],
+  'fireworks':['fireworks','celebration','night'],
+  'rocket':   ['rocket',   'space', 'launch'],
+  'launch':   ['launch',   'technology', 'space'],
+  'space':    ['space',    'science', 'stars'],
+  // Seasons / weather events
+  'eclipse':  ['eclipse',  'astronomy', 'sky', 'science'],
+  'solstice': ['solstice', 'season'],
+  'equinox':  ['equinox',  'spring', 'season'],
+  'aurora':   ['aurora',   'night', 'winter', 'sky'],
+  'meteor':   ['meteor',   'astronomy', 'night', 'sky'],
+};
+
+function tagsFromFunEvent(summary) {
+  if (!summary) return [];
+  const s = summary.toLowerCase();
+  const tags = [];
+
+  // 1. Check the keyword map first (longest match first for phrases)
+  const sortedKeys = Object.keys(FUN_EVENT_TAG_MAP).sort((a, b) => b.length - a.length);
+  for (const key of sortedKeys) {
+    if (s.includes(key)) {
+      tags.push(...FUN_EVENT_TAG_MAP[key]);
+    }
+  }
+
+  // 2. Also extract significant individual words as raw tags (fallback / supplement)
+  const words = s.replace(/[^a-z\s]/g, ' ').split(/\s+/);
+  for (const w of words) {
+    if (w.length >= 4 && !STOPWORDS.has(w) && !tags.includes(w)) {
+      tags.push(w);
+    }
+  }
+
+  return [...new Set(tags)];
+}
+
 // ── Main picker ──
-async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
+async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents) {
   let index = {};
   try {
     const res = await fetch(WEATHERBIRD_INDEX_URL);
@@ -1496,11 +1620,30 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
     }
   }
 
-  // 2. Add weather tags
+  // 2. Extract tags from today's fun calendar events (highest priority if found)
+  const todayEvents = (calendarEvents || []).filter(e => e.start?.date === todayYmd);
+  let funEventName = null;
+  if (todayEvents.length) {
+    const funTags = [];
+    for (const e of todayEvents) {
+      const t = tagsFromFunEvent(e.summary);
+      if (t.length) {
+        funTags.push(...t);
+        if (!funEventName) funEventName = e.summary; // track first matching event for reason
+      }
+    }
+    if (funTags.length) {
+      targetTags = [...new Set([...funTags, ...targetTags])];
+      if (matchSource !== 'holiday') matchSource = 'calendar';
+      console.log('🐦 Fun calendar events today:', todayEvents.map(e => e.summary), '→', funTags);
+    }
+  }
+
+  // 3. Add weather tags
   const wTags = weatherCodeToTags(weatherCode, tempF);
   targetTags = [...new Set([...targetTags, ...wTags])];
 
-  // 3. Always add season as fallback
+  // 4. Always add season as fallback
   const sTags = seasonTags(month);
   targetTags = [...new Set([...targetTags, ...sTags])];
 
@@ -1527,6 +1670,8 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents) {
   let reason = '';
   if (matchSource === 'holiday' && holidayName) {
     reason = `Showing for ${holidayName}`;
+  } else if (matchSource === 'calendar' && funEventName) {
+    reason = `Showing for "${funEventName}"`;
   } else {
     const weatherTag = targetTags.find(t => t.match(/^(snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|freezing|cloudy|overcast|drizzle|thunderstorm)$/));
     const seasonTag = targetTags.find(t => t.match(/^(winter|spring|summer|fall|autumn)$/));
