@@ -1762,9 +1762,43 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   const scored = birds.map(b => ({ bird: b, score: scoreBird(b, targetTags) }));
   scored.sort((a, b) => b.score - a.score);
 
-  // Pick from all top-scoring birds for variety (not just top 5)
-  const topScore = scored[0].score;
-  const top = scored.filter(s => s.score >= topScore * 0.5 && s.score >= 0);
+  // When today is a holiday or calendar event, restrict the candidate pool to birds that
+  // actually match one of the holiday/event-specific tags — don't let generic weather/season
+  // birds dilute the pool and crowd out the intended image.
+  // "Holiday tags" are everything added before weather+season tags were appended.
+  const holidayOnlyTags = targetTags.filter(t => !wTags.includes(t) && !sTags.includes(t));
+
+  let top;
+  if ((matchSource === 'holiday' || matchSource === 'calendar') && holidayOnlyTags.length) {
+    const holidayMatches = scored.filter(s => {
+      if (s.score <= 0) return false;
+      const bTags = [];
+      const b = s.bird;
+      if (b.tags && typeof b.tags === 'object') {
+        for (const v of Object.values(b.tags)) {
+          if (Array.isArray(v)) bTags.push(...v.map(t => String(t).toLowerCase()));
+          else if (typeof v === 'string') bTags.push(v.toLowerCase());
+        }
+      }
+      for (const field of ['holiday','season','weather','object','objects']) {
+        const v = b[field];
+        if (!v) continue;
+        if (Array.isArray(v)) bTags.push(...v.map(t => String(t).toLowerCase()));
+        else if (typeof v === 'string') bTags.push(v.toLowerCase());
+      }
+      if (b.description) bTags.push(...b.description.toLowerCase().split(/\s+/));
+      const fname = (b.filename || '').toLowerCase();
+      return holidayOnlyTags.some(pt =>
+        bTags.includes(pt.toLowerCase()) || fname.includes(pt.toLowerCase().replace(/_/g,' ')) || fname.includes(pt.toLowerCase())
+      );
+    });
+
+    top = holidayMatches.length > 0 ? holidayMatches : scored.filter(s => s.score > 0);
+    console.log(`🐦 Holiday pool: ${holidayMatches.length} birds matched holiday tags [${holidayOnlyTags.join(',')}]`);
+  } else {
+    const topScore = scored[0].score;
+    top = scored.filter(s => s.score >= topScore * 0.5 && s.score >= 0);
+  }
   
   // Use today's date as seed so the pick stays consistent all day.
   // birdOffset is incremented by the "next bird" button for testing.
