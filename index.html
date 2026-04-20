@@ -1748,6 +1748,10 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
     }
   }
 
+  // Snapshot the pure holiday/event tags NOW — before weather and season are merged in.
+  // Used later to restrict the candidate pool to genuinely holiday-themed birds.
+  const pureEventTags = [...targetTags];
+
   // 3. Add weather tags
   const wTags = weatherCodeToTags(weatherCode, tempF);
   targetTags = [...new Set([...targetTags, ...wTags])];
@@ -1763,17 +1767,14 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   scored.sort((a, b) => b.score - a.score);
 
   // When today is a holiday or calendar event, restrict the candidate pool to birds that
-  // actually match one of the holiday/event-specific tags — don't let generic weather/season
-  // birds dilute the pool and crowd out the intended image.
-  // "Holiday tags" are everything added before weather+season tags were appended.
-  const holidayOnlyTags = targetTags.filter(t => !wTags.includes(t) && !sTags.includes(t));
-
+  // actually match one of the pure holiday/event tags — weather and season tags are excluded
+  // from this check so spring/weather birds can't sneak into a 4/20 or Halloween pool.
   let top;
-  if ((matchSource === 'holiday' || matchSource === 'calendar') && holidayOnlyTags.length) {
+  if ((matchSource === 'holiday' || matchSource === 'calendar') && pureEventTags.length) {
     const holidayMatches = scored.filter(s => {
       if (s.score <= 0) return false;
-      const bTags = [];
       const b = s.bird;
+      const bTags = [];
       if (b.tags && typeof b.tags === 'object') {
         for (const v of Object.values(b.tags)) {
           if (Array.isArray(v)) bTags.push(...v.map(t => String(t).toLowerCase()));
@@ -1788,13 +1789,13 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
       }
       if (b.description) bTags.push(...b.description.toLowerCase().split(/\s+/));
       const fname = (b.filename || '').toLowerCase();
-      return holidayOnlyTags.some(pt =>
+      return pureEventTags.some(pt =>
         bTags.includes(pt.toLowerCase()) || fname.includes(pt.toLowerCase().replace(/_/g,' ')) || fname.includes(pt.toLowerCase())
       );
     });
 
     top = holidayMatches.length > 0 ? holidayMatches : scored.filter(s => s.score > 0);
-    console.log(`🐦 Holiday pool: ${holidayMatches.length} birds matched holiday tags [${holidayOnlyTags.join(',')}]`);
+    console.log(`🐦 Holiday pool: ${holidayMatches.length} birds matched pure event tags [${pureEventTags.join(',')}]`);
   } else {
     const topScore = scored[0].score;
     top = scored.filter(s => s.score >= topScore * 0.5 && s.score >= 0);
