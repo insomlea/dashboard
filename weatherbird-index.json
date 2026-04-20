@@ -7811,31 +7811,27 @@
   "melting_snow_dripping_spring.png": {
     "filename": "melting_snow_dripping_spring.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/melting_snow_dripping_spring.png",
-    "description": "A character standing in heavy rain, getting soaked while trying to shield themselves.",
+    "description": "A character standing in a fountain, getting soaked while trying to shield themselves.",
     "tags": {
       "holidays": [],
       "seasons": [
-        "spring",
-        "fall"
+        "summer",
       ],
       "weather": [
-        "rain",
-        "storm"
+        "sunny",
+        "hot"
       ],
       "sports": [],
       "activities": [],
       "themes": [],
       "animals": [],
-      "moods": [
-        "frustrated",
-        "annoyed"
-      ],
+      "moods": [],
       "places": [],
       "food": [],
       "significant_dates": [],
       "associations": [
-        "wet_weather",
-        "stormy"
+        "hot_weather",
+        "summer_activities"
       ]
     }
   },
