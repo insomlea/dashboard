@@ -7809,32 +7809,49 @@
     }
   },
   "melting_snow_dripping_spring.png": {
-    "filename": "melting_snow_dripping_spring.png",
-    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/melting_snow_dripping_spring.png",
-    "description": "A character standing in a fountain, getting soaked while trying to shield themselves.",
+    "filename": "melting_snow_dripping_summer.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/melting_snow_dripping_summer.png",
+    "description": "Bird standing under a fountain with water cascading down around it on a summer day",
     "tags": {
       "holidays": [],
       "seasons": [
         "summer"
       ],
       "weather": [
-        "sunny",
-        "hot"
+        "hot",
+        "warm",
+        "humid"
       ],
       "sports": [],
       "activities": [
         "cooling_off",
-        "summer_heat",
-        "hot_day"
+        "fountain"
       ],
-      "themes": [],
+      "themes": [
+        "refreshing",
+        "relief",
+        "heat"
+      ],
       "animals": [],
-      "moods": [],
-      "places": [],
+      "moods": [
+        "content",
+        "relieved",
+        "cool"
+      ],
+      "places": [
+        "fountain",
+        "park",
+        "city",
+        "outdoors"
+      ],
       "food": [],
       "significant_dates": [],
       "associations": [
-        "hot_weather",
+        "summer_heat",
+        "water_feature",
+        "fountain",
+        "cooling",
+        "hot_day",
         "summer_activities"
       ]
     }

@@ -623,7 +623,6 @@ let todayCalendarEvents = [];
 const FALLBACK_BIRDS = [
   'business_casual_shirt_tie.png',
   'worry.png',
-  'tying_tie.png',
   'thinking.png',
   'thinking_pointer.png',
   'thinking_pose_business_attire.png',
@@ -683,6 +682,7 @@ function getWeatherIcon(code, isDay) {
   return '🌡️';
 }
 loadWeather();
+loadWeatherbirdImage(); // show a bird immediately; loadWeather() will refresh it once weather data arrives
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // ICAL PARSER
@@ -1526,7 +1526,12 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   let index = {};
   try {
     const res = await fetch(WEATHERBIRD_INDEX_URL);
-    if (res.ok) index = await res.json();
+    if (res.ok) {
+      index = await res.json();
+    } else {
+      console.warn('⚠️ Weatherbird index fetch failed:', res.status, res.statusText);
+      return { url: getFallbackBird(), reason: null };
+    }
   } catch(e) {
     console.warn('Could not load weatherbird index', e);
     return { url: getFallbackBird(), reason: null };
@@ -1653,9 +1658,9 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   const scored = birds.map(b => ({ bird: b, score: scoreBird(b, targetTags) }));
   scored.sort((a, b) => b.score - a.score);
 
-  // Pick from top 5 for variety, with a lower threshold
+  // Pick from all top-scoring birds for variety (not just top 5)
   const topScore = scored[0].score;
-  const top = scored.slice(0, 5).filter(s => s.score >= topScore * 0.5 && s.score >= 0);
+  const top = scored.filter(s => s.score >= topScore * 0.5 && s.score >= 0);
   
   // Use today's date as seed so the pick stays consistent all day.
   // birdOffset is incremented by the "next bird" button for testing.
