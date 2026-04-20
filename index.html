@@ -494,72 +494,24 @@
 // CONFIGURATION — edit these values
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-// 1) First Google Calendar public iCal URL
-//    Go to Google Calendar → Settings → your calendar → "Integrate calendar" → copy the "Public address in iCal format"
-const CALENDAR_ICAL_URL_1 = 'https://calendar.google.com/calendar/ical/lea.m.cody%40gmail.com/private-c3e852541e654e7e9e51e4a5f05fd613/basic.ics';  // e.g. 'https://calendar.google.com/calendar/ical/xxxxx%40gmail.com/public/basic.ics'
+// ── Calendar Proxy Worker ──────────────────────────────────────────────────
+// Your Cloudflare Worker handles fetching & CORS — no private URLs in this file.
+// After deploying calendar-proxy-worker.js, replace the URL below with yours.
+const PROXY_BASE = 'https://winter-hat-8ddd.lea-m-cody.workers.dev';
 
-// 2) Second Google Calendar public iCal URL (merged with the first, no visual distinction)
-const CALENDAR_ICAL_URL_2 = 'https://calendar.google.com/calendar/ical/675efc891c4436d97b4ad43c9ff80bb23f8af6333ef1b3553186e8584f2e7c1b%40group.calendar.google.com/private-adfd81abad942357d3a08f326466a788/basic.ics';  // e.g. 'https://calendar.google.com/calendar/ical/yyyyy/public/basic.ics'
-
-// 2b) Partiful calendar
-const CALENDAR_ICAL_URL_3 = 'https://calendar.google.com/calendar/ical/4std9m6utfl7cagpl2qnesosrrlgfa2t%40import.calendar.google.com/public/basic.ics';
-
-// 2c) Fun / local+national events calendar
-const CALENDAR_ICAL_URL_4 = 'https://calendar.google.com/calendar/ical/06b63b7fbe98ce1a17928c35fdc1d6af0aa78225b389ecb90173045b21ac7829%40group.calendar.google.com/public/basic.ics';
+const CALENDAR_ICAL_URL_1   = `${PROXY_BASE}/cal/1`;
+const CALENDAR_ICAL_URL_2   = `${PROXY_BASE}/cal/2`;
+const CALENDAR_ICAL_URL_3   = `${PROXY_BASE}/cal/3`;
+const CALENDAR_ICAL_URL_4   = `${PROXY_BASE}/cal/4`;
+const BIRTHDAY_ICAL_URL     = `${PROXY_BASE}/cal/birthdays`;
+const HOLIDAY_ICAL_URL      = `${PROXY_BASE}/cal/holidays`;
 
 async function fetchPartifulIcal() {
-  const proxies = [
-    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-    u => `https://cors.sh/${u}`,
-    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
-  ];
-  for (const proxy of proxies) {
-    try {
-      const r = await fetch(proxy(CALENDAR_ICAL_URL_3), { headers: { 'x-requested-with': 'XMLHttpRequest' } });
-      if (r.ok) {
-        const text = await r.text();
-        if (text.includes('VCALENDAR')) {
-          const events = parseIcal(text);
-          console.log(`✅ Fetched ${events.length} Partiful events`);
-          return events;
-        }
-      }
-    } catch(_) {}
-  }
-  console.warn('❌ Failed to fetch Partiful calendar');
-  return [];
+  return fetchIcal(CALENDAR_ICAL_URL_3);
 }
 
-// 3) Your Birthdays calendar iCal URL (separate Google Calendar)
-const BIRTHDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/3d26a5687f59fa5678e07fc7eee7e0ef8dc103776a6e24f9aa048b79943d23fc%40group.calendar.google.com/private-a365f54ce4902b94cbc460a6872e44da/basic.ics'; // e.g. 'https://calendar.google.com/calendar/ical/xxxxx/public/basic.ics'
-
-// 4) US Holidays calendar
-const HOLIDAY_ICAL_URL = 'https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics';
-// Force proxy for holiday URL since it always needs CORS bypass
 async function fetchHolidayIcal() {
-  const proxies = [
-    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-    u => `https://thingproxy.freeboard.io/fetch/${u}`,
-    u => `https://cors.sh/${u}`,
-    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
-  ];
-  for (const proxy of proxies) {
-    try {
-      const r = await fetch(proxy(HOLIDAY_ICAL_URL), { headers: { 'x-requested-with': 'XMLHttpRequest' } });
-      if (r.ok) {
-        const text = await r.text();
-        if (text.includes('VCALENDAR')) {
-          const events = parseIcal(text);
-          console.log(`✅ Fetched ${events.length} holiday events`);
-          return events;
-        }
-      }
-    } catch(_) {}
-  }
-  console.warn('❌ Failed to fetch holiday calendar');
-  return [];
+  return fetchIcal(HOLIDAY_ICAL_URL);
 }
 
 // 3) Weatherbird image index (uploaded to your GitHub repo)
@@ -858,26 +810,23 @@ function validateHolidayDate(evt) {
   return true;
 }
 
-// Proxy to get around CORS
+// Fetch iCal from our Cloudflare Worker proxy — no CORS workarounds needed
 async function fetchIcal(url) {
   if (!url) return [];
-  const proxies = [
-    u => u,
-    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-    u => `https://thingproxy.freeboard.io/fetch/${u}`,
-  ];
-  for (const proxy of proxies) {
-    try {
-      const r = await fetch(proxy(url));
-      if (r.ok) {
-        const events = parseIcal(await r.text());
-        console.log(`✅ Fetched ${events.length} events from ${url.substring(0, 60)}...`);
+  try {
+    const r = await fetch(url);
+    if (r.ok) {
+      const text = await r.text();
+      if (text.includes('VCALENDAR')) {
+        const events = parseIcal(text);
+        console.log(`✅ Fetched ${events.length} events from ${url}`);
         return events;
       }
-    } catch(_) {}
+    }
+    console.warn(`❌ Failed to fetch (${r.status}): ${url}`);
+  } catch(e) {
+    console.warn(`❌ Error fetching ${url}:`, e.message);
   }
-  console.warn(`❌ Failed to fetch: ${url.substring(0, 60)}...`);
   return [];
 }
 
@@ -1526,12 +1475,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   let index = {};
   try {
     const res = await fetch(WEATHERBIRD_INDEX_URL);
-    if (res.ok) {
-      index = await res.json();
-    } else {
-      console.warn('⚠️ Weatherbird index fetch failed:', res.status, res.statusText);
-      return { url: getFallbackBird(), reason: null };
-    }
+    if (res.ok) index = await res.json();
   } catch(e) {
     console.warn('Could not load weatherbird index', e);
     return { url: getFallbackBird(), reason: null };
@@ -1658,7 +1602,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   const scored = birds.map(b => ({ bird: b, score: scoreBird(b, targetTags) }));
   scored.sort((a, b) => b.score - a.score);
 
-  // Pick from all top-scoring birds for variety (not just top 5)
+  // Pick from all top-scoring birds for variety
   const topScore = scored[0].score;
   const top = scored.filter(s => s.score >= topScore * 0.5 && s.score >= 0);
   
