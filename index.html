@@ -644,8 +644,8 @@ async function loadWeatherbirdImage() {
       img.crossOrigin = 'anonymous';
       img.src = url;
     }
-    if (reasonEl && result?.reason) {
-      reasonEl.textContent = result.reason;
+    if (reasonEl) {
+      reasonEl.textContent = result?.reason || '';
     }
   } catch(e) {
     console.warn('Weatherbird picker failed, using fallback', e);
@@ -1818,6 +1818,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
     const holidayMatches = scored.filter(s => {
       if (s.score <= 0) return false;
       const b = s.bird;
+      // Collect ONLY explicit tag fields — NOT description, which is too loose
       const bTags = [];
       if (b.tags && typeof b.tags === 'object') {
         for (const v of Object.values(b.tags)) {
@@ -1831,11 +1832,15 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
         if (Array.isArray(v)) bTags.push(...v.map(t => String(t).toLowerCase()));
         else if (typeof v === 'string') bTags.push(v.toLowerCase());
       }
-      if (b.description) bTags.push(...b.description.toLowerCase().split(/\s+/));
       const fname = (b.filename || '').toLowerCase();
-      return pureEventTags.some(pt =>
-        bTags.includes(pt.toLowerCase()) || fname.includes(pt.toLowerCase().replace(/_/g,' ')) || fname.includes(pt.toLowerCase())
-      );
+      return pureEventTags.some(pt => {
+        const p = pt.toLowerCase();
+        // Must match in filename or an explicit tag — description words excluded
+        return bTags.includes(p) ||
+               bTags.includes(p.replace(/_/g, ' ')) ||
+               fname.includes(p) ||
+               fname.includes(p.replace(/_/g, ''));
+      });
     });
 
     top = holidayMatches.length > 0 ? holidayMatches : scored.filter(s => s.score > 0);
@@ -1854,12 +1859,33 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   console.log('🐦 Winner:', winner?.bird?.filename, 'score:', winner?.score);
   if (!winner) return { url: getFallbackBird(), reason: null };
 
-  // Build human-readable reason
+  // Build human-readable reason based on actual winning bird
   let reason = '';
+  const winnerFilename = (winner.bird.filename || '').toLowerCase();
   if (matchSource === 'holiday' && holidayName) {
     reason = `Showing for ${holidayName}`;
   } else if (matchSource === 'calendar' && funEventName) {
-    reason = `Showing for "${funEventName}"`;
+    // Verify the winner actually matches an event tag — if it's a season bird that slipped
+    // through the fallback pool, show a season reason instead
+    const winnerBTags = [];
+    if (winner.bird.tags && typeof winner.bird.tags === 'object') {
+      for (const v of Object.values(winner.bird.tags)) {
+        if (Array.isArray(v)) winnerBTags.push(...v.map(t => String(t).toLowerCase()));
+        else if (typeof v === 'string') winnerBTags.push(v.toLowerCase());
+      }
+    }
+    const matchedEventTag = pureEventTags.find(pt =>
+      winnerBTags.includes(pt.toLowerCase()) || winnerFilename.includes(pt.toLowerCase())
+    );
+    if (matchedEventTag) {
+      reason = `Showing for "${funEventName}"`;
+    } else {
+      const weatherTag = targetTags.find(t => t.match(/^(snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|freezing|cloudy|overcast|drizzle|thunderstorm)$/));
+      const seasonTag = targetTags.find(t => t.match(/^(winter|spring|summer|fall|autumn)$/));
+      if (weatherTag && seasonTag) reason = `Picked for ${weatherTag} ${seasonTag} weather`;
+      else if (weatherTag) reason = `Picked for ${weatherTag} weather`;
+      else if (seasonTag) reason = `Picked for ${seasonTag}`;
+    }
   } else {
     const weatherTag = targetTags.find(t => t.match(/^(snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|freezing|cloudy|overcast|drizzle|thunderstorm)$/));
     const seasonTag = targetTags.find(t => t.match(/^(winter|spring|summer|fall|autumn)$/));
