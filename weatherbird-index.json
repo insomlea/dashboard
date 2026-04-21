@@ -1249,36 +1249,6 @@
       ]
     }
   },
-  "blonde_wig_pink_outfit_nervous.png": {
-    "filename": "blonde_wig_pink_outfit_nervous.png",
-    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/blonde_wig_pink_outfit_nervous.png",
-    "description": "A female character with blonde hair and purple accents is pregnant, holding her belly with a surprised or emotional expression.",
-    "tags": {
-      "holidays": [],
-      "seasons": [],
-      "weather": [],
-      "sports": [],
-      "activities": [],
-      "themes": [
-        "pregnancy",
-        "motherhood",
-        "medical"
-      ],
-      "animals": [],
-      "moods": [
-        "surprised",
-        "emotional",
-        "nervous"
-      ],
-      "places": [],
-      "food": [],
-      "significant_dates": [],
-      "associations": [
-        "expectant_parent",
-        "life_changes"
-      ]
-    }
-  },
   "blues_hockey_organ_music_notes.png": {
     "filename": "blues_hockey_organ_music_notes.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/blues_hockey_organ_music_notes.png",
@@ -8682,35 +8652,6 @@
       ]
     }
   },
-  "melting_snow_dripping_summer.png": {
-    "filename": "melting_snow_dripping_summer.png",
-    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/melting_snow_dripping_summer.png",
-    "description": "A cheerful bird character stands under heavy rainfall, getting completely soaked while appearing happy and carefree.",
-    "tags": {
-      "holidays": [],
-      "seasons": [],
-      "weather": [
-        "rain"
-      ],
-      "sports": [],
-      "activities": [],
-      "themes": [],
-      "animals": [],
-      "moods": [
-        "happy",
-        "excited",
-        "relaxed"
-      ],
-      "places": [],
-      "food": [],
-      "significant_dates": [],
-      "associations": [
-        "wet",
-        "weather",
-        "enjoying_rain"
-      ]
-    }
-  },
   "memorial_day_flag_pledge.png": {
     "filename": "memorial_day_flag_pledge.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/memorial_day_flag_pledge.png",
@@ -14227,41 +14168,6 @@
       ]
     }
   },
-  "sunny_day_blue_car_driving.png": {
-    "filename": "sunny_day_blue_car_driving.png",
-    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/sunny_day_blue_car_driving.png",
-    "description": "A bird drives a blue car with sunglasses on a bright sunny day, appearing cheerful and carefree.",
-    "tags": {
-      "holidays": [],
-      "seasons": [
-        "summer"
-      ],
-      "weather": [
-        "sunshine",
-        "hot"
-      ],
-      "sports": [],
-      "activities": [
-        "driving",
-        "traveling"
-      ],
-      "themes": [],
-      "animals": [],
-      "moods": [
-        "happy",
-        "excited",
-        "relaxed"
-      ],
-      "places": [],
-      "food": [],
-      "significant_dates": [],
-      "associations": [
-        "summer_activities",
-        "road_trip",
-        "vacation"
-      ]
-    }
-  },
   "sunny_solar_panel_sunglasses.png": {
     "filename": "sunny_solar_panel_sunglasses.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/sunny_solar_panel_sunglasses.png",
@@ -16631,5 +16537,52 @@
         "competitive"
       ]
     }
+  },
+  "ash_wednesday_forehead_cross.png": {
+    "filename": "ash_wednesday_forehead_cross.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/ash_wednesday_forehead_cross.png",
+    "tags": {
+      "manual": [
+        "ash wednesday",
+        "religion",
+        "catholic",
+        "lent",
+        "cross",
+        "winter",
+        "religious holiday",
+        "somber"
+      ]
+    },
+    "description": "ash wednesday"
+  },
+  "pregnant_woman_expecting_mother.png": {
+    "filename": "pregnant_woman_expecting_mother.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/pregnant_woman_expecting_mother.png",
+    "tags": {
+      "manual": [
+        "pregnant",
+        "woman",
+        "pregnancy",
+        "expectant-mother",
+        "maternity"
+      ]
+    },
+    "description": "pregnant woman"
+  },
+  "playing_in_fountain_summer_fun.png": {
+    "filename": "playing_in_fountain_summer_fun.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/playing_in_fountain_summer_fun.png",
+    "tags": {
+      "manual": [
+        "summer",
+        "fountain",
+        "playing",
+        "water",
+        "heat",
+        "cooling off",
+        "outdoor"
+      ]
+    },
+    "description": "playing in fountain during summer"
   }
 }
