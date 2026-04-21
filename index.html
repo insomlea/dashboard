@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta http-equiv="refresh" content="300">
 <title>Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -151,7 +151,7 @@
     background: var(--bg-dark);
     border-radius: 16px;
     border: 1px solid var(--border);
-    padding: 28px 28px 28px 36px;
+    padding: 24px;
     min-width: 0;
     overflow: hidden;
     box-sizing: border-box;
@@ -244,7 +244,7 @@
   }
   .cal-header span {
     text-align: left;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text-muted);
     padding: 0 4px 8px;
@@ -378,13 +378,13 @@
   }
 
   .upcoming-date {
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text);
     margin-bottom: 2px;
   }
   .upcoming-date .month {
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text);
   }
@@ -1391,8 +1391,22 @@ const HOLIDAY_EXCLUSIVE_GROUPS = [
   { tags: ['fourth_of_july','fireworks'], requires: ['fourth_of_july','fireworks','new_years_eve','celebration'] },
   // New Year's — only around NYE/NYD
   { tags: ['new_years_eve','new_years_day','countdown','confetti'], requires: ['new_years_eve','new_years_day','celebration','party'] },
-  // Groundhog Day — only on Groundhog Day
-  { tags: ['groundhog'], requires: ['groundhog'] },
+  // Chinese New Year — only during Chinese New Year
+  { tags: ['chinese_new_year', 'lunar_new_year', 'lion_dance', 'dragon_dance', 'lantern_festival', 'red_envelope', 'dumpling', 'fireworks_cny'], requires: ['chinese_new_year', 'lunar_new_year'] },
+  // Diwali — only during Diwali
+  { tags: ['diwali', 'diya', 'rangoli', 'deepavali'], requires: ['diwali', 'deepavali'] },
+  // Mardi Gras — only during Mardi Gras
+  { tags: ['mardi_gras', 'fat_tuesday', 'carnival', 'masquerade', 'bead', 'float_parade'], requires: ['mardi_gras', 'fat_tuesday', 'carnival'] },
+  // Cinco de Mayo — only on Cinco de Mayo
+  { tags: ['cinco_de_mayo', 'margarita', 'sombrero', 'pinata', 'mariachi'], requires: ['cinco_de_mayo'] },
+  // Day of the Dead — only on Día de los Muertos
+  { tags: ['day_of_the_dead', 'dia_de_los_muertos', 'sugar_skull', 'ofrenda', 'calavera'], requires: ['day_of_the_dead', 'dia_de_los_muertos'] },
+  // Passover — only during Passover
+  { tags: ['passover', 'seder', 'matzo', 'afikoman'], requires: ['passover'] },
+  // Ramadan/Eid — only during Ramadan/Eid
+  { tags: ['ramadan', 'eid', 'iftar', 'crescent_moon_star'], requires: ['ramadan', 'eid'] },
+  // St. Patrick's Day parade — only around St. Patrick's
+  { tags: ['parade'], requires: ['st_patricks_day', 'mardi_gras', 'parade', 'chinese_new_year', 'fourth_of_july'] },
   // Graduation — only for graduation events
   { tags: ['graduation','diploma','cap_gown'], requires: ['graduation','school'] },
 ];
@@ -1491,6 +1505,36 @@ function scoreBird(bird, targetTags) {
       const required = SEASON_REQUIRE_MAP[season];
       if (!required.some(r => lowerTargetTags.includes(r))) {
         console.log(`🌦️ Filename-exclusion: "${bird.filename}" looks like ${season} but season tags are [${lowerTargetTags.slice(0,5).join(',')}...]`);
+        return -1;
+      }
+    }
+  }
+
+  // Filename holiday guard — if the filename contains a holiday name, only show it on that holiday.
+  // This catches cases like "chinese_new_year_lion_dance_mask.png" matching "dance" from a calendar event.
+  const FILENAME_HOLIDAY_KEYWORDS = {
+    chinese_new_year:  ['chinese_new_year', 'lunar_new_year', 'lion_dance', 'dragon_dance'],
+    halloween:         ['halloween'],
+    christmas:         ['christmas'],
+    easter:            ['easter'],
+    valentines_day:    ['valentines_day', 'valentine'],
+    st_patricks_day:   ['st_patricks', 'st_patrick'],
+    thanksgiving:      ['thanksgiving'],
+    hanukkah:          ['hanukkah'],
+    fourth_of_july:    ['fourth_of_july'],
+    new_years:         ['new_years'],
+    diwali:            ['diwali'],
+    mardi_gras:        ['mardi_gras'],
+    cinco_de_mayo:     ['cinco_de_mayo'],
+    day_of_the_dead:   ['day_of_the_dead', 'dia_de_los_muertos', 'sugar_skull'],
+    passover:          ['passover', 'seder'],
+    ramadan:           ['ramadan', 'eid'],
+  };
+  for (const [holiday, keywords] of Object.entries(FILENAME_HOLIDAY_KEYWORDS)) {
+    if (keywords.some(k => birdFilename.includes(k))) {
+      // Bird's filename is holiday-specific — only show if that holiday is in target tags
+      if (!lowerTargetTags.includes(holiday) && !lowerTargetTags.some(t => keywords.includes(t))) {
+        console.log(`🗓️ Filename-holiday exclusion: "${bird.filename}" is specific to [${holiday}] but it's not that holiday`);
         return -1;
       }
     }
@@ -1833,50 +1877,6 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
 buildCalendar();
 setInterval(buildCalendar, 15 * 60 * 1000);
 setInterval(loadWeather, 30 * 60 * 1000);
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// AUTO-REFRESH (every 5 minutes)
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-(function() {
-  const REFRESH_SECONDS = 300; // change this to adjust the interval
-  let remaining = REFRESH_SECONDS;
-
-  const indicator = document.getElementById('refresh-indicator');
-
-  function fmt(s) {
-    const m = Math.floor(s / 60);
-    const sec = s % 60;
-    return m > 0 ? `${m}m ${sec.toString().padStart(2,'0')}s` : `${sec}s`;
-  }
-
-  function tick() {
-    remaining--;
-    if (indicator) indicator.textContent = `↻ ${fmt(remaining)}`;
-    if (remaining <= 0) {
-      location.reload();
-    } else {
-      setTimeout(tick, 1000);
-    }
-  }
-
-  if (indicator) indicator.textContent = `↻ ${fmt(remaining)}`;
-  setTimeout(tick, 1000);
-})();
 </script>
-
-<style>
-  #refresh-indicator {
-    position: fixed;
-    bottom: 10px;
-    right: 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    color: var(--text-muted);
-    opacity: 0.45;
-    pointer-events: none;
-    letter-spacing: 0.03em;
-  }
-</style>
-<div id="refresh-indicator">↻</div>
 </body>
 </html>
