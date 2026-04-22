@@ -676,6 +676,7 @@ async function loadWeatherbirdImage() {
     }
     if (bannerEl) {
       const name = result?.holidayName;
+      console.log('🎉 holidayName from result:', name, '| full result:', result);
       if (name) {
         const emoji = holidayEmoji(name);
         bannerEl.innerHTML = `${emoji} It's ${name}!`;
