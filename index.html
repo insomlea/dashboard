@@ -1728,6 +1728,16 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   const birds = Object.values(index);
   if (!birds.length) return { url: getFallbackBird(), reason: null };
 
+  // ── Hardcoded overrides — specific bird for a specific date ──
+  const todayForOverride = new Date();
+  const overrideKey = `${String(todayForOverride.getMonth()+1).padStart(2,'0')}/${String(todayForOverride.getDate()).padStart(2,'0')}/${todayForOverride.getFullYear()}`;
+  const DATE_OVERRIDES = {
+    '04/22/2026': 'elephant_friend_zoo_visit.png', // Earth Day elephant
+  };
+  if (DATE_OVERRIDES[overrideKey]) {
+    return { url: WEATHERBIRD_BASE_URL + DATE_OVERRIDES[overrideKey], reason: 'Special pick for today 🐘' };
+  }
+
   const today = new Date();
   const month = today.getMonth() + 1;
   const todayYmd = toYMD(today);
@@ -1864,9 +1874,14 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
     return bTags;
   }
 
-  // ── Helper: does a bird explicitly match any of the given tags? ──
-  function birdMatchesTags(b, tags) {
+  // ── Helper: does a bird match any of the given tags?
+  //    includeDescription=true for holidays (curated tags, safe to be loose)
+  //    includeDescription=false for calendar events (prevents false positives like "dance") ──
+  function birdMatchesTags(b, tags, includeDescription = false) {
     const bTags = getBirdTags(b);
+    if (includeDescription && b.description) {
+      bTags.push(...b.description.toLowerCase().split(/\s+/));
+    }
     const fname = (b.filename || '').toLowerCase();
     return tags.some(pt => {
       const p = pt.toLowerCase();
@@ -1878,10 +1893,10 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   }
 
   // ── Helper: pick best candidates from a scored list matching a tag set ──
-  function candidatesFor(tags) {
+  function candidatesFor(tags, includeDescription = false) {
     const scored = birds
       .map(b => ({ bird: b, score: scoreBird(b, tags) }))
-      .filter(s => s.score > 0 && birdMatchesTags(s.bird, tags));
+      .filter(s => s.score > 0 && birdMatchesTags(s.bird, tags, includeDescription));
     scored.sort((a, b) => b.score - a.score);
     return scored;
   }
@@ -1895,7 +1910,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   // ── Tier 1: Holiday ──
   const holidayTags = matchSource === 'holiday' ? pureEventTags : [];
   if (holidayTags.length) {
-    top = candidatesFor(holidayTags);
+    top = candidatesFor(holidayTags, true); // true = also search descriptions
     if (top.length) {
       winReason = holidayName ? `Showing for ${holidayName}` : `Showing for holiday`;
       console.log(`🐦 Tier 1 (holiday): ${top.length} birds`);
