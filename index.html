@@ -1240,8 +1240,18 @@ setTimeout(matchCardToClockHeight, 800);
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 // ── Significant dates calendar ──
-// Static dates that don't change year to year
-const STATIC_DATES = [
+// Helper: nth weekday of a month. weekday: 0=Sun, 1=Mon ... 6=Sat. nth: 1-based.
+function nthWeekdayOfMonth(year, month1, weekday, nth) {
+  const d = new Date(year, month1 - 1, 1);
+  let count = 0;
+  while (true) {
+    if (d.getDay() === weekday) { count++; if (count === nth) return new Date(d); }
+    d.setDate(d.getDate() + 1);
+  }
+}
+
+// Fixed dates that never change year to year
+const FIXED_DATES = [
   // New Year's Day — 3 days ahead
   { month:1,  day:1,  tags:['new_years_day','celebration','confetti','party'], leadDays:3 },
   // Groundhog Day — day of only
@@ -1270,6 +1280,8 @@ const STATIC_DATES = [
   { month:6,  day:21, tags:['summer','sunshine','beach','hot'], leadDays:0 },
   // Independence Day — 5 days ahead
   { month:7,  day:4,  tags:['fourth_of_july','fireworks','patriotic','flag','celebration'], leadDays:5 },
+  // Back to School — 1 week ahead
+  { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
   // 9/11 Remembrance — day of only
   { month:9,  day:11, tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:0 },
   // Lea's Birthday — day of only
@@ -1280,10 +1292,6 @@ const STATIC_DATES = [
   { month:10, day:31, tags:['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'], leadDays:7 },
   // Veterans Day — day of only
   { month:11, day:11, tags:['veterans_day','military','soldier','patriotic','flag'], leadDays:0 },
-  // Black Friday — day of only
-  { month:11, day:28, tags:['black_friday','shopping','deals','bags'], leadDays:0 },
-  // Thanksgiving — 2 weeks ahead
-  { month:11, day:26, tags:['thanksgiving','turkey','harvest','family','feast'], leadDays:14, spanDays:2 },
   // Christmas Eve
   { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:0 },
   // Christmas Day — 2 weeks ahead
@@ -1292,11 +1300,40 @@ const STATIC_DATES = [
   { month:12, day:26, tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
   // New Year's Eve — 3 days ahead
   { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:3 },
-  // Back to School — 1 week ahead
-  { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
   // 4/20 — day of only
   { month:4,  day:20, tags:['420','marijuana','cannabis','weed','smoke','chill','relaxed','stoned'], leadDays:0 },
 ];
+
+// Computed floating dates — recalculated each year automatically
+function getFloatingDates(year) {
+  const d = (date) => ({ month: date.getMonth() + 1, day: date.getDate() });
+  // Spring DST — 2nd Sunday of March
+  const dstSpring = nthWeekdayOfMonth(year, 3, 0, 2);
+  // Fall DST — 1st Sunday of November
+  const dstFall = nthWeekdayOfMonth(year, 11, 0, 1);
+  // Kentucky Derby — 1st Saturday of May
+  const kentuckyDerby = nthWeekdayOfMonth(year, 5, 6, 1);
+  // Super Bowl — 2nd Sunday of February
+  const superBowl = nthWeekdayOfMonth(year, 2, 0, 2);
+  // Indy 500 — Sunday before Memorial Day (last Monday of May minus 1 day)
+  const memorialDay = (() => {
+    const last = new Date(year, 5, 0); // last day of May
+    while (last.getDay() !== 1) last.setDate(last.getDate() - 1);
+    return last;
+  })();
+  const indy500 = new Date(memorialDay);
+  indy500.setDate(indy500.getDate() - 1);
+  return [
+    { ...d(dstSpring),     tags:['daylight_saving','spring_forward','clocks','time_change'], leadDays:0 },
+    { ...d(dstFall),       tags:['daylight_saving','fall_back','clocks','time_change'],      leadDays:0 },
+    { ...d(kentuckyDerby), tags:['kentucky_derby','horse_racing','derby','hat','roses'],     leadDays:3 },
+    { ...d(indy500),       tags:['indy_500','racing','indianapolis','cars','speed'],         leadDays:3 },
+    { ...d(superBowl),     tags:['super_bowl','football','nfl','touchdown','party'],         leadDays:7 },
+  ];
+}
+
+// Combine fixed and floating dates
+const STATIC_DATES = [...FIXED_DATES, ...getFloatingDates(new Date().getFullYear())];
 
 
 
