@@ -479,6 +479,7 @@
           <div>💨 <span id="weatherWind">--</span> mph</div>
         </div>
       </div>
+      <div id="holidayBanner" style="display:none;margin-top:10px;font-size:15px;font-weight:500;color:var(--text);"></div>
       <div style="display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:12px;"><div id="birdReason" style="font-size:11px;color:var(--text-muted);font-style:italic;"></div><button onclick="birdOffset++;loadWeatherbirdImage()" style="background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-size:11px;padding:2px 8px;cursor:pointer;font-family:inherit;flex-shrink:0;">next bird →</button></div>
     </div>
     <div class="top-card-right">
@@ -664,6 +665,7 @@ async function loadWeatherbirdImage() {
     const result = await pickWeatherbird(currentWeatherCode, currentTempF, currentHolidayEvents, todayCalendarEvents);
     const img = document.getElementById('dashImg');
     const reasonEl = document.getElementById('birdReason');
+    const bannerEl = document.getElementById('holidayBanner');
     const url = result?.url || getFallbackBird();
     if (img) {
       img.crossOrigin = 'anonymous';
@@ -671,6 +673,16 @@ async function loadWeatherbirdImage() {
     }
     if (reasonEl) {
       reasonEl.textContent = result?.reason || '';
+    }
+    if (bannerEl) {
+      const name = result?.holidayName;
+      if (name) {
+        const emoji = holidayEmoji(name);
+        bannerEl.innerHTML = `${emoji} It's ${name}!`;
+        bannerEl.style.display = 'block';
+      } else {
+        bannerEl.style.display = 'none';
+      }
     }
   } catch(e) {
     console.warn('Weatherbird picker failed, using fallback', e);
@@ -1274,58 +1286,32 @@ function nthWeekdayOfMonth(year, month1, weekday, nth) {
 
 // Fixed dates that never change year to year
 const FIXED_DATES = [
-  // New Year's Day — 3 days ahead
-  { month:1,  day:1,  tags:['new_years_day','celebration','confetti','party'], leadDays:3 },
-  // Groundhog Day — day of only
-  { month:2,  day:2,  tags:['groundhog','winter','shadow','prediction'], leadDays:0 },
-  // Valentine's Day — 1 week ahead
-  { month:2,  day:14, tags:['valentines_day','love','heart','romance','flowers'], leadDays:7 },
-  // St. Patrick's Day — 1 week ahead
-  { month:3,  day:17, tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:7 },
-  // Pi Day — day of only
-  { month:3,  day:14, tags:['pi_day','math','science','pie','numbers'], leadDays:0 },
-  // Spring Equinox — day of only
-  { month:3,  day:20, tags:['spring','flowers','sunshine','renewal'], leadDays:0 },
-  // April Fools — day of only
-  { month:4,  day:1,  tags:['april_fools','joke','silly','surprised'], leadDays:0 },
-  // Earth Day — day of only
-  { month:4,  day:22, tags:['earth_day','nature','environment','trees'], leadDays:0 },
-  // Tax Day — day of only
-  { month:4,  day:15, tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:0 },
-  // Cinco de Mayo — day of only
-  { month:5,  day:5,  tags:['cinco_de_mayo','mexico','fiesta','celebration'], leadDays:0 },
-  // Pride Month (entire June)
-  { month:6,  day:1,  tags:['pride','rainbow','lgbtq','celebration'], leadDays:0, spanDays:30 },
-  // Juneteenth — day of only
-  { month:6,  day:19, tags:['juneteenth','freedom','celebration','history'], leadDays:0 },
-  // Summer Solstice — day of only
-  { month:6,  day:21, tags:['summer','sunshine','beach','hot'], leadDays:0 },
-  // Independence Day — 5 days ahead
-  { month:7,  day:4,  tags:['fourth_of_july','fireworks','patriotic','flag','celebration'], leadDays:5 },
-  // Back to School — 1 week ahead
-  { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
-  // 9/11 Remembrance — day of only
-  { month:9,  day:11, tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:0 },
-  // Sharona's Birthday — day of only
-  { month:2,  day:6,  tags:['cat','cats','kitten','feline','birthday','celebration'], leadDays:0 },
-  // Lea's Birthday — day of only
-  { month:9,  day:4,  tags:['birthday','cake','celebration','party'], leadDays:0 },
-  // Fall Equinox — day of only (approx, shifts ±1 day but close enough)
-  { month:9,  day:22, tags:['fall','autumn','leaves','harvest'], leadDays:0 },
-  // Halloween — 7 days ahead
-  { month:10, day:31, tags:['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'], leadDays:7 },
-  // Veterans Day — day of only
-  { month:11, day:11, tags:['veterans_day','military','soldier','patriotic','flag'], leadDays:0 },
-  // Christmas Eve
-  { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:0 },
-  // Christmas Day — 2 weeks ahead
-  { month:12, day:25, tags:['christmas_day','tree','santa','gifts','snow','holiday'], leadDays:14 },
-  // Kwanzaa — day of, spans 7 days
-  { month:12, day:26, tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
-  // New Year's Eve — 3 days ahead
-  { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:3 },
-  // 4/20 — day of only
-  { month:4,  day:20, tags:['420','marijuana','cannabis','weed','smoke','chill','relaxed','stoned'], leadDays:0 },
+  { month:1,  day:1,  name:"New Year's Day",    tags:['new_years_day','celebration','confetti','party'], leadDays:3 },
+  { month:2,  day:2,  name:"Groundhog Day",      tags:['groundhog','winter','shadow','prediction'], leadDays:0 },
+  { month:2,  day:6,  name:"Sharona's Birthday", tags:['cat','cats','kitten','feline','birthday','celebration'], leadDays:0 },
+  { month:2,  day:14, name:"Valentine's Day",    tags:['valentines_day','love','heart','romance','flowers'], leadDays:7 },
+  { month:3,  day:14, name:"Pi Day",             tags:['pi_day','math','science','pie','numbers'], leadDays:0 },
+  { month:3,  day:17, name:"St. Patrick's Day",  tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:7 },
+  { month:3,  day:20, name:"Spring Equinox",     tags:['spring','flowers','sunshine','renewal'], leadDays:0 },
+  { month:4,  day:1,  name:"April Fools' Day",   tags:['april_fools','joke','silly','surprised'], leadDays:0 },
+  { month:4,  day:15, name:"Tax Day",            tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:0 },
+  { month:4,  day:20, name:"4/20",               tags:['420','marijuana','cannabis','weed','smoke','chill','relaxed','stoned'], leadDays:0 },
+  { month:4,  day:22, name:"Earth Day",          tags:['earth_day','nature','environment','trees'], leadDays:0 },
+  { month:5,  day:5,  name:"Cinco de Mayo",      tags:['cinco_de_mayo','mexico','fiesta','celebration'], leadDays:0 },
+  { month:6,  day:1,  name:"Pride Month",        tags:['pride','rainbow','lgbtq','celebration'], leadDays:0, spanDays:30 },
+  { month:6,  day:19, name:"Juneteenth",         tags:['juneteenth','freedom','celebration','history'], leadDays:0 },
+  { month:6,  day:21, name:"Summer Solstice",    tags:['summer','sunshine','beach','hot'], leadDays:0 },
+  { month:7,  day:4,  name:"Independence Day",   tags:['fourth_of_july','fireworks','patriotic','flag','celebration'], leadDays:5 },
+  { month:8,  day:25, name:"Back to School",     tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
+  { month:9,  day:4,  name:"Lea's Birthday",     tags:['birthday','cake','celebration','party'], leadDays:0 },
+  { month:9,  day:11, name:"9/11 Remembrance",   tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:0 },
+  { month:9,  day:22, name:"Fall Equinox",       tags:['fall','autumn','leaves','harvest'], leadDays:0 },
+  { month:10, day:31, name:"Halloween",          tags:['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'], leadDays:7 },
+  { month:11, day:11, name:"Veterans Day",       tags:['veterans_day','military','soldier','patriotic','flag'], leadDays:0 },
+  { month:12, day:24, name:"Christmas Eve",      tags:['christmas_eve','santa','gifts','night'], leadDays:0 },
+  { month:12, day:25, name:"Christmas Day",      tags:['christmas_day','tree','santa','gifts','snow','holiday'], leadDays:14 },
+  { month:12, day:26, name:"Kwanzaa",            tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
+  { month:12, day:31, name:"New Year's Eve",     tags:['new_years_eve','celebration','countdown','party'], leadDays:3 },
 ];
 
 // Computed floating dates — recalculated each year automatically
@@ -1358,24 +1344,31 @@ function getFloatingDates(year) {
   const kentuckyDerby = nthDay(5, 6, 1);
   // Super Bowl — 2nd Sunday of February
   const superBowl = nthDay(2, 0, 2);
+  // Arbor Day — last Friday of April
+  const arborDay = (() => {
+    const last = new Date(year, 4, 0); // last day of April
+    while (last.getDay() !== 5) last.setDate(last.getDate() - 1);
+    return new Date(last);
+  })();
   // Indy 500 — Sunday before Memorial Day
   const indy500 = new Date(memorialDay);
   indy500.setDate(indy500.getDate() - 1);
 
   return [
-    { ...d(mothersDay),    tags:['mothers_day','flowers','family','love'],                          leadDays:7  },
-    { ...d(fathersDay),    tags:['fathers_day','family','bbq','outdoors'],                          leadDays:7  },
-    { ...d(memorialDay),   tags:['memorial_day','patriotic','military','soldier','flag'],            leadDays:3  },
-    { ...d(laborDay),      tags:['labor_day','work','end_of_summer'],                               leadDays:1  },
-    { ...d(thanksgiving),  tags:['thanksgiving','turkey','harvest','family','feast'],                leadDays:14, spanDays:2 },
-    { ...d(mlkDay),        tags:['mlk','civil_rights','peace','dove'],                              leadDays:0  },
-    { ...d(presidentsDay), tags:['presidents_day','patriotic','washington'],                        leadDays:0  },
-    { ...d(columbusDay),   tags:['indigenous_peoples_day','native_american','history'],             leadDays:0  },
-    { ...d(dstSpring),     tags:['daylight_saving','spring_forward','clocks','time_change'],        leadDays:0  },
-    { ...d(dstFall),       tags:['daylight_saving','fall_back','clocks','time_change'],             leadDays:0  },
-    { ...d(kentuckyDerby), tags:['kentucky_derby','horse_racing','derby','hat','roses'],            leadDays:3  },
-    { ...d(indy500),       tags:['indy_500','racing','indianapolis','cars','speed'],                leadDays:3  },
-    { ...d(superBowl),     tags:['super_bowl','football','nfl','touchdown','party'],                leadDays:7  },
+    { ...d(arborDay),      name:"Arbor Day",               tags:['arbor_day','trees','nature','planting','environment'],            leadDays:0  },
+    { ...d(mothersDay),    name:"Mother's Day",             tags:['mothers_day','flowers','family','love'],                          leadDays:7  },
+    { ...d(fathersDay),    name:"Father's Day",             tags:['fathers_day','family','bbq','outdoors'],                          leadDays:7  },
+    { ...d(memorialDay),   name:"Memorial Day",             tags:['memorial_day','patriotic','military','soldier','flag'],            leadDays:3  },
+    { ...d(laborDay),      name:"Labor Day",                tags:['labor_day','work','end_of_summer'],                               leadDays:1  },
+    { ...d(thanksgiving),  name:"Thanksgiving",             tags:['thanksgiving','turkey','harvest','family','feast'],                leadDays:14, spanDays:2 },
+    { ...d(mlkDay),        name:"Martin Luther King Day",   tags:['mlk','civil_rights','peace','dove'],                              leadDays:0  },
+    { ...d(presidentsDay), name:"Presidents' Day",          tags:['presidents_day','patriotic','washington'],                        leadDays:0  },
+    { ...d(columbusDay),   name:"Indigenous Peoples' Day",  tags:['indigenous_peoples_day','native_american','history'],             leadDays:0  },
+    { ...d(dstSpring),     name:"Daylight Saving Time",     tags:['daylight_saving','spring_forward','clocks','time_change'],        leadDays:0  },
+    { ...d(dstFall),       name:"Daylight Saving Time",     tags:['daylight_saving','fall_back','clocks','time_change'],             leadDays:0  },
+    { ...d(kentuckyDerby), name:"Kentucky Derby",           tags:['kentucky_derby','horse_racing','derby','hat','roses'],            leadDays:3  },
+    { ...d(indy500),       name:"Indy 500",                 tags:['indy_500','racing','indianapolis','cars','speed'],                leadDays:3  },
+    { ...d(superBowl),     name:"Super Bowl",               tags:['super_bowl','football','nfl','touchdown','party'],                leadDays:7  },
   ];
 }
 
@@ -1860,12 +1853,15 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   }
 
   // Also check STATIC_DATES (birthdays, etc.)
+  let staticHolidayName = null;
   for (const sd of STATIC_DATES) {
     const start = new Date(today.getFullYear(), sd.month - 1, sd.day - (sd.leadDays || 0));
     const end   = new Date(today.getFullYear(), sd.month - 1, sd.day + (sd.spanDays || 1));
     if (today >= start && today < end) {
       targetTags = [...new Set([...sd.tags, ...targetTags])];
       matchSource = 'holiday';
+      staticHolidayName = sd.name || null;
+      if (!holidayName) holidayName = staticHolidayName;
       break;
     }
   }
@@ -2020,7 +2016,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   console.log('🐦 Winner:', winner?.bird?.filename, 'score:', winner?.score);
   if (!winner) return { url: getFallbackBird(), reason: null };
 
-  return { url: WEATHERBIRD_BASE_URL + winner.bird.filename, reason: winReason };
+  return { url: WEATHERBIRD_BASE_URL + winner.bird.filename, reason: winReason, holidayName: matchSource === 'holiday' ? holidayName : null };
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
