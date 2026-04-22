@@ -163,10 +163,11 @@
   .top-card-left {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex: 1;
     min-width: 0;
     padding-right: 48px;
+    height: 100%;
   }
   .top-card-date-block {
     display: flex;
@@ -186,12 +187,28 @@
   }
   .weather-conditions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .weather-temp-block {
+    display: flex;
+    align-items: center;
     gap: 8px;
-    font-size: 24px;
-    color: var(--text);
+    font-size: 42px;
     font-weight: 500;
-    margin-top: 12px;
+    color: var(--text);
+    line-height: 1;
+  }
+  .weather-temp-block .weather-icon { font-size: 42px; }
+  .weather-secondary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
   }
   .top-card-right {
     display: flex;
@@ -453,11 +470,16 @@
         <div id="dateLabel" class="top-card-date">--</div>
       </div>
       <div class="weather-conditions">
-        <div><span id="weatherIcon">⛅</span> <span id="weatherTemp">--°</span></div>
-        <div>💧 <span id="weatherHumidity">--</span>%</div>
-        <div>💨 <span id="weatherWind">--</span> mph</div>
+        <div class="weather-temp-block">
+          <span id="weatherIcon" class="weather-icon">⛅</span>
+          <span id="weatherTemp">--°</span>
+        </div>
+        <div class="weather-secondary">
+          <div>💧 <span id="weatherHumidity">--</span>%</div>
+          <div>💨 <span id="weatherWind">--</span> mph</div>
+        </div>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;margin-top:6px;"><div id="birdReason" style="font-size:11px;color:var(--text-muted);font-style:italic;"></div><button onclick="birdOffset++;loadWeatherbirdImage()" style="background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-size:11px;padding:2px 8px;cursor:pointer;font-family:inherit;flex-shrink:0;">next bird →</button></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:12px;"><div id="birdReason" style="font-size:11px;color:var(--text-muted);font-style:italic;"></div><button onclick="birdOffset++;loadWeatherbirdImage()" style="background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-size:11px;padding:2px 8px;cursor:pointer;font-family:inherit;flex-shrink:0;">next bird →</button></div>
     </div>
     <div class="top-card-right">
       <img id="dashImg" src="" alt="Dashboard image">
