@@ -16091,19 +16091,6 @@
     },
     "description": "twinkies eat dessert"
   },
-  "spring_daylight_savings_time_change.png": {
-    "filename": "spring_daylight_savings_time_change.png",
-    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/spring_daylight_savings_time_change.png",
-    "tags": {
-      "manual": [
-        "daylight_saving",
-        "spring_forward",
-        "clocks",
-        "time_change"
-      ]
-    },
-    "description": "spring daylight savings"
-  },
   "summer_diving_pool_swim_trunks.png": {
     "filename": "summer_diving_pool_swim_trunks.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/summer_diving_pool_swim_trunks.png",
@@ -16134,5 +16121,17 @@
       ]
     },
     "description": "default tying die"
+  },
+  "clock_forward_dst.png": {
+    "filename": "clock_forward_dst.png",
+    "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/clock_forward_dst.png",
+    "tags": {
+      "manual": [
+        "['daylight saving time'",
+        "'clock'",
+        "'time change']"
+      ]
+    },
+    "description": "daylight saving time"
   }
 }
