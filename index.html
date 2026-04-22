@@ -191,7 +191,7 @@
     font-size: 24px;
     color: var(--text);
     font-weight: 500;
-    margin-top: 32px;
+    margin-top: 12px;
   }
   .top-card-right {
     display: flex;
@@ -1267,7 +1267,7 @@ const FIXED_DATES = [
   // April Fools — day of only
   { month:4,  day:1,  tags:['april_fools','joke','silly','surprised'], leadDays:0 },
   // Earth Day — day of only
-  { month:4,  day:22, tags:['earth_day','nature','environment','green','trees'], leadDays:0 },
+  { month:4,  day:22, tags:['earth_day','nature','environment','trees'], leadDays:0 },
   // Tax Day — day of only
   { month:4,  day:15, tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:0 },
   // Cinco de Mayo — day of only
@@ -1284,9 +1284,11 @@ const FIXED_DATES = [
   { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
   // 9/11 Remembrance — day of only
   { month:9,  day:11, tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:0 },
+  // Sharona's Birthday — day of only
+  { month:2,  day:6,  tags:['cat','cats','kitten','feline','birthday','celebration'], leadDays:0 },
   // Lea's Birthday — day of only
   { month:9,  day:4,  tags:['birthday','cake','celebration','party'], leadDays:0 },
-  // Fall Equinox — day of only
+  // Fall Equinox — day of only (approx, shifts ±1 day but close enough)
   { month:9,  day:22, tags:['fall','autumn','leaves','harvest'], leadDays:0 },
   // Halloween — 7 days ahead
   { month:10, day:31, tags:['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'], leadDays:7 },
@@ -1307,28 +1309,51 @@ const FIXED_DATES = [
 // Computed floating dates — recalculated each year automatically
 function getFloatingDates(year) {
   const d = (date) => ({ month: date.getMonth() + 1, day: date.getDate() });
-  // Spring DST — 2nd Sunday of March
-  const dstSpring = nthWeekdayOfMonth(year, 3, 0, 2);
-  // Fall DST — 1st Sunday of November
-  const dstFall = nthWeekdayOfMonth(year, 11, 0, 1);
-  // Kentucky Derby — 1st Saturday of May
-  const kentuckyDerby = nthWeekdayOfMonth(year, 5, 6, 1);
-  // Super Bowl — 2nd Sunday of February
-  const superBowl = nthWeekdayOfMonth(year, 2, 0, 2);
-  // Indy 500 — Sunday before Memorial Day (last Monday of May minus 1 day)
-  const memorialDay = (() => {
-    const last = new Date(year, 5, 0); // last day of May
+
+  // ── helpers ──
+  function nthDay(month1, weekday, nth) { return nthWeekdayOfMonth(year, month1, weekday, nth); }
+  function lastMonday(month1) {
+    const last = new Date(year, month1, 0); // last day of month
     while (last.getDay() !== 1) last.setDate(last.getDate() - 1);
-    return last;
-  })();
+    return new Date(last);
+  }
+
+  // Shifting US holidays
+  const mothersDay    = nthDay(5,  0, 2);  // 2nd Sunday of May
+  const fathersDay    = nthDay(6,  0, 3);  // 3rd Sunday of June
+  const memorialDay   = lastMonday(5);      // Last Monday of May
+  const laborDay      = nthDay(9,  1, 1);  // 1st Monday of September
+  const thanksgiving  = nthDay(11, 4, 4);  // 4th Thursday of November
+  const mlkDay        = nthDay(1,  1, 3);  // 3rd Monday of January
+  const presidentsDay = nthDay(2,  1, 3);  // 3rd Monday of February
+  const columbusDay   = nthDay(10, 1, 2);  // 2nd Monday of October
+
+  // Spring DST — 2nd Sunday of March
+  const dstSpring = nthDay(3, 0, 2);
+  // Fall DST — 1st Sunday of November
+  const dstFall = nthDay(11, 0, 1);
+  // Kentucky Derby — 1st Saturday of May
+  const kentuckyDerby = nthDay(5, 6, 1);
+  // Super Bowl — 2nd Sunday of February
+  const superBowl = nthDay(2, 0, 2);
+  // Indy 500 — Sunday before Memorial Day
   const indy500 = new Date(memorialDay);
   indy500.setDate(indy500.getDate() - 1);
+
   return [
-    { ...d(dstSpring),     tags:['daylight_saving','spring_forward','clocks','time_change'], leadDays:0 },
-    { ...d(dstFall),       tags:['daylight_saving','fall_back','clocks','time_change'],      leadDays:0 },
-    { ...d(kentuckyDerby), tags:['kentucky_derby','horse_racing','derby','hat','roses'],     leadDays:3 },
-    { ...d(indy500),       tags:['indy_500','racing','indianapolis','cars','speed'],         leadDays:3 },
-    { ...d(superBowl),     tags:['super_bowl','football','nfl','touchdown','party'],         leadDays:7 },
+    { ...d(mothersDay),    tags:['mothers_day','flowers','family','love'],                          leadDays:7  },
+    { ...d(fathersDay),    tags:['fathers_day','family','bbq','outdoors'],                          leadDays:7  },
+    { ...d(memorialDay),   tags:['memorial_day','patriotic','military','soldier','flag'],            leadDays:3  },
+    { ...d(laborDay),      tags:['labor_day','work','end_of_summer'],                               leadDays:1  },
+    { ...d(thanksgiving),  tags:['thanksgiving','turkey','harvest','family','feast'],                leadDays:14, spanDays:2 },
+    { ...d(mlkDay),        tags:['mlk','civil_rights','peace','dove'],                              leadDays:0  },
+    { ...d(presidentsDay), tags:['presidents_day','patriotic','washington'],                        leadDays:0  },
+    { ...d(columbusDay),   tags:['indigenous_peoples_day','native_american','history'],             leadDays:0  },
+    { ...d(dstSpring),     tags:['daylight_saving','spring_forward','clocks','time_change'],        leadDays:0  },
+    { ...d(dstFall),       tags:['daylight_saving','fall_back','clocks','time_change'],             leadDays:0  },
+    { ...d(kentuckyDerby), tags:['kentucky_derby','horse_racing','derby','hat','roses'],            leadDays:3  },
+    { ...d(indy500),       tags:['indy_500','racing','indianapolis','cars','speed'],                leadDays:3  },
+    { ...d(superBowl),     tags:['super_bowl','football','nfl','touchdown','party'],                leadDays:7  },
   ];
 }
 
