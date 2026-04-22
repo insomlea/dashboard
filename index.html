@@ -1775,7 +1775,19 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
     '04/22/2026': 'elephant_friend_zoo_visit.png', // Earth Day elephant
   };
   if (DATE_OVERRIDES[overrideKey]) {
-    return { url: WEATHERBIRD_BASE_URL + DATE_OVERRIDES[overrideKey], reason: 'Special pick for today 🐘' };
+    // Still resolve the holiday name for the banner
+    const todayForName = new Date();
+    const todayYmdOverride = toYMD(todayForName);
+    let overrideHolidayName = null;
+    for (const sd of STATIC_DATES) {
+      const start = new Date(todayForName.getFullYear(), sd.month - 1, sd.day - (sd.leadDays || 0));
+      const end   = new Date(todayForName.getFullYear(), sd.month - 1, sd.day + (sd.spanDays || 1));
+      if (todayForName >= start && todayForName < end) {
+        overrideHolidayName = sd.name || null;
+        break;
+      }
+    }
+    return { url: WEATHERBIRD_BASE_URL + DATE_OVERRIDES[overrideKey], reason: 'Special pick for today 🐘', holidayName: overrideHolidayName };
   }
 
   const today = new Date();
