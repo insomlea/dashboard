@@ -16096,13 +16096,10 @@
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/spring_daylight_savings_time_change.png",
     "tags": {
       "manual": [
-        "spring",
-        "daylight saving time",
-        "clock",
-        "time change",
-        "seasonal",
-        "march",
-        "weatherbird"
+        "daylight_saving",
+        "spring_forward",
+        "clocks",
+        "time_change"
       ]
     },
     "description": "spring daylight savings"
