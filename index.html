@@ -478,7 +478,7 @@
           <span id="weatherTemp">--°</span>
         </div>
         <div class="weather-secondary">
-          <div><span style="display:inline-block;transform:rotate(90deg);">💦</span> <span id="weatherHumidity">--</span>%</div>
+          <div><img src="weather-emojis/humidity.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;"> <span id="weatherHumidity">--</span>%</div>
           <div>💨 <span id="weatherWind">--</span> mph</div>
         </div>
       </div>
@@ -854,6 +854,7 @@ function getCorrectFloatingHolidayDate(name, year) {
     return new Date(last);
   }
 
+  if (n.includes("record store")) return nthWeekday(year, 3, 6, 3); // 3rd Sat Apr
   if (n.includes("mother")) return nthWeekday(year, 4, 0, 2);        // 2nd Sun May
   if (n.includes("father")) return nthWeekday(year, 5, 0, 3);        // 3rd Sun Jun
   if (n.includes("memorial")) return lastWeekday(year, 4, 1);        // Last Mon May
