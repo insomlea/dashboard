@@ -1617,6 +1617,7 @@ function scoreBird(bird, targetTags) {
     labor_day:               ['labor_day'],
     indigenous_peoples_day:  ['indigenous_peoples_day'],
     nine_eleven:             ['september_11', 'nine_eleven'],
+    pride:                   ['pride_rainbow', 'pride_flag', 'pride_month'],
   };
   for (const [holiday, keywords] of Object.entries(FILENAME_HOLIDAY_KEYWORDS)) {
     if (keywords.some(k => birdFilename.includes(k))) {
