@@ -1980,16 +1980,19 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   // ── Tier 1: Holiday ──
   const holidayTags = matchSource === 'holiday' ? pureEventTags : [];
   if (holidayTags.length) {
-    // Prefer birds that have the specific holiday tag explicitly in their tags (e.g. arbor_day).
-    // Only fall back to broad description matching if no exact-tagged bird exists.
-    const exactCandidates = candidatesFor(holidayTags, false).filter(s => {
-      const bTags = getBirdTags(s.bird);
-      return holidayTags.some(ht => bTags.includes(ht.toLowerCase()));
-    });
+    // Derive the specific holiday name tag (e.g. "Arbor Day" → "arbor_day").
+    // Only birds explicitly tagged with this specific tag count as exact matches —
+    // generic shared tags like "nature" or "environment" don't qualify.
+    const specificTag = holidayName
+      ? holidayName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')
+      : null;
+    const exactCandidates = specificTag
+      ? candidatesFor(holidayTags, false).filter(s => getBirdTags(s.bird).includes(specificTag))
+      : [];
     top = exactCandidates.length ? exactCandidates : candidatesFor(holidayTags, true);
     if (top.length) {
       winReason = holidayName ? `Showing for ${holidayName}` : `Showing for holiday`;
-      console.log(`🐦 Tier 1 (holiday): ${top.length} birds (${exactCandidates.length ? 'exact tag match' : 'broad match'})`);
+      console.log(`🐦 Tier 1 (holiday): ${top.length} birds (${exactCandidates.length ? `exact "${specificTag}" match` : 'broad match'})`);
     }
   }
 
