@@ -1980,19 +1980,26 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   // ── Tier 1: Holiday ──
   const holidayTags = matchSource === 'holiday' ? pureEventTags : [];
   if (holidayTags.length) {
-    // Derive the specific holiday name tag (e.g. "Arbor Day" → "arbor_day").
-    // Only birds explicitly tagged with this specific tag count as exact matches —
-    // generic shared tags like "nature" or "environment" don't qualify.
+    // Hard override: if any bird has the holiday name tag explicitly in its structured tags
+    // (e.g. arbor_day in manual tags), use ONLY those birds — skip all scoring/exclusion guards.
     const specificTag = holidayName
       ? holidayName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')
       : null;
-    const exactCandidates = specificTag
-      ? candidatesFor(holidayTags, false).filter(s => getBirdTags(s.bird).includes(specificTag))
-      : [];
-    top = exactCandidates.length ? exactCandidates : candidatesFor(holidayTags, true);
-    if (top.length) {
-      winReason = holidayName ? `Showing for ${holidayName}` : `Showing for holiday`;
-      console.log(`🐦 Tier 1 (holiday): ${top.length} birds (${exactCandidates.length ? `exact "${specificTag}" match` : 'broad match'})`);
+    if (specificTag) {
+      const hardTagged = birds.filter(b => getBirdTags(b).includes(specificTag));
+      if (hardTagged.length) {
+        top = hardTagged.map(b => ({ bird: b, score: 100 }));
+        winReason = `Showing for ${holidayName}`;
+        console.log(`🐦 Tier 1 (explicit tag "${specificTag}"): ${hardTagged.length} birds`);
+      }
+    }
+    // Fall back to broad scored matching if no explicitly-tagged birds exist
+    if (!top.length) {
+      top = candidatesFor(holidayTags, true);
+      if (top.length) {
+        winReason = holidayName ? `Showing for ${holidayName}` : `Showing for holiday`;
+        console.log(`🐦 Tier 1 (holiday broad match): ${top.length} birds`);
+      }
     }
   }
 
