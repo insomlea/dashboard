@@ -256,10 +256,12 @@
     display: flex;
     gap: 6px;
     margin-top: 2px;
+    flex-wrap: wrap;
   }
 
   .add-tag-input {
     flex: 1;
+    min-width: 80px;
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -267,10 +269,22 @@
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     color: var(--text);
-    min-width: 0;
   }
   .add-tag-input:focus { outline: none; border-color: var(--accent); }
   .add-tag-input::placeholder { color: var(--muted); }
+
+  .cat-select {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    cursor: pointer;
+    min-width: 0;
+  }
+  .cat-select:focus { outline: none; border-color: var(--accent); }
 
   .add-tag-btn {
     background: transparent;
@@ -439,18 +453,19 @@
   }
 
   // ── Add a tag to a bird ──
-  function addTag(filename, val) {
+  function addTag(filename, val, cat) {
     val = val.trim().toLowerCase().replace(/[^a-z0-9_]/g, '_');
     if (!val) return false;
     const bird = index[filename];
     if (!bird) return false;
-    if (!bird.tags) bird.tags = {};
-    if (!bird.tags.manual) bird.tags.manual = [];
-    if (bird.tags.manual.includes(val)) return false;
-    // Also check all other tag arrays to avoid duplicates
+    // Avoid duplicates across all categories
     const existing = flattenTags(bird).map(t => t.val);
     if (existing.includes(val)) return false;
-    bird.tags.manual.push(val);
+    if (!bird.tags) bird.tags = {};
+    const bucket = cat && TAG_CATEGORIES.includes(cat) ? cat : 'manual';
+    if (!bird.tags[bucket]) bird.tags[bucket] = [];
+    if (!Array.isArray(bird.tags[bucket])) bird.tags[bucket] = [bird.tags[bucket]];
+    bird.tags[bucket].push(val);
     return true;
   }
 
