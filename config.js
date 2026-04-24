@@ -85,6 +85,7 @@ function getFloatingDates(year) {
   const columbusDay   = nthDay(10, 1, 2);
   const dstSpring     = nthDay(3,  0, 2);
   const dstFall       = nthDay(11, 0, 1);
+  const recordStoreDay = nthDay(4,  6, 3);
   const kentuckyDerby = nthDay(5,  6, 1);
   const superBowl     = nthDay(2,  0, 2);
   const arborDay = (() => {
@@ -96,6 +97,7 @@ function getFloatingDates(year) {
   indy500.setDate(indy500.getDate() - 1);
 
   return [
+    { ...d(recordStoreDay), name:"Record Store Day",          tags:['record_store_day','music','vinyl','records','shopping'],         leadDays:0  },
     { ...d(arborDay),      name:"Arbor Day",               tags:['arbor_day','trees','nature','planting','environment'],            leadDays:0  },
     { ...d(mothersDay),    name:"Mother's Day",             tags:['mothers_day','flowers','family','love'],                          leadDays:7  },
     { ...d(fathersDay),    name:"Father's Day",             tags:['fathers_day','family','bbq','outdoors'],                          leadDays:7  },
