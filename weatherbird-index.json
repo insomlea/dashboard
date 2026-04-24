@@ -8,29 +8,16 @@
       "seasons": [],
       "weather": [],
       "sports": [],
-      "activities": [
-        "celebrating",
-        "cooking"
-      ],
+      "activities": [],
       "themes": [
         "birthday"
       ],
       "animals": [],
-      "moods": [
-        "happy",
-        "excited"
-      ],
+      "moods": [],
       "places": [],
-      "food": [
-        "cake",
-        "champagne"
-      ],
+      "food": [],
       "significant_dates": [],
-      "associations": [
-        "milestone",
-        "anniversary",
-        "age"
-      ]
+      "associations": []
     }
   },
   "111_birthday_balloons_celebration_2.png": {
@@ -42,24 +29,16 @@
       "seasons": [],
       "weather": [],
       "sports": [],
-      "activities": [
-        "celebrating"
-      ],
+      "activities": [],
       "themes": [
         "birthday"
       ],
       "animals": [],
-      "moods": [
-        "happy",
-        "excited"
-      ],
+      "moods": [],
       "places": [],
       "food": [],
       "significant_dates": [],
-      "associations": [
-        "party",
-        "milestone"
-      ]
+      "associations": []
     }
   },
   "125th_birthday_cake_celebration.png": {
@@ -88,13 +67,11 @@
       ],
       "places": [],
       "food": [
-        "cake",
-        "birthday_cake"
+        "cake"
       ],
       "significant_dates": [],
       "associations": [
         "celebration",
-        "milestone_event",
         "newspaper_history"
       ]
     }
@@ -1575,8 +1552,7 @@
     "tags": {
       "holidays": [],
       "seasons": [],
-      "weather": [
-      ],
+      "weather": [],
       "sports": [],
       "activities": [
         "traveling",
@@ -2374,8 +2350,7 @@
       "seasons": [
         "summer"
       ],
-      "weather": [
-      ],
+      "weather": [],
       "sports": [],
       "activities": [],
       "themes": [],
@@ -3176,10 +3151,8 @@
       ],
       "food": [],
       "significant_dates": [],
-      "associations": [
-        "postal_service",
-        "delivery"
-      ]
+      "associations": [],
+      "manual": []
     }
   },
   "cold_autumn_shivering_green_jacket.png": {
@@ -3339,6 +3312,9 @@
       "associations": [
         "outdoor_activities",
         "summer_activities"
+      ],
+      "manual": [
+        "default"
       ]
     }
   },
@@ -5003,7 +4979,6 @@
     "tags": {
       "holidays": [],
       "seasons": [
-        "spring",
         "summer",
         "fall"
       ],
@@ -5462,22 +5437,16 @@
       "holidays": [],
       "seasons": [],
       "weather": [
-        "rain"
+        "rain",
+        "heavy_rain"
       ],
       "sports": [],
-      "activities": [
-        "math",
-        "calculating",
-        "problem_solving"
-      ],
+      "activities": [],
       "themes": [
-        "school",
-        "education",
         "work"
       ],
       "animals": [],
       "moods": [
-        "stressed",
         "confused",
         "worried"
       ],
@@ -5492,6 +5461,9 @@
         "desperation",
         "struggling",
         "fractions"
+      ],
+      "manual": [
+        "flood"
       ]
     }
   },
@@ -5526,6 +5498,9 @@
         "childhood",
         "adventure",
         "outdoor_play"
+      ],
+      "manual": [
+        "flood"
       ]
     }
   },
@@ -6064,8 +6039,7 @@
         "summer"
       ],
       "weather": [
-        "hot",
-        "sunshine"
+        "hot"
       ],
       "sports": [],
       "activities": [
@@ -6250,9 +6224,7 @@
     "tags": {
       "holidays": [],
       "seasons": [],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [],
       "activities": [
         "celebrating"
@@ -6346,9 +6318,7 @@
         "spring",
         "summer"
       ],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [
         "baseball"
       ],
@@ -7275,9 +7245,7 @@
     "tags": {
       "holidays": [],
       "seasons": [],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [],
       "activities": [
         "flying",
@@ -7313,9 +7281,7 @@
       "seasons": [
         "summer"
       ],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [],
       "activities": [
         "traveling"
@@ -8180,9 +8146,7 @@
         "spring",
         "summer"
       ],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [],
       "activities": [],
       "themes": [],
@@ -9634,7 +9598,7 @@
   "pi_day_math_symbol.png": {
     "filename": "pi_day_math_symbol.png",
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/pi_day_math_symbol.png",
-    "description": "The Weatherbird holds up a sign displaying the mathematical constant pi (\u03c0) with an excited expression.",
+    "description": "The Weatherbird holds up a sign displaying the mathematical constant pi (π) with an excited expression.",
     "tags": {
       "holidays": [
         "pi_day"
@@ -9813,9 +9777,7 @@
       "weather": [],
       "sports": [],
       "activities": [],
-      "themes": [
-        "work"
-      ],
+      "themes": [],
       "animals": [],
       "moods": [
         "serious"
@@ -9843,7 +9805,6 @@
       "sports": [],
       "activities": [],
       "themes": [
-        "work",
         "law_enforcement"
       ],
       "animals": [],
@@ -9900,9 +9861,7 @@
     "tags": {
       "holidays": [],
       "seasons": [],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [],
       "activities": [],
       "themes": [
@@ -10296,6 +10255,9 @@
       "associations": [
         "weather_preparedness",
         "rainy_day"
+      ],
+      "manual": [
+        "flood"
       ]
     }
   },
@@ -11111,9 +11073,7 @@
     "tags": {
       "holidays": [],
       "seasons": [],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [],
       "activities": [
         "running",
@@ -11750,8 +11710,7 @@
         "sunshine"
       ],
       "sports": [
-        "soccer",
-        "football"
+        "soccer"
       ],
       "activities": [
         "playing",
@@ -13607,6 +13566,9 @@
         "party",
         "festive",
         "joyful"
+      ],
+      "manual": [
+        "ikea"
       ]
     }
   },
@@ -13688,8 +13650,7 @@
       "sports": [],
       "activities": [],
       "themes": [
-        "school",
-        "superhero"
+        "school"
       ],
       "animals": [],
       "moods": [
@@ -14168,11 +14129,11 @@
     "tags": {
       "holidays": [],
       "seasons": [],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [],
-      "activities": [],
+      "activities": [
+        "dance"
+      ],
       "themes": [],
       "animals": [],
       "moods": [
@@ -14644,6 +14605,9 @@
         "celebration",
         "fine_dining",
         "hospitality_industry"
+      ],
+      "manual": [
+        "reservation"
       ]
     }
   },
@@ -14675,6 +14639,10 @@
         "heroic",
         "patriotic",
         "action"
+      ],
+      "manual": [
+        "september_11",
+        "nine_eleven"
       ]
     }
   },
@@ -15279,9 +15247,7 @@
       "weather": [
         "snow"
       ],
-      "sports": [
-        "boxing"
-      ],
+      "sports": [],
       "activities": [
         "shoveling"
       ],
@@ -15463,6 +15429,9 @@
         "office_work",
         "productivity",
         "responsibility"
+      ],
+      "manual": [
+        "default"
       ]
     }
   },
