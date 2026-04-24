@@ -480,6 +480,7 @@
         <div class="weather-secondary">
           <div><img src="weather-emojis/humidity.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;"> <span id="weatherHumidity">--</span>%</div>
           <div>💨 <span id="weatherWind">--</span> mph</div>
+          <div id="aqiRow" style="display:none;"><img src="weather-emojis/air quality.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;"> <span id="weatherAqi">--</span> AQI</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:12px;flex-direction:column;align-items:flex-start;">
@@ -636,6 +637,18 @@ async function loadWeather() {
     document.getElementById('weatherIcon').textContent = getWeatherIcon(cur.weathercode, cur.is_day === 1);
     document.getElementById('weatherHumidity').textContent = Math.round(cur.relative_humidity_2m);
     document.getElementById('weatherWind').textContent = Math.round(cur.wind_speed_10m);
+
+    // Fetch AQI from Open-Meteo air quality API
+    try {
+      const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}&current=us_aqi`;
+      const aqiRes = await fetch(aqiUrl);
+      const aqiData = await aqiRes.json();
+      const aqi = aqiData?.current?.us_aqi;
+      if (aqi != null) {
+        document.getElementById('weatherAqi').textContent = aqi;
+        document.getElementById('aqiRow').style.display = 'block';
+      }
+    } catch(e) { /* AQI is optional, fail silently */ }
 
     // Trigger bird picker now that we have weather
     loadWeatherbirdImage();
