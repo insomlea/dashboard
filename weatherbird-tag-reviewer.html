@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weatherbird Tag Reviewer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@300;400&display=swap');
+
+  :root {
+    --bg: #1a1612;
+    --card: #242018;
+    --border: #3a3228;
+    --text: #f0e8d8;
+    --muted: #7a6f5e;
+    --accent: #e8c97a;
+    --accent2: #c87d4a;
+    --danger: #c84a4a;
+    --success: #4ac87a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    padding: 32px 24px;
+  }
+
+  header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── LOAD PANEL ── */
+  #load-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 540px;
+    margin: 60px auto 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #load-panel h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--accent);
+  }
+
+  #load-panel p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  input[type="file"] { display: none; }
+
+  .btn {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn.secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--border);
+  }
+  .btn.success { background: var(--success); color: var(--bg); }
+  .btn.danger-btn { background: var(--danger); color: #fff; }
+
+  /* ── TOP BAR ── */
+  #app { display: none; }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .search-wrap svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  #searchInput {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px 9px 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    transition: border-color 0.15s;
+  }
+  #searchInput:focus { outline: none; border-color: var(--accent); }
+  #searchInput::placeholder { color: var(--muted); }
+
+  .count-label {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── GRID ── */
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .bird-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s;
+  }
+  .bird-card:hover { border-color: rgba(232,201,122,0.35); }
+  .bird-card.hidden { display: none; }
+
+  .bird-img-wrap {
+    background: rgba(255,255,255,0.03);
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .bird-img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    padding: 8px;
+  }
+
+  .bird-body {
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .bird-name {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    word-break: break-all;
+  }
+
+  /* ── TAG PILLS ── */
+  .tags-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 28px;
+  }
+
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px 3px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    line-height: 1;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .tag-pill .x-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    padding: 0 0 0 2px;
+    opacity: 0.6;
+    color: inherit;
+    transition: opacity 0.1s;
+    display: flex;
+    align-items: center;
+  }
+  .tag-pill .x-btn:hover { opacity: 1; }
+
+  /* Tag category colors */
+  .cat-holidays    { background: rgba(232,201,122,0.15); border-color: rgba(232,201,122,0.35); color: #e8c97a; }
+  .cat-seasons     { background: rgba(74,200,122,0.12); border-color: rgba(74,200,122,0.3); color: #6ad89a; }
+  .cat-weather     { background: rgba(74,140,200,0.15); border-color: rgba(74,140,200,0.3); color: #7ab8e8; }
+  .cat-sports      { background: rgba(200,125,74,0.15); border-color: rgba(200,125,74,0.3); color: #e8a06a; }
+  .cat-activities  { background: rgba(160,74,200,0.15); border-color: rgba(160,74,200,0.3); color: #c07ae8; }
+  .cat-themes      { background: rgba(74,200,185,0.12); border-color: rgba(74,200,185,0.3); color: #6adcd0; }
+  .cat-moods       { background: rgba(200,74,140,0.15); border-color: rgba(200,74,140,0.3); color: #e87ab0; }
+  .cat-places      { background: rgba(160,130,80,0.18); border-color: rgba(160,130,80,0.35); color: #c8a870; }
+  .cat-food        { background: rgba(200,74,74,0.15); border-color: rgba(200,74,74,0.3); color: #e87a7a; }
+  .cat-significant_dates { background: rgba(220,200,74,0.12); border-color: rgba(220,200,74,0.3); color: #dcd04a; }
+  .cat-associations { background: rgba(140,140,140,0.15); border-color: rgba(140,140,140,0.3); color: #aaa; }
+  .cat-manual      { background: rgba(232,201,122,0.1); border-color: rgba(232,201,122,0.25); color: var(--text); }
+  .cat-other       { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: var(--muted); }
+
+  /* ── ADD TAG ROW ── */
+  .add-tag-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .add-tag-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text);
+    min-width: 0;
+  }
+  .add-tag-input:focus { outline: none; border-color: var(--accent); }
+  .add-tag-input::placeholder { color: var(--muted); }
+
+  .add-tag-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.15s;
+  }
+  .add-tag-btn:hover { border-color: var(--accent); }
+
+  /* ── EMPTY STATE ── */
+  #empty {
+    display: none;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--success);
+    color: var(--bg);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  #toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Weatherbird Tag Reviewer</h1>
+  <span class="subtitle">Edit · Delete · Export</span>
+</header>
+
+<!-- LOAD PANEL -->
+<div id="load-panel">
+  <h2>Load your index</h2>
+  <p>Select your <strong>weatherbird-index.json</strong> to get started. All changes stay local until you export.</p>
+  <label class="btn" for="jsonInput">📄 Load weatherbird-index.json</label>
+  <input type="file" id="jsonInput" accept=".json">
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="top-bar">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <circle cx="6.5" cy="6.5" r="5" stroke="#f0e8d8" stroke-width="1.5"/>
+        <line x1="10.5" y1="10.5" x2="15" y2="15" stroke="#f0e8d8" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search by filename or tag…" autocomplete="off">
+    </div>
+    <span class="count-label" id="countLabel"></span>
+    <button class="btn success" id="exportBtn">⬇ Export JSON</button>
+    <label class="btn secondary" for="jsonInput">↺ Reload</label>
+  </div>
+
+  <div id="grid"></div>
+  <div id="empty">No birds match your search.</div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const TAG_CATEGORIES = [
+    'holidays','seasons','weather','sports','activities',
+    'themes','moods','places','food','significant_dates','associations','manual'
+  ];
+
+  let index = {};
+
+  // ── Load JSON ──
+  document.getElementById('jsonInput').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        index = JSON.parse(ev.target.result);
+        document.getElementById('load-panel').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        renderGrid();
+      } catch {
+        alert('Could not parse JSON file.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  // ── Flatten tags from a bird entry into [{cat, val}] ──
+  function flattenTags(bird) {
+    const result = [];
+    const tags = bird.tags;
+    if (!tags) return result;
+
+    for (const cat of TAG_CATEGORIES) {
+      const v = tags[cat];
+      if (!v) continue;
+      if (Array.isArray(v)) v.forEach(t => { if (t) result.push({ cat, val: String(t) }); });
+      else if (typeof v === 'string' && v.trim()) result.push({ cat, val: v.trim() });
+    }
+
+    // Catch any other keys not in the list above
+    for (const [cat, v] of Object.entries(tags)) {
+      if (TAG_CATEGORIES.includes(cat)) continue;
+      if (Array.isArray(v)) v.forEach(t => { if (t) result.push({ cat: 'other', val: String(t) }); });
+      else if (typeof v === 'string' && v.trim()) result.push({ cat: 'other', val: v.trim() });
+    }
+
+    // Top-level fields (holiday, season, etc.)
+    for (const field of ['holiday','season','weather','object','objects']) {
+      const v = bird[field];
+      if (!v) continue;
+      if (Array.isArray(v)) v.forEach(t => { if (t) result.push({ cat: field + 's', val: String(t) }); });
+      else if (typeof v === 'string' && v.trim()) result.push({ cat: field + 's', val: v.trim() });
+    }
+
+    return result;
+  }
+
+  // ── Remove a tag from the index data ──
+  function removeTag(filename, cat, val) {
+    const bird = index[filename];
+    if (!bird) return;
+
+    // Check structured tags object
+    if (bird.tags) {
+      for (const [key, v] of Object.entries(bird.tags)) {
+        if (Array.isArray(v)) {
+          const idx = v.indexOf(val);
+          if (idx !== -1) { v.splice(idx, 1); return; }
+        } else if (typeof v === 'string' && v === val) {
+          bird.tags[key] = ''; return;
+        }
+      }
+    }
+
+    // Check top-level fields
+    for (const field of ['holiday','season','weather','object','objects']) {
+      const v = bird[field];
+      if (Array.isArray(v)) {
+        const idx = v.indexOf(val);
+        if (idx !== -1) { v.splice(idx, 1); return; }
+      } else if (typeof v === 'string' && v === val) {
+        bird[field] = ''; return;
+      }
+    }
+  }
+
+  // ── Add a tag to a bird ──
+  function addTag(filename, val) {
+    val = val.trim().toLowerCase().replace(/[^a-z0-9_]/g, '_');
+    if (!val) return false;
+    const bird = index[filename];
+    if (!bird) return false;
+    if (!bird.tags) bird.tags = {};
+    if (!bird.tags.manual) bird.tags.manual = [];
+    if (bird.tags.manual.includes(val)) return false;
+    // Also check all other tag arrays to avoid duplicates
+    const existing = flattenTags(bird).map(t => t.val);
+    if (existing.includes(val)) return false;
+    bird.tags.manual.push(val);
+    return true;
+  }
+
+  // ── Render the grid ──
+  function renderGrid() {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+
+    const entries = Object.values(index);
+    entries.sort((a, b) => (a.filename || '').localeCompare(b.filename || ''));
+
+    entries.forEach(bird => {
+      const card = buildCard(bird);
+      grid.appendChild(card);
+    });
+
+    applySearch();
+  }
+
+  // ── Build one card DOM element ──
+  function buildCard(bird) {
+    const filename = bird.filename || '';
+    const url = bird.url || '';
+
+    const card = document.createElement('div');
+    card.className = 'bird-card';
+    card.dataset.filename = filename;
+
+    // Image
+    const imgWrap = document.createElement('div');
+    imgWrap.className = 'bird-img-wrap';
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = filename;
+    img.loading = 'lazy';
+    imgWrap.appendChild(img);
+    card.appendChild(imgWrap);
+
+    // Body
+    const body = document.createElement('div');
+    body.className = 'bird-body';
+
+    const nameEl = document.createElement('div');
+    nameEl.className = 'bird-name';
+    nameEl.textContent = filename;
+    body.appendChild(nameEl);
+
+    // Tags wrap
+    const tagsWrap = document.createElement('div');
+    tagsWrap.className = 'tags-wrap';
+    tagsWrap.dataset.filename = filename;
+    body.appendChild(tagsWrap);
+
+    renderTagPills(tagsWrap, bird);
+
+    // Add tag row
+    const addRow = document.createElement('div');
+    addRow.className = 'add-tag-row';
+    const addInput = document.createElement('input');
+    addInput.type = 'text';
+    addInput.className = 'add-tag-input';
+    addInput.placeholder = 'Add tag…';
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-tag-btn';
+    addBtn.textContent = '+ Add';
+
+    function doAdd() {
+      const v = addInput.value;
+      if (addTag(filename, v)) {
+        addInput.value = '';
+        renderTagPills(tagsWrap, index[filename]);
+        updateSearch(card, filename);
+      }
+    }
+    addBtn.addEventListener('click', doAdd);
+    addInput.addEventListener('keydown', e => { if (e.key === 'Enter') doAdd(); });
+
+    addRow.appendChild(addInput);
+    addRow.appendChild(addBtn);
+    body.appendChild(addRow);
+
+    card.appendChild(body);
+    return card;
+  }
+
+  // ── Render tag pills into a container ──
+  function renderTagPills(container, bird) {
+    container.innerHTML = '';
+    const tags = flattenTags(bird);
+
+    if (tags.length === 0) {
+      const empty = document.createElement('span');
+      empty.style.cssText = 'font-size:11px;color:var(--muted);font-style:italic;';
+      empty.textContent = 'no tags';
+      container.appendChild(empty);
+      return;
+    }
+
+    tags.forEach(({ cat, val }) => {
+      const pill = document.createElement('span');
+      pill.className = `tag-pill cat-${cat}`;
+      pill.dataset.val = val;
+
+      const text = document.createTextNode(val);
+      pill.appendChild(text);
+
+      const xBtn = document.createElement('button');
+      xBtn.className = 'x-btn';
+      xBtn.innerHTML = '&times;';
+      xBtn.title = `Remove "${val}"`;
+      xBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const filename = container.dataset.filename;
+        removeTag(filename, cat, val);
+        renderTagPills(container, index[filename]);
+        updateSearch(container.closest('.bird-card'), filename);
+      });
+
+      pill.appendChild(xBtn);
+      container.appendChild(pill);
+    });
+  }
+
+  // ── Search ──
+  function applySearch() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const cards = document.querySelectorAll('.bird-card');
+    let visible = 0;
+
+    cards.forEach(card => {
+      const filename = card.dataset.filename;
+      const bird = index[filename];
+      if (!bird) { card.classList.add('hidden'); return; }
+
+      if (!q) {
+        card.classList.remove('hidden');
+        visible++;
+        return;
+      }
+
+      const tagVals = flattenTags(bird).map(t => t.val.toLowerCase());
+      const matches = filename.toLowerCase().includes(q) || tagVals.some(t => t.includes(q));
+      card.classList.toggle('hidden', !matches);
+      if (matches) visible++;
+    });
+
+    document.getElementById('countLabel').textContent =
+      q ? `${visible} of ${cards.length} birds` : `${cards.length} birds`;
+    document.getElementById('empty').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function updateSearch(card, filename) {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    if (!q) return;
+    const bird = index[filename];
+    if (!bird) return;
+    const tagVals = flattenTags(bird).map(t => t.val.toLowerCase());
+    const matches = filename.toLowerCase().includes(q) || tagVals.some(t => t.includes(q));
+    card.classList.toggle('hidden', !matches);
+  }
+
+  document.getElementById('searchInput').addEventListener('input', applySearch);
+
+  // ── Export ──
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(index, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'weatherbird-index.json';
+    a.click();
+    showToast('Downloaded weatherbird-index.json');
+  });
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+</script>
+</body>
+</html>

@@ -471,9 +471,7 @@
       "seasons": [
         "fall"
       ],
-      "weather": [
-        "sunshine"
-      ],
+      "weather": [],
       "sports": [],
       "activities": [
         "gardening",
@@ -1578,7 +1576,6 @@
       "holidays": [],
       "seasons": [],
       "weather": [
-        "sunshine"
       ],
       "sports": [],
       "activities": [
@@ -2378,7 +2375,6 @@
         "summer"
       ],
       "weather": [
-        "sunshine"
       ],
       "sports": [],
       "activities": [],
