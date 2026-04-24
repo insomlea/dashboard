@@ -341,6 +341,11 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
+  .event-time {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
 
   .birthday-event {
     font-size: 14px;
@@ -1104,7 +1109,11 @@ async function buildCalendar() {
       }
       for (const evt of dayData.events) {
         const t = formatTime(evt.start);
-        html += `<div class="event">${t}${evt.summary || ''}</div>`;
+        if (t) {
+          html += `<div class="event"><div class="event-time">${t.trim()}</div>${evt.summary || ''}</div>`;
+        } else {
+          html += `<div class="event">${evt.summary || ''}</div>`;
+        }
       }
 
       cell.innerHTML = html;
