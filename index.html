@@ -477,8 +477,10 @@
           <div>💨 <span id="weatherWind">--</span> mph</div>
         </div>
       </div>
-      <div id="holidayBanner" style="display:none;margin-top:10px;font-size:15px;font-weight:500;color:var(--text);"></div>
-      <div style="display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:12px;"><div id="birdReason" style="font-size:11px;color:var(--text-muted);font-style:italic;"></div><button onclick="birdOffset++;loadWeatherbirdImage()" style="background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-size:11px;padding:2px 8px;cursor:pointer;font-family:inherit;flex-shrink:0;">next bird →</button></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:12px;flex-direction:column;align-items:flex-start;">
+        <div id="holidayBanner" style="display:none;font-size:15px;font-weight:500;color:var(--text);"></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div id="birdReason" style="font-size:11px;color:var(--text-muted);font-style:italic;"></div><button onclick="birdOffset++;loadWeatherbirdImage()" style="background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-size:11px;padding:2px 8px;cursor:pointer;font-family:inherit;flex-shrink:0;">next bird →</button></div>
+      </div>
     </div>
     <div class="top-card-right">
       <img id="dashImg" src="" alt="Dashboard image">
