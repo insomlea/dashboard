@@ -524,17 +524,30 @@
     // Add tag row
     const addRow = document.createElement('div');
     addRow.className = 'add-tag-row';
+
     const addInput = document.createElement('input');
     addInput.type = 'text';
     addInput.className = 'add-tag-input';
     addInput.placeholder = 'Add tag…';
+
+    const catSelect = document.createElement('select');
+    catSelect.className = 'cat-select';
+    catSelect.title = 'Tag category';
+    [['manual','manual'],...TAG_CATEGORIES.filter(c => c !== 'manual').map(c => [c, c])].forEach(([val, label]) => {
+      const opt = document.createElement('option');
+      opt.value = val;
+      opt.textContent = label;
+      catSelect.appendChild(opt);
+    });
+
     const addBtn = document.createElement('button');
     addBtn.className = 'add-tag-btn';
     addBtn.textContent = '+ Add';
 
     function doAdd() {
       const v = addInput.value;
-      if (addTag(filename, v)) {
+      const cat = catSelect.value;
+      if (addTag(filename, v, cat)) {
         addInput.value = '';
         renderTagPills(tagsWrap, index[filename]);
         updateSearch(card, filename);
@@ -544,6 +557,7 @@
     addInput.addEventListener('keydown', e => { if (e.key === 'Enter') doAdd(); });
 
     addRow.appendChild(addInput);
+    addRow.appendChild(catSelect);
     addRow.appendChild(addBtn);
     body.appendChild(addRow);
 
