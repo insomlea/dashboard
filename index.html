@@ -1977,10 +1977,16 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   // ── Tier 1: Holiday ──
   const holidayTags = matchSource === 'holiday' ? pureEventTags : [];
   if (holidayTags.length) {
-    top = candidatesFor(holidayTags, true); // true = also search descriptions
+    // Prefer birds that have the specific holiday tag explicitly in their tags (e.g. arbor_day).
+    // Only fall back to broad description matching if no exact-tagged bird exists.
+    const exactCandidates = candidatesFor(holidayTags, false).filter(s => {
+      const bTags = getBirdTags(s.bird);
+      return holidayTags.some(ht => bTags.includes(ht.toLowerCase()));
+    });
+    top = exactCandidates.length ? exactCandidates : candidatesFor(holidayTags, true);
     if (top.length) {
       winReason = holidayName ? `Showing for ${holidayName}` : `Showing for holiday`;
-      console.log(`🐦 Tier 1 (holiday): ${top.length} birds`);
+      console.log(`🐦 Tier 1 (holiday): ${top.length} birds (${exactCandidates.length ? 'exact tag match' : 'broad match'})`);
     }
   }
 
