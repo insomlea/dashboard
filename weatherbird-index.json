@@ -9890,9 +9890,7 @@
     "description": "A frustrated bird emerges from a pothole in a damaged road surface.",
     "tags": {
       "holidays": [],
-      "seasons": [
-        "spring"
-      ],
+      "seasons": [],
       "weather": [],
       "sports": [],
       "activities": [],
@@ -10933,6 +10931,9 @@
         "technology",
         "science",
         "innovation"
+      ],
+      "manual": [
+        "outer_space"
       ]
     }
   },
@@ -11093,6 +11094,12 @@
         "celebration",
         "enthusiasm",
         "joy"
+      ],
+      "manual": [
+        "daylight_savings",
+        "autumn",
+        "fall",
+        "fall_back"
       ]
     }
   },
@@ -11360,6 +11367,10 @@
         "american",
         "civic_pride",
         "flag_waving"
+      ],
+      "manual": [
+        "nine_eleven",
+        "september_11"
       ]
     }
   },
