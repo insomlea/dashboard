@@ -1558,6 +1558,9 @@ function scoreBird(bird, targetTags, pureEventTags = []) {
     if (birdHasSeasonTag) {
       const contextHasSeason = group.requires.some(r => lowerTargetTags.includes(r));
       if (!contextHasSeason) {
+        const birdMatchesHoliday = pureEventTags.length > 0 &&
+          pureEventTags.some(pt => allBirdTags.includes(pt.toLowerCase()));
+        if (birdMatchesHoliday) continue;
         console.log(`🌦️ Excluding "${bird.filename}" — seasonal [${group.season}] but current season tags are [${lowerTargetTags.slice(0,5).join(',')}...]`);
         return -1;
       }
