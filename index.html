@@ -1491,7 +1491,7 @@ const HOLIDAY_EXCLUSIVE_GROUPS = [
 ];
 
 // ── Score a single bird against a list of target tags ──
-function scoreBird(bird, targetTags) {
+function scoreBird(bird, targetTags, pureEventTags = []) {
   let score = 0;
   const filename = (bird.filename || '').toLowerCase().replace(/[_.]/g, ' ');
 
@@ -1583,6 +1583,11 @@ function scoreBird(bird, targetTags) {
     if (keywords.some(k => birdFilename.includes(k))) {
       const required = SEASON_REQUIRE_MAP[season];
       if (!required.some(r => lowerTargetTags.includes(r))) {
+        // Exception: if the bird is explicitly tagged for the active holiday, allow it
+        // (e.g. planting_tree_gardening_fall.png tagged as arbor_day should show on Arbor Day)
+        const birdMatchesHoliday = pureEventTags.length > 0 &&
+          pureEventTags.some(pt => allBirdTags.includes(pt.toLowerCase()));
+        if (birdMatchesHoliday) continue;
         console.log(`🌦️ Filename-exclusion: "${bird.filename}" looks like ${season} but season tags are [${lowerTargetTags.slice(0,5).join(',')}...]`);
         return -1;
       }
@@ -1957,7 +1962,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   // ── Helper: pick best candidates from a scored list matching a tag set ──
   function candidatesFor(tags, includeDescription = false) {
     const scored = birds
-      .map(b => ({ bird: b, score: scoreBird(b, tags) }))
+      .map(b => ({ bird: b, score: scoreBird(b, tags, pureEventTags) }))
       .filter(s => s.score > 0 && birdMatchesTags(s.bird, tags, includeDescription));
     scored.sort((a, b) => b.score - a.score);
     return scored;
@@ -2015,7 +2020,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   // ── Tier 5: Default — any positively-scoring bird ──
   if (!top.length) {
     const allScored = birds
-      .map(b => ({ bird: b, score: scoreBird(b, targetTags) }))
+      .map(b => ({ bird: b, score: scoreBird(b, targetTags, pureEventTags) }))
       .filter(s => s.score > 0)
       .sort((a, b) => b.score - a.score);
     const topScore = allScored[0]?.score || 0;
