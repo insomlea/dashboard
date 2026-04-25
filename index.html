@@ -186,9 +186,9 @@
   }
   .weather-conditions {
     display: flex;
-    flex-direction: row; /* temp left, humidity+wind right */
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
     margin-top: 24px;
   }
   .weather-temp-block {
@@ -201,10 +201,10 @@
     line-height: 1;
   }
   .weather-temp-block .weather-icon { font-size: 42px; }
-  .weather-secondary {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  .weather-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 20px;
     font-size: 14px;
     font-weight: 500;
     color: var(--text-muted);
@@ -477,7 +477,8 @@
           <span id="weatherIcon" class="weather-icon">⛅</span>
           <span id="weatherTemp">--°</span>
         </div>
-        <div class="weather-secondary">
+        <div class="weather-grid">
+          <div>☔️ <span id="weatherRain">--</span>%</div>
           <div>💧 <span id="weatherHumidity">--</span>%</div>
           <div>💨 <span id="weatherWind">--</span> mph</div>
           <div id="aqiRow">🦠 <span id="weatherAqiCategory">--</span></div>
@@ -625,6 +626,7 @@ async function loadWeather() {
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}` +
       `&current=temperature_2m,weathercode,is_day,relative_humidity_2m,wind_speed_10m` +
+      `&hourly=precipitation_probability` +
       `&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York`;
     const res = await fetch(url);
     const data = await res.json();
@@ -637,6 +639,12 @@ async function loadWeather() {
     document.getElementById('weatherIcon').textContent = getWeatherIcon(cur.weathercode, cur.is_day === 1);
     document.getElementById('weatherHumidity').textContent = Math.round(cur.relative_humidity_2m);
     document.getElementById('weatherWind').textContent = Math.round(cur.wind_speed_10m);
+
+    const hourlyTimes = data.hourly?.time || [];
+    const n = new Date();
+    const nowHour = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}T${String(n.getHours()).padStart(2,'0')}`;
+    const hIdx = hourlyTimes.findIndex(t => t.startsWith(nowHour));
+    if (hIdx >= 0) document.getElementById('weatherRain').textContent = data.hourly.precipitation_probability[hIdx];
 
     // Fetch AQI from Open-Meteo air quality API
     try {
