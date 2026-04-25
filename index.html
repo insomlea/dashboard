@@ -478,7 +478,7 @@
           <span id="weatherTemp">--°</span>
         </div>
         <div class="weather-secondary">
-          <div><img src="weather-emojis/humidity.png" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;"> <span id="weatherHumidity">--</span>%</div>
+          <div>💧 <span id="weatherHumidity">--</span>%</div>
           <div>💨 <span id="weatherWind">--</span> mph</div>
           <div id="aqiRow">🦠 <span id="weatherAqiCategory">--</span></div>
         </div>
@@ -645,7 +645,6 @@ async function loadWeather() {
       const aqiData = await aqiRes.json();
       const aqi = aqiData?.current?.us_aqi;
       if (aqi != null) {
-        document.getElementById('weatherAqi').textContent = aqi;
         document.getElementById('weatherAqiCategory').textContent = aqiCategory(aqi);
       }
     } catch(e) { /* AQI is optional, fail silently */ }
