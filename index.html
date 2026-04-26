@@ -478,7 +478,7 @@
           <span id="weatherTemp">--°</span>
         </div>
         <div class="weather-grid">
-          <div>☔️ <span id="weatherRain">--</span>%</div>
+          <div>☔️ <span id="weatherRain">--</span>% <span id="weatherRainHour"></span></div>
           <div>💧 <span id="weatherHumidity">--</span>%</div>
           <div>💨 <span id="weatherWind">--</span> mph</div>
           <div id="aqiRow">🦠 AQI <span id="weatherAqiCategory"></span></div>
@@ -642,9 +642,12 @@ async function loadWeather() {
 
     const hourlyTimes = data.hourly?.time || [];
     const n = new Date();
-    const nowHour = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}T${String(n.getHours()).padStart(2,'0')}`;
-    const hIdx = hourlyTimes.findIndex(t => t.startsWith(nowHour));
-    if (hIdx >= 0) document.getElementById('weatherRain').textContent = data.hourly.precipitation_probability[hIdx];
+    const today = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+    const todayProbs = hourlyTimes.reduce((acc, t, i) => {
+      if (t.startsWith(today)) acc.push(data.hourly.precipitation_probability[i]);
+      return acc;
+    }, []);
+    if (todayProbs.length > 0) document.getElementById('weatherRain').textContent = Math.max(...todayProbs);
 
     // Fetch AQI from Open-Meteo air quality API
     try {
