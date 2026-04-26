@@ -643,11 +643,17 @@ async function loadWeather() {
     const hourlyTimes = data.hourly?.time || [];
     const n = new Date();
     const today = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
-    const todayProbs = hourlyTimes.reduce((acc, t, i) => {
-      if (t.startsWith(today)) acc.push(data.hourly.precipitation_probability[i]);
+    const todayEntries = hourlyTimes.reduce((acc, t, i) => {
+      if (t.startsWith(today)) acc.push({ time: t, prob: data.hourly.precipitation_probability[i] });
       return acc;
     }, []);
-    if (todayProbs.length > 0) document.getElementById('weatherRain').textContent = Math.max(...todayProbs);
+    if (todayEntries.length > 0) {
+      const peak = todayEntries.reduce((a, b) => b.prob > a.prob ? b : a);
+      document.getElementById('weatherRain').textContent = peak.prob;
+      const hour = parseInt(peak.time.split('T')[1]);
+      const label = hour === 0 ? '12am' : hour < 12 ? `${hour}am` : hour === 12 ? '12pm' : `${hour - 12}pm`;
+      document.getElementById('weatherRainHour').textContent = `@ ${label}`;
+    }
 
     // Fetch AQI from Open-Meteo air quality API
     try {
