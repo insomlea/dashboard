@@ -42,7 +42,7 @@ const FIXED_DATES = [
   { month:2,  day:6,  name:"Sharona's Birthday", tags:['cat','cats','kitten','feline','birthday','celebration'], leadDays:0 },
   { month:2,  day:14, name:"Valentine's Day",    tags:['valentines_day','love','heart','romance','flowers'], leadDays:7 },
   { month:3,  day:14, name:"Pi Day",             tags:['pi_day','math','science','pie','numbers'], leadDays:0 },
-  { month:3,  day:17, name:"St. Patrick's Day",  tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:7 },
+  { month:3,  day:17, name:"St. Patrick's Day",  tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:3 },
   { month:3,  day:20, name:"Spring Equinox",     tags:['spring','flowers','sunshine','renewal'], leadDays:0 },
   { month:4,  day:1,  name:"April Fools' Day",   tags:['april_fools','joke','silly','surprised'], leadDays:0 },
   { month:4,  day:15, name:"Tax Day",            tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:0 },
@@ -53,7 +53,7 @@ const FIXED_DATES = [
   { month:6,  day:19, name:"Juneteenth",         tags:['juneteenth','freedom','celebration','history'], leadDays:0 },
   { month:6,  day:21, name:"Summer Solstice",    tags:['summer','sunshine','beach','hot'], leadDays:0 },
   { month:7,  day:4,  name:"Independence Day",   tags:['fourth_of_july','fireworks','patriotic','flag','celebration'], leadDays:5 },
-  { month:8,  day:25, name:"Back to School",     tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
+  { month:8,  day:25, name:"Back to School",     tags:['back_to_school','school','books','backpack','nervous'], leadDays:3, spanDays:7 },
   { month:9,  day:4,  name:"Lea's Birthday",     tags:['birthday','cake','celebration','party'], leadDays:0 },
   { month:9,  day:11, name:"9/11 Remembrance",   tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:0 },
   { month:9,  day:22, name:"Fall Equinox",       tags:['fall','autumn','leaves','harvest'], leadDays:0 },
@@ -99,8 +99,8 @@ function getFloatingDates(year) {
   return [
     { ...d(recordStoreDay), name:"Record Store Day",          tags:['record_store_day','music','vinyl','records','shopping'],         leadDays:0  },
     { ...d(arborDay),      name:"Arbor Day",               tags:['arbor_day','trees','nature','planting','environment'],            leadDays:0  },
-    { ...d(mothersDay),    name:"Mother's Day",             tags:['mothers_day','flowers','family','love'],                          leadDays:7  },
-    { ...d(fathersDay),    name:"Father's Day",             tags:['fathers_day','family','bbq','outdoors'],                          leadDays:7  },
+    { ...d(mothersDay),    name:"Mother's Day",             tags:['mothers_day','flowers','family','love'],                          leadDays:3  },
+    { ...d(fathersDay),    name:"Father's Day",             tags:['fathers_day','family','bbq','outdoors'],                          leadDays:3  },
     { ...d(memorialDay),   name:"Memorial Day",             tags:['memorial_day','patriotic','military','soldier','flag'],            leadDays:3  },
     { ...d(laborDay),      name:"Labor Day",                tags:['labor_day','work','end_of_summer'],                               leadDays:1  },
     { ...d(thanksgiving),  name:"Thanksgiving",             tags:['thanksgiving','turkey','harvest','family','feast'],                leadDays:14, spanDays:2 },
@@ -111,7 +111,7 @@ function getFloatingDates(year) {
     { ...d(dstFall),       name:"Daylight Saving Time",     tags:['daylight_saving','fall_back','clocks','time_change'],             leadDays:0  },
     { ...d(kentuckyDerby), name:"Kentucky Derby",           tags:['kentucky_derby','horse_racing','derby','hat','roses'],            leadDays:3  },
     { ...d(indy500),       name:"Indy 500",                 tags:['indy_500','racing','indianapolis','cars','speed'],                leadDays:3  },
-    { ...d(superBowl),     name:"Super Bowl",               tags:['super_bowl','football','nfl','touchdown','party'],                leadDays:7  },
+    { ...d(superBowl),     name:"Super Bowl",               tags:['super_bowl','football','nfl','touchdown','party'],                leadDays:3  },
   ];
 }
 

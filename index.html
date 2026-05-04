@@ -1098,6 +1098,20 @@ async function buildCalendar() {
     byDate[d].holidays.push(e);
   }
 
+  // Fallback: if the remote holiday calendar failed, show STATIC_DATES holidays in the grid
+  if (expandedHolidays.length === 0) {
+    for (const yr of [year, year + 1]) {
+      for (const sd of [...FIXED_DATES, ...getFloatingDates(yr)]) {
+        const ymd = `${yr}${String(sd.month).padStart(2,'0')}${String(sd.day).padStart(2,'0')}`;
+        const d = ymdToDate(ymd);
+        if (d < firstOfMonth || d > lastOfMonth) continue;
+        if (!HOLIDAY_WHITELIST.some(w => (sd.name || '').toLowerCase().includes(w))) continue;
+        if (!byDate[ymd]) byDate[ymd] = { events: [], bdays: [], holidays: [] };
+        byDate[ymd].holidays.push({ summary: sd.name, start: { date: ymd, allDay: true } });
+      }
+    }
+  }
+
   // Build grid starting from Sunday of the week containing today
   const startSunday = new Date(today);
   startSunday.setDate(startSunday.getDate() - startSunday.getDay());

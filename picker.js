@@ -195,7 +195,9 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
       targetTags = [...new Set([...sd.tags, ...targetTags])];
       matchSource = 'holiday';
       staticHolidayName = sd.name || null;
-      if (!holidayName) holidayName = staticHolidayName;
+      // Only show "It's X!" banner on the actual holiday day, not during the lead-up window
+      const actualStart = new Date(today.getFullYear(), sd.month - 1, sd.day);
+      if (!holidayName && today >= actualStart) holidayName = staticHolidayName;
       break;
     }
   }
