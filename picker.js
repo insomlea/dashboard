@@ -286,7 +286,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
       ? holidayName.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')
       : null;
     if (specificTag) {
-      const hardTagged = birds.filter(b => getBirdTags(b).includes(specificTag));
+      const hardTagged = birds.filter(b => getBirdTags(b).includes(specificTag) && scoreBird(b, targetTags, pureEventTags) >= 0);
       if (hardTagged.length) {
         top = hardTagged.map(b => ({ bird: b, score: 100 }));
         winReason = `Showing for ${holidayName}`;
