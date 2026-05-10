@@ -8212,7 +8212,9 @@
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/memorial_day_gravestone_flowers_salute.png",
     "description": "A fashionable bird holding a bouquet of flowers stands next to a tombstone in a grassy area.",
     "tags": {
-      "holidays": [],
+      "holidays": [
+        "memorial_day"
+      ],
       "seasons": [
         "spring"
       ],
@@ -8234,9 +8236,7 @@
       ],
       "food": [],
       "significant_dates": [
-        "memorial_day",
-        "mothers_day",
-        "valentines_day"
+        "memorial_day"
       ],
       "associations": [
         "death",
