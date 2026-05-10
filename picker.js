@@ -283,7 +283,7 @@ async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents
   const holidayTags = matchSource === 'holiday' ? pureEventTags : [];
   if (holidayTags.length) {
     const specificTag = holidayName
-      ? holidayName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')
+      ? holidayName.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')
       : null;
     if (specificTag) {
       const hardTagged = birds.filter(b => getBirdTags(b).includes(specificTag));

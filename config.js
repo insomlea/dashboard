@@ -192,6 +192,8 @@ const FILENAME_HOLIDAY_KEYWORDS = {
   indigenous_peoples_day:  ['indigenous_peoples_day'],
   nine_eleven:             ['september_11', 'nine_eleven'],
   pride:                   ['pride_rainbow', 'pride_flag', 'pride_month'],
+  mothers_day:             ['mothers_day'],
+  fathers_day:             ['fathers_day'],
 };
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -8640,14 +8640,18 @@
     "url": "https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/mothers_day_reading_stl_life.png",
     "description": "An adult and child holding a sign that says 'STL LIFE', representing St. Louis pride and local identity.",
     "tags": {
-      "holidays": [],
+      "holidays": [
+        "mothers_day"
+      ],
       "seasons": [],
       "weather": [],
       "sports": [],
       "activities": [],
       "themes": [
         "family",
-        "community"
+        "community",
+        "motherhood",
+        "mothers_day"
       ],
       "animals": [],
       "moods": [
@@ -8658,7 +8662,9 @@
         "st_louis"
       ],
       "food": [],
-      "significant_dates": [],
+      "significant_dates": [
+        "mothers_day"
+      ],
       "associations": [
         "local_pride",
         "st_louis_culture",
