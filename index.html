@@ -144,6 +144,7 @@
     max-height: 300px;
     object-fit: contain;
     display: block;
+    filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.4)) drop-shadow(0 0 1px #c8bfaa);
   }
 
   .top-card {
@@ -162,11 +163,10 @@
   .top-card-left {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex: 1;
     min-width: 0;
     padding-right: 48px;
-    height: 100%;
   }
   .top-card-date-block {
     display: flex;
@@ -187,27 +187,11 @@
   .weather-conditions {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    margin-top: 24px;
-  }
-  .weather-temp-block {
-    display: flex;
-    align-items: center;
     gap: 8px;
-    font-size: 56px;
-    font-weight: 500;
+    font-size: 24px;
     color: var(--text);
-    line-height: 1;
-  }
-  .weather-temp-block .weather-icon { font-size: 56px; }
-  .weather-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px 20px;
-    font-size: 14px;
     font-weight: 500;
-    color: var(--text-muted);
+    margin-top: 32px;
   }
   .top-card-right {
     display: flex;
@@ -220,6 +204,7 @@
     object-fit: contain;
     object-position: bottom right;
     display: block;
+    filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.4)) drop-shadow(0 0 1px #c8bfaa);
     padding: 24px 24px 24px 0;
     box-sizing: border-box;
   }
@@ -233,7 +218,7 @@
     font-size: 33px;
     font-weight: 500;
   }
-  .weather-icon { font-size: 42px; }
+  .weather-icon { font-size: 39px; }
 
   .weather-hourly {
     display: flex;
@@ -259,7 +244,7 @@
   }
   .cal-header span {
     text-align: left;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text-muted);
     padding: 0 4px 8px;
@@ -280,7 +265,7 @@
 
   .cal-month-header {
     grid-column: 1 / -1;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text-muted);
     padding: 8px 4px 8px;
@@ -290,9 +275,9 @@
     background: var(--bg-dark);
     border-radius: 6px;
     padding: 6px 4px 10px;
-    height: 134px;
+    height: 110px;
     overflow: hidden;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .cal-day.other-month { }
@@ -306,7 +291,7 @@
   }
 
   .holiday-label {
-    font-size: 14px;
+    font-size: 10px;
     color: var(--text-muted);
     font-style: italic;
     white-space: nowrap;
@@ -315,7 +300,7 @@
   }
 
   .day-num {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
@@ -332,7 +317,7 @@
   }
 
   .event {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.3;
     color: var(--text);
     margin-bottom: 3px;
@@ -341,14 +326,9 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
-  .event-time {
-    font-size: 10px;
-    color: var(--text-muted);
-    line-height: 1.4;
-  }
 
   .birthday-event {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--text);
     display: flex;
     align-items: flex-start;
@@ -363,7 +343,7 @@
   }
 
   .holiday-event {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--text);
     display: flex;
     align-items: flex-start;
@@ -398,19 +378,19 @@
   }
 
   .upcoming-date {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text);
     margin-bottom: 2px;
   }
   .upcoming-date .month {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text);
   }
 
   .upcoming-event {
-    font-size: 14px;
+    font-size: 10px;
     color: var(--text);
     line-height: 1.3;
   }
@@ -473,21 +453,11 @@
         <div id="dateLabel" class="top-card-date">--</div>
       </div>
       <div class="weather-conditions">
-        <div class="weather-temp-block">
-          <span id="weatherIcon" class="weather-icon">⛅</span>
-          <span id="weatherTemp">--°</span>
-        </div>
-        <div class="weather-grid">
-          <div>☔️ <span id="weatherRain">--</span>% <span id="weatherRainHour"></span></div>
-          <div>💧 <span id="weatherHumidity">--</span>%</div>
-          <div>💨 <span id="weatherWind">--</span> mph</div>
-          <div id="aqiRow">🦠 AQI <span id="weatherAqiCategory"></span></div>
-        </div>
+        <div><span id="weatherIcon">⛅</span> <span id="weatherTemp">--°</span></div>
+        <div>💧 <span id="weatherHumidity">--</span>%</div>
+        <div>💨 <span id="weatherWind">--</span> mph</div>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:12px;flex-direction:column;align-items:flex-start;">
-        <div id="holidayBanner" style="display:none;font-size:24px;font-weight:500;color:var(--text);"></div>
-        <div style="display:flex;align-items:center;gap:10px;"><div id="birdReason" style="font-size:14px;color:var(--text-muted);font-style:italic;"></div><button onclick="birdOffset++;loadWeatherbirdImage()" style="background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-size:14px;padding:2px 8px;cursor:pointer;font-family:inherit;flex-shrink:0;">next bird →</button></div>
-      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:6px;"><div id="birdReason" style="font-size:11px;color:var(--text-muted);font-style:italic;"></div><button onclick="birdOffset++;loadWeatherbirdImage()" style="background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);font-size:11px;padding:2px 8px;cursor:pointer;font-family:inherit;flex-shrink:0;">next bird →</button></div>
     </div>
     <div class="top-card-right">
       <img id="dashImg" src="" alt="Dashboard image">
@@ -519,8 +489,6 @@
   <ul id="debugList" style="margin:8px 0 0 16px;padding:0;"></ul>
 </div>
 
-<script src="config.js"></script>
-<script src="picker.js"></script>
 <script>
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CONFIGURATION — edit these values
@@ -594,7 +562,9 @@ async function fetchHolidayIcal() {
   return [];
 }
 
-// 3) Weatherbird — URLs and config are in config.js
+// 3) Weatherbird image index (uploaded to your GitHub repo)
+const WEATHERBIRD_INDEX_URL = 'https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbird-index.json';
+const WEATHERBIRD_BASE_URL  = 'https://raw.githubusercontent.com/insomlea/dashboard/main/weatherbirds/';
 const DASH_IMAGE_URL = ''; // left blank — weatherbird picker sets this dynamically
 
 // 4) Weather location (Washington DC)
@@ -626,7 +596,6 @@ async function loadWeather() {
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}` +
       `&current=temperature_2m,weathercode,is_day,relative_humidity_2m,wind_speed_10m` +
-      `&hourly=precipitation_probability` +
       `&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York`;
     const res = await fetch(url);
     const data = await res.json();
@@ -640,32 +609,6 @@ async function loadWeather() {
     document.getElementById('weatherHumidity').textContent = Math.round(cur.relative_humidity_2m);
     document.getElementById('weatherWind').textContent = Math.round(cur.wind_speed_10m);
 
-    const hourlyTimes = data.hourly?.time || [];
-    const n = new Date();
-    const today = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
-    const todayEntries = hourlyTimes.reduce((acc, t, i) => {
-      if (t.startsWith(today)) acc.push({ time: t, prob: data.hourly.precipitation_probability[i] });
-      return acc;
-    }, []);
-    if (todayEntries.length > 0) {
-      const peak = todayEntries.reduce((a, b) => b.prob > a.prob ? b : a);
-      document.getElementById('weatherRain').textContent = peak.prob;
-      const hour = parseInt(peak.time.split('T')[1]);
-      const label = hour === 0 ? '12am' : hour < 12 ? `${hour}am` : hour === 12 ? '12pm' : `${hour - 12}pm`;
-      document.getElementById('weatherRainHour').textContent = `@ ${label}`;
-    }
-
-    // Fetch AQI from Open-Meteo air quality API
-    try {
-      const aqiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}&current=us_aqi`;
-      const aqiRes = await fetch(aqiUrl);
-      const aqiData = await aqiRes.json();
-      const aqi = aqiData?.current?.us_aqi;
-      if (aqi != null) {
-        document.getElementById('weatherAqiCategory').textContent = aqiCategory(aqi);
-      }
-    } catch(e) { /* AQI is optional, fail silently */ }
-
     // Trigger bird picker now that we have weather
     loadWeatherbirdImage();
   } catch(e) {
@@ -677,6 +620,18 @@ async function loadWeather() {
 // Store today's calendar events for bird picker
 let todayCalendarEvents = [];
 
+const FALLBACK_BIRDS = [
+  'business_casual_shirt_tie.png',
+  'clapping_dancing_bowtie_celebration.png',
+  'confused_shrug_business_casual.png',
+  'worry.png',
+  'tying_tie.png',
+  'thinking.png',
+  'thinking_pointer.png',
+  'thinking_pose_business_attire.png',
+  'thinking_standing.png'
+];
+
 function getFallbackBird() {
   const name = FALLBACK_BIRDS[Math.floor(Math.random() * FALLBACK_BIRDS.length)];
   return WEATHERBIRD_BASE_URL + name;
@@ -687,7 +642,6 @@ async function loadWeatherbirdImage() {
     const result = await pickWeatherbird(currentWeatherCode, currentTempF, currentHolidayEvents, todayCalendarEvents);
     const img = document.getElementById('dashImg');
     const reasonEl = document.getElementById('birdReason');
-    const bannerEl = document.getElementById('holidayBanner');
     const url = result?.url || getFallbackBird();
     if (img) {
       img.crossOrigin = 'anonymous';
@@ -695,17 +649,6 @@ async function loadWeatherbirdImage() {
     }
     if (reasonEl) {
       reasonEl.textContent = result?.reason || '';
-    }
-    if (bannerEl) {
-      const name = result?.holidayName;
-      console.log('🎉 holidayName from result:', name, '| full result:', result);
-      if (name) {
-        const emoji = holidayEmoji(name);
-        bannerEl.innerHTML = `${emoji} It's ${name}!`;
-        bannerEl.style.display = 'block';
-      } else {
-        bannerEl.style.display = 'none';
-      }
     }
   } catch(e) {
     console.warn('Weatherbird picker failed, using fallback', e);
@@ -724,15 +667,6 @@ function updateDayDate() {
   document.getElementById('dateLabel').textContent = `${months[now.getMonth()]} ${now.getDate()}`;
 }
 updateDayDate();
-
-function aqiCategory(aqi) {
-  if (aqi <= 50) return 'Good';
-  if (aqi <= 100) return 'Moderate';
-  if (aqi <= 150) return 'Unhealthy for Sensitive Groups';
-  if (aqi <= 200) return 'Unhealthy';
-  if (aqi <= 300) return 'Very Unhealthy';
-  return 'Hazardous';
-}
 
 function getWeatherIcon(code, isDay) {
   const night = !isDay;
@@ -892,7 +826,6 @@ function getCorrectFloatingHolidayDate(name, year) {
     return new Date(last);
   }
 
-  if (n.includes("record store")) return nthWeekday(year, 3, 6, 3); // 3rd Sat Apr
   if (n.includes("mother")) return nthWeekday(year, 4, 0, 2);        // 2nd Sun May
   if (n.includes("father")) return nthWeekday(year, 5, 0, 3);        // 3rd Sun Jun
   if (n.includes("memorial")) return lastWeekday(year, 4, 1);        // Last Mon May
@@ -965,8 +898,6 @@ function holidayEmoji(name) {
   if (n.includes('president') || n.includes('washington')) return '🎩';
   if (n.includes('st. patrick') || n.includes('patrick')) return '☘️';
   if (n.includes('easter')) return '🐣';
-  if (n.includes('record store day')) return '<img src="holiday-emojis/record-store-day.png" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;">';
-  if (n.includes('arbor day')) return '🌳';
   if (n.includes('earth day')) return '🌍';
   if (n.includes('mother')) return '🌸';
   if (n.includes('memorial')) return '🪖';
@@ -1098,20 +1029,6 @@ async function buildCalendar() {
     byDate[d].holidays.push(e);
   }
 
-  // Fallback: if the remote holiday calendar failed, show STATIC_DATES holidays in the grid
-  if (expandedHolidays.length === 0) {
-    for (const yr of [year, year + 1]) {
-      for (const sd of [...FIXED_DATES, ...getFloatingDates(yr)]) {
-        const ymd = `${yr}${String(sd.month).padStart(2,'0')}${String(sd.day).padStart(2,'0')}`;
-        const d = ymdToDate(ymd);
-        if (d < firstOfMonth || d > lastOfMonth) continue;
-        if (!HOLIDAY_WHITELIST.some(w => (sd.name || '').toLowerCase().includes(w))) continue;
-        if (!byDate[ymd]) byDate[ymd] = { events: [], bdays: [], holidays: [] };
-        byDate[ymd].holidays.push({ summary: sd.name, start: { date: ymd, allDay: true } });
-      }
-    }
-  }
-
   // Build grid starting from Sunday of the week containing today
   const startSunday = new Date(today);
   startSunday.setDate(startSunday.getDate() - startSunday.getDay());
@@ -1163,11 +1080,7 @@ async function buildCalendar() {
       }
       for (const evt of dayData.events) {
         const t = formatTime(evt.start);
-        if (t) {
-          html += `<div class="event"><div class="event-time">${t.trim()}</div>${evt.summary || ''}</div>`;
-        } else {
-          html += `<div class="event">${evt.summary || ''}</div>`;
-        }
+        html += `<div class="event">${t}${evt.summary || ''}</div>`;
       }
 
       cell.innerHTML = html;
@@ -1322,6 +1235,108 @@ window.addEventListener('load', matchCardToClockHeight);
 window.addEventListener('resize', matchCardToClockHeight);
 setTimeout(matchCardToClockHeight, 800);
 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// WEATHERBIRD PICKER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// ── Significant dates calendar ──
+// Helper: nth weekday of a month. weekday: 0=Sun, 1=Mon ... 6=Sat. nth: 1-based.
+function nthWeekdayOfMonth(year, month1, weekday, nth) {
+  const d = new Date(year, month1 - 1, 1);
+  let count = 0;
+  while (true) {
+    if (d.getDay() === weekday) { count++; if (count === nth) return new Date(d); }
+    d.setDate(d.getDate() + 1);
+  }
+}
+
+// Fixed dates that never change year to year
+const FIXED_DATES = [
+  // New Year's Day — 3 days ahead
+  { month:1,  day:1,  tags:['new_years_day','celebration','confetti','party'], leadDays:3 },
+  // Groundhog Day — day of only
+  { month:2,  day:2,  tags:['groundhog','winter','shadow','prediction'], leadDays:0 },
+  // Valentine's Day — 1 week ahead
+  { month:2,  day:14, tags:['valentines_day','love','heart','romance','flowers'], leadDays:7 },
+  // St. Patrick's Day — 1 week ahead
+  { month:3,  day:17, tags:['st_patricks_day','irish','shamrock','green','luck'], leadDays:7 },
+  // Pi Day — day of only
+  { month:3,  day:14, tags:['pi_day','math','science','pie','numbers'], leadDays:0 },
+  // Spring Equinox — day of only
+  { month:3,  day:20, tags:['spring','flowers','sunshine','renewal'], leadDays:0 },
+  // April Fools — day of only
+  { month:4,  day:1,  tags:['april_fools','joke','silly','surprised'], leadDays:0 },
+  // Earth Day — day of only
+  { month:4,  day:22, tags:['earth_day','nature','environment','green','trees'], leadDays:0 },
+  // Tax Day — day of only
+  { month:4,  day:15, tags:['tax_day','taxes','stressed','paperwork','money'], leadDays:0 },
+  // Cinco de Mayo — day of only
+  { month:5,  day:5,  tags:['cinco_de_mayo','mexico','fiesta','celebration'], leadDays:0 },
+  // Pride Month (entire June)
+  { month:6,  day:1,  tags:['pride','rainbow','lgbtq','celebration'], leadDays:0, spanDays:30 },
+  // Juneteenth — day of only
+  { month:6,  day:19, tags:['juneteenth','freedom','celebration','history'], leadDays:0 },
+  // Summer Solstice — day of only
+  { month:6,  day:21, tags:['summer','sunshine','beach','hot'], leadDays:0 },
+  // Independence Day — 5 days ahead
+  { month:7,  day:4,  tags:['fourth_of_july','fireworks','patriotic','flag','celebration'], leadDays:5 },
+  // Back to School — 1 week ahead
+  { month:8,  day:25, tags:['back_to_school','school','books','backpack','nervous'], leadDays:7, spanDays:7 },
+  // 9/11 Remembrance — day of only
+  { month:9,  day:11, tags:['nine_eleven','remembrance','patriotic','somber'], leadDays:0 },
+  // Lea's Birthday — day of only
+  { month:9,  day:4,  tags:['birthday','cake','celebration','party'], leadDays:0 },
+  // Fall Equinox — day of only
+  { month:9,  day:22, tags:['fall','autumn','leaves','harvest'], leadDays:0 },
+  // Halloween — 7 days ahead
+  { month:10, day:31, tags:['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'], leadDays:7 },
+  // Veterans Day — day of only
+  { month:11, day:11, tags:['veterans_day','military','soldier','patriotic','flag'], leadDays:0 },
+  // Christmas Eve
+  { month:12, day:24, tags:['christmas_eve','santa','gifts','night'], leadDays:0 },
+  // Christmas Day — 2 weeks ahead
+  { month:12, day:25, tags:['christmas_day','tree','santa','gifts','snow','holiday'], leadDays:14 },
+  // Kwanzaa — day of, spans 7 days
+  { month:12, day:26, tags:['kwanzaa','celebration','candles','african_heritage'], leadDays:0, spanDays:7 },
+  // New Year's Eve — 3 days ahead
+  { month:12, day:31, tags:['new_years_eve','celebration','countdown','party'], leadDays:3 },
+  // 4/20 — day of only
+  { month:4,  day:20, tags:['420','marijuana','cannabis','weed','smoke','chill','relaxed','stoned'], leadDays:0 },
+];
+
+// Computed floating dates — recalculated each year automatically
+function getFloatingDates(year) {
+  const d = (date) => ({ month: date.getMonth() + 1, day: date.getDate() });
+  // Spring DST — 2nd Sunday of March
+  const dstSpring = nthWeekdayOfMonth(year, 3, 0, 2);
+  // Fall DST — 1st Sunday of November
+  const dstFall = nthWeekdayOfMonth(year, 11, 0, 1);
+  // Kentucky Derby — 1st Saturday of May
+  const kentuckyDerby = nthWeekdayOfMonth(year, 5, 6, 1);
+  // Super Bowl — 2nd Sunday of February
+  const superBowl = nthWeekdayOfMonth(year, 2, 0, 2);
+  // Indy 500 — Sunday before Memorial Day (last Monday of May minus 1 day)
+  const memorialDay = (() => {
+    const last = new Date(year, 5, 0); // last day of May
+    while (last.getDay() !== 1) last.setDate(last.getDate() - 1);
+    return last;
+  })();
+  const indy500 = new Date(memorialDay);
+  indy500.setDate(indy500.getDate() - 1);
+  return [
+    { ...d(dstSpring),     tags:['daylight_saving','spring_forward','clocks','time_change'], leadDays:0 },
+    { ...d(dstFall),       tags:['daylight_saving','fall_back','clocks','time_change'],      leadDays:0 },
+    { ...d(kentuckyDerby), tags:['kentucky_derby','horse_racing','derby','hat','roses'],     leadDays:3 },
+    { ...d(indy500),       tags:['indy_500','racing','indianapolis','cars','speed'],         leadDays:3 },
+    { ...d(superBowl),     tags:['super_bowl','football','nfl','touchdown','party'],         leadDays:7 },
+  ];
+}
+
+// Combine fixed and floating dates
+const STATIC_DATES = [...FIXED_DATES, ...getFloatingDates(new Date().getFullYear())];
+
+
+
 // ── WMO weather code → tags ──
 function weatherCodeToTags(code, tempF) {
   const tags = [];
@@ -1378,6 +1393,549 @@ function calendarEventToTags(summary) {
   return tags;
 }
 
+// Sports keywords — birds with these tags are only eligible when target tags include sports
+const SPORTS_TAGS = ['baseball','football','basketball','soccer','hockey','golf','racing','sports','tennis','volleyball','olympics','marathon','cardinals','fredbird','referee','march_madness','boxing','cycling','swimming','wrestling','cheerleading','skateboard','surfing','skiing','snowboard','indy','derby','nascar','nfl','nba','mlb','nhl'];
+
+// Season-exclusive tags — birds tagged with these are ONLY shown in the matching season.
+// E.g. a snow-shovel bird should never appear in spring/summer/fall, and a sweating-in-heat
+// bird should never appear in winter.
+const SEASON_EXCLUSIVE_GROUPS = [
+  { tags: ['snow_shovel','snowman','sled','sledding','ice_skate','ice_skating','snowball','ski','skiing','snowboard','snowboarding','blizzard','avalanche'], season: 'winter', requires: ['winter','snow','cold','freezing','blizzard'] },
+  { tags: ['summer_heat','heat_wave','sweating','swimming','beach','surfing','sunburn','popsicle','ice_cream','lemonade','water_balloon','water_bucket','sprinkler','pool','bikini'], season: 'summer', requires: ['summer','hot','warm','beach','sunshine'] },
+  { tags: ['spring_flowers','cherry_blossom','gardening','planting','april_showers','easter'], season: 'spring', requires: ['spring','flowers','renewal','rain'] },
+  { tags: ['fall_leaves','autumn_leaves','raking','hay_ride','apple_picking','harvest'], season: 'fall', requires: ['fall','autumn','leaves','harvest'] },
+];
+
+// Holiday/event-exclusive tags — birds tagged with these are ONLY shown when today's context
+// explicitly calls for that holiday/event. A wedding dress should not appear on a spring day
+// just because it has flowers; it should only appear when there's a wedding event.
+// Each entry is { tags: [...bird tags that trigger restriction], requires: [...target tags that must be present] }
+const HOLIDAY_EXCLUSIVE_GROUPS = [
+  // Wedding imagery — only for actual wedding events
+  { tags: ['wedding','wedding_dress','bride','groom','bridal','veil','bouquet','wedding_flowers'], requires: ['wedding'] },
+  // Halloween — only in Halloween season
+  { tags: ['halloween','spooky','ghost','witch','skeleton','pumpkin','costumes','jack_o_lantern','haunted'], requires: ['halloween'] },
+  // Christmas — only in Christmas season
+  { tags: ['christmas','christmas_day','christmas_eve','santa','reindeer','elf','north_pole','christmas_tree','ornament','nativity'], requires: ['christmas','christmas_day','christmas_eve'] },
+  // Easter — only on Easter
+  { tags: ['easter','easter_egg','bunny'], requires: ['easter'] },
+  // Valentine's Day — only around Valentine's
+  { tags: ['valentines_day','cupid'], requires: ['valentines_day','love','heart','romance'] },
+  // St. Patrick's Day — only around St. Patrick's
+  { tags: ['st_patricks_day','shamrock','leprechaun'], requires: ['st_patricks_day','irish'] },
+  // Thanksgiving — only around Thanksgiving
+  { tags: ['thanksgiving','turkey'], requires: ['thanksgiving'] },
+  // Hanukkah — only during Hanukkah
+  { tags: ['hanukkah','menorah','dreidel'], requires: ['hanukkah'] },
+  // Fireworks/4th of July — only around Independence Day or NYE
+  { tags: ['fourth_of_july','fireworks'], requires: ['fourth_of_july','fireworks','new_years_eve','celebration'] },
+  // New Year's — only around NYE/NYD
+  { tags: ['new_years_eve','new_years_day','countdown','confetti'], requires: ['new_years_eve','new_years_day','celebration','party'] },
+  // Chinese New Year — only during Chinese New Year
+  { tags: ['chinese_new_year', 'lunar_new_year', 'lion_dance', 'dragon_dance', 'lantern_festival', 'red_envelope', 'dumpling', 'fireworks_cny'], requires: ['chinese_new_year', 'lunar_new_year'] },
+  // Diwali — only during Diwali
+  { tags: ['diwali', 'diya', 'rangoli', 'deepavali'], requires: ['diwali', 'deepavali'] },
+  // Mardi Gras — only during Mardi Gras
+  { tags: ['mardi_gras', 'fat_tuesday', 'carnival', 'masquerade', 'bead', 'float_parade'], requires: ['mardi_gras', 'fat_tuesday', 'carnival'] },
+  // Cinco de Mayo — only on Cinco de Mayo
+  { tags: ['cinco_de_mayo', 'margarita', 'sombrero', 'pinata', 'mariachi'], requires: ['cinco_de_mayo'] },
+  // Day of the Dead — only on Día de los Muertos
+  { tags: ['day_of_the_dead', 'dia_de_los_muertos', 'sugar_skull', 'ofrenda', 'calavera'], requires: ['day_of_the_dead', 'dia_de_los_muertos'] },
+  // Passover — only during Passover
+  { tags: ['passover', 'seder', 'matzo', 'afikoman'], requires: ['passover'] },
+  // Ramadan/Eid — only during Ramadan/Eid
+  { tags: ['ramadan', 'eid', 'iftar', 'crescent_moon_star'], requires: ['ramadan', 'eid'] },
+  // St. Patrick's Day parade — only around St. Patrick's
+  { tags: ['parade'], requires: ['st_patricks_day', 'mardi_gras', 'parade', 'chinese_new_year', 'fourth_of_july'] },
+  // Graduation — only for graduation events
+  { tags: ['graduation','diploma','cap_gown'], requires: ['graduation','school'] },
+];
+
+// ── Score a single bird against a list of target tags ──
+function scoreBird(bird, targetTags) {
+  let score = 0;
+  const filename = (bird.filename || '').toLowerCase().replace(/[_.]/g, ' ');
+
+  // Collect all tags — handle BOTH index formats:
+  //   New (build_index.py): flat object with string values  { holiday: "christmas_eve", season: "winter", ... }
+  //   Old (manual tagger):  nested arrays                   { manual: ["christmas_eve", "winter"] }
+  let allBirdTags = [];
+  if (bird.tags && typeof bird.tags === 'object') {
+    for (const val of Object.values(bird.tags)) {
+      if (Array.isArray(val)) {
+        allBirdTags.push(...val.map(t => String(t).toLowerCase()));
+      } else if (typeof val === 'string' && val.trim()) {
+        allBirdTags.push(val.trim().toLowerCase());
+      }
+    }
+  }
+  // Also read top-level fields the new schema may write directly
+  // e.g. bird.holiday, bird.season, bird.weather, bird.objects
+  for (const field of ['holiday','season','weather','object','objects']) {
+    const v = bird[field];
+    if (!v) continue;
+    if (Array.isArray(v)) allBirdTags.push(...v.map(t => String(t).toLowerCase()));
+    else if (typeof v === 'string' && v.trim()) allBirdTags.push(v.trim().toLowerCase());
+  }
+  // Also include description words
+  if (bird.description) {
+    allBirdTags.push(...bird.description.toLowerCase().split(/\s+/));
+  }
+
+  // Also check the filename itself for holiday-exclusive clues (e.g. "wedding_dress.png")
+  const filenameTags = (bird.filename || '').toLowerCase().replace(/[_.]/g, ' ').split(' ');
+
+  // If this bird is sports-themed, only score it if target tags include a sport
+  const birdIsSports = SPORTS_TAGS.some(s => allBirdTags.includes(s) || filename.includes(s) || (bird.filename || '').toLowerCase().includes(s));
+  const targetHasSports = SPORTS_TAGS.some(s => targetTags.map(t => t.toLowerCase()).includes(s));
+  if (birdIsSports && !targetHasSports) return -1;
+
+  // If this bird has holiday/event-exclusive tags, only show it when the context requires it.
+  // A bird is "exclusive" to a holiday group if ANY of the group's tags appear in the bird's tags or filename.
+  // It is excluded unless at least one of the group's required target tags is present.
+  const lowerTargetTags = targetTags.map(t => t.toLowerCase());
+  for (const group of HOLIDAY_EXCLUSIVE_GROUPS) {
+    const birdHasExclusiveTag = group.tags.some(t =>
+      allBirdTags.includes(t) ||
+      filename.includes(t.replace(/_/g, ' ')) ||
+      (bird.filename || '').toLowerCase().includes(t.replace(/_/g, ''))
+    );
+    if (birdHasExclusiveTag) {
+      const contextHasRequiredTag = group.requires.some(r => lowerTargetTags.includes(r));
+      if (!contextHasRequiredTag) {
+        console.log(`🚫 Excluding "${bird.filename}" — exclusive to [${group.requires}] but context is [${lowerTargetTags.slice(0,5).join(',')}...]`);
+        return -1;
+      }
+    }
+  }
+
+  // If this bird has season-exclusive tags, only show it in the matching season.
+  for (const group of SEASON_EXCLUSIVE_GROUPS) {
+    const birdHasSeasonTag = group.tags.some(t =>
+      allBirdTags.includes(t) ||
+      filename.includes(t.replace(/_/g, ' ')) ||
+      (bird.filename || '').toLowerCase().includes(t.replace(/_/g, ''))
+    );
+    if (birdHasSeasonTag) {
+      const contextHasSeason = group.requires.some(r => lowerTargetTags.includes(r));
+      if (!contextHasSeason) {
+        console.log(`🌦️ Excluding "${bird.filename}" — seasonal [${group.season}] but current season tags are [${lowerTargetTags.slice(0,5).join(',')}...]`);
+        return -1;
+      }
+    }
+  }
+
+  // Safety net: if the filename itself contains a season keyword that doesn't match today,
+  // exclude it. E.g. "sunny_winter_snow_shovel.png" should never show in spring/summer/fall.
+  const FILENAME_SEASON_KEYWORDS = {
+    winter: ['winter', 'snow_shovel', 'snowman', 'snowball', 'blizzard', 'ice_skate', 'sled'],
+    summer: ['summer', 'summer_heat', 'sweating', 'water_bucket', 'heat_wave', 'beach_day', 'sunburn'],
+    spring: ['spring', 'spring_flowers', 'spring_rain', 'spring_jacket', 'spring_cleaning', 'april_shower'],
+    fall:   ['autumn', 'fall', 'autumn_leaves', 'fall_leaves', 'raking_leaves', 'autumn_jacket', 'fall_jacket'],
+  };
+  const SEASON_REQUIRE_MAP = {
+    winter: ['winter', 'snow', 'cold', 'freezing'],
+    summer: ['summer', 'hot', 'warm', 'beach'],
+    spring: ['spring', 'flowers', 'renewal'],
+    fall:   ['fall', 'autumn', 'leaves'],
+  };
+  const birdFilename = (bird.filename || '').toLowerCase();
+  for (const [season, keywords] of Object.entries(FILENAME_SEASON_KEYWORDS)) {
+    if (keywords.some(k => birdFilename.includes(k))) {
+      const required = SEASON_REQUIRE_MAP[season];
+      if (!required.some(r => lowerTargetTags.includes(r))) {
+        console.log(`🌦️ Filename-exclusion: "${bird.filename}" looks like ${season} but season tags are [${lowerTargetTags.slice(0,5).join(',')}...]`);
+        return -1;
+      }
+    }
+  }
+
+  // Filename holiday guard — if the filename contains a holiday name, only show it on that holiday.
+  // This catches cases like "chinese_new_year_lion_dance_mask.png" matching "dance" from a calendar event.
+  const FILENAME_HOLIDAY_KEYWORDS = {
+    chinese_new_year:  ['chinese_new_year', 'lunar_new_year', 'lion_dance', 'dragon_dance'],
+    halloween:         ['halloween'],
+    christmas:         ['christmas'],
+    easter:            ['easter'],
+    valentines_day:    ['valentines_day', 'valentine'],
+    st_patricks_day:   ['st_patricks', 'st_patrick'],
+    thanksgiving:      ['thanksgiving'],
+    hanukkah:          ['hanukkah'],
+    fourth_of_july:    ['fourth_of_july'],
+    new_years:         ['new_years'],
+    diwali:            ['diwali'],
+    mardi_gras:        ['mardi_gras'],
+    cinco_de_mayo:     ['cinco_de_mayo'],
+    day_of_the_dead:   ['day_of_the_dead', 'dia_de_los_muertos', 'sugar_skull'],
+    passover:          ['passover', 'seder'],
+    ramadan:           ['ramadan', 'eid'],
+  };
+  for (const [holiday, keywords] of Object.entries(FILENAME_HOLIDAY_KEYWORDS)) {
+    if (keywords.some(k => birdFilename.includes(k))) {
+      // Bird's filename is holiday-specific — only show if that holiday is in target tags
+      if (!lowerTargetTags.includes(holiday) && !lowerTargetTags.some(t => keywords.includes(t))) {
+        console.log(`🗓️ Filename-holiday exclusion: "${bird.filename}" is specific to [${holiday}] but it's not that holiday`);
+        return -1;
+      }
+    }
+  }
+
+  for (const tag of targetTags) {
+    const t = tag.toLowerCase().replace(/_/g, ' ');
+    const tUnderscore = tag.toLowerCase();
+    if (allBirdTags.includes(tUnderscore) || allBirdTags.includes(t)) score += 10;
+    if (filename.includes(t)) score += 5;
+  }
+  return score;
+}
+
+// ── Fun calendar event → bird tags ──
+// Maps keywords found in event summaries to weatherbird tag lists.
+// Falls back to extracting any meaningful words (4+ chars, not stopwords) as raw tags.
+const STOPWORDS = new Set(['with','this','that','from','have','will','been','were','they','their','there','what','when','where','into','more','also','some','than','then','just','over','after','before','about','like','only','such','each','much','most','many','even','well','very','here','upon','both','through','first','last','next','week','year','month','today','event','local','national','annual','new','the','and','for','are','but','not','you','all','any','can','her','was','our','one','had','his','him','how','its','who','did','get','has','him','let','may','now','own','see','set','put','say','she','him','use','way','day','old','too','use','via']);
+
+const FUN_EVENT_TAG_MAP = {
+  // Animals
+  'elephant': ['elephant', 'zoo', 'animal'],
+  'giraffe':  ['giraffe',  'zoo', 'animal'],
+  'panda':    ['panda',    'zoo', 'animal'],
+  'penguin':  ['penguin',  'zoo', 'animal', 'cold'],
+  'lion':     ['lion',     'zoo', 'animal'],
+  'tiger':    ['tiger',    'zoo', 'animal'],
+  'bear':     ['bear',     'animal', 'forest'],
+  'dolphin':  ['dolphin',  'ocean', 'animal'],
+  'whale':    ['whale',    'ocean', 'animal'],
+  'gorilla':  ['gorilla',  'zoo', 'animal'],
+  'monkey':   ['monkey',   'zoo', 'animal'],
+  'flamingo': ['flamingo', 'zoo', 'pink', 'animal'],
+  'hippo':    ['hippo',    'zoo', 'animal'],
+  'rhino':    ['rhino',    'zoo', 'animal'],
+  'cheetah':  ['cheetah',  'zoo', 'animal'],
+  'zebra':    ['zebra',    'zoo', 'animal'],
+  'zoo':      ['zoo',      'animal', 'outdoors'],
+  // Music & arts
+  'concert':  ['concert',  'music', 'entertainment'],
+  'festival': ['festival', 'celebration', 'outdoors', 'music'],
+  'parade':   ['parade',   'celebration', 'street', 'colorful'],
+  'opera':    ['opera',    'theater', 'music', 'arts'],
+  'symphony': ['symphony', 'orchestra', 'music', 'arts'],
+  'ballet':   ['ballet',   'dance', 'arts', 'theater'],
+  'museum':   ['museum',   'art', 'history', 'indoors'],
+  'gallery':  ['gallery',  'art', 'photography'],
+  'theater':  ['theater',  'entertainment', 'arts'],
+  'theatre':  ['theatre',  'entertainment', 'arts'],
+  'movie':    ['movie',    'film', 'entertainment'],
+  'film':     ['film',     'movie', 'entertainment'],
+  // Food & drink
+  'food':     ['food',     'restaurant', 'dining'],
+  'dinner':   ['dinner',   'restaurant', 'dining'],
+  'lunch':    ['lunch',    'restaurant', 'dining'],
+  'brunch':   ['brunch',   'breakfast', 'dining'],
+  'pizza':    ['pizza',    'food', 'dining'],
+  'bbq':      ['bbq',      'summer', 'outdoors', 'food'],
+  'barbecue': ['bbq',      'summer', 'outdoors', 'food'],
+  'brewery':  ['brewery',  'beer', 'drink'],
+  'winery':   ['winery',   'wine', 'drink'],
+  'market':   ['market',   'shopping', 'food', 'outdoors'],
+  // Sports
+  'marathon': ['marathon', 'running', 'sports', 'race'],
+  'race':     ['race',     'sports', 'running'],
+  'baseball': ['baseball', 'sports', 'game'],
+  'soccer':   ['soccer',   'sports', 'game'],
+  'football': ['football', 'sports', 'game'],
+  'basketball':['basketball','sports','game'],
+  'hockey':   ['hockey',   'sports', 'ice', 'game'],
+  'tennis':   ['tennis',   'sports', 'game'],
+  'golf':     ['golf',     'sports', 'outdoors'],
+  'swim':     ['swimming', 'sports', 'water'],
+  'cycling':  ['cycling',  'sports', 'outdoors', 'bike'],
+  'triathlon':['triathlon','sports','running','swimming'],
+  // Nature & outdoors
+  'hike':     ['hiking',   'nature', 'outdoors', 'trail'],
+  'hiking':   ['hiking',   'nature', 'outdoors'],
+  'park':     ['park',     'outdoors', 'nature'],
+  'garden':   ['garden',   'nature', 'flowers', 'spring'],
+  'beach':    ['beach',    'summer', 'ocean', 'outdoors'],
+  'nature':   ['nature',   'outdoors', 'trees'],
+  'forest':   ['forest',   'nature', 'trees', 'outdoors'],
+  'trail':    ['trail',    'hiking', 'nature', 'outdoors'],
+  'flower':   ['flowers',  'spring', 'nature', 'garden'],
+  'cherry blossom': ['cherry_blossom', 'spring', 'flowers', 'japan'],
+  'blossom':  ['blossom',  'spring', 'flowers'],
+  'snow':     ['snow',     'winter', 'cold'],
+  // Community & civic
+  'election': ['election_day', 'voting', 'democracy'],
+  'vote':     ['voting',   'election', 'democracy'],
+  'inaugur':  ['inauguration','government','ceremony'],
+  'protest':  ['protest',  'march', 'civic'],
+  'cleanup':  ['cleanup',  'volunteer', 'outdoors', 'community'],
+  'volunteer':['volunteer','community','helping'],
+  'fair':     ['fair',     'carnival', 'celebration', 'outdoors'],
+  'carnival': ['carnival', 'celebration', 'colorful'],
+  'circus':   ['circus',   'entertainment', 'colorful', 'performance'],
+  'fireworks':['fireworks','celebration','night'],
+  'rocket':   ['rocket',   'space', 'launch'],
+  'launch':   ['launch',   'technology', 'space'],
+  'space':    ['space',    'science', 'stars'],
+  // Seasons / weather events
+  'eclipse':  ['eclipse',  'astronomy', 'sky', 'science'],
+  'solstice': ['solstice', 'season'],
+  'equinox':  ['equinox',  'spring', 'season'],
+  'aurora':   ['aurora',   'night', 'winter', 'sky'],
+  'meteor':   ['meteor',   'astronomy', 'night', 'sky'],
+};
+
+function tagsFromFunEvent(summary) {
+  if (!summary) return [];
+  const s = summary.toLowerCase();
+  const tags = [];
+
+  // 1. Check the keyword map first (longest match first for phrases)
+  const sortedKeys = Object.keys(FUN_EVENT_TAG_MAP).sort((a, b) => b.length - a.length);
+  for (const key of sortedKeys) {
+    if (s.includes(key)) {
+      tags.push(...FUN_EVENT_TAG_MAP[key]);
+    }
+  }
+
+  // 2. Also extract significant individual words as raw tags (fallback / supplement)
+  const words = s.replace(/[^a-z\s]/g, ' ').split(/\s+/);
+  for (const w of words) {
+    if (w.length >= 4 && !STOPWORDS.has(w) && !tags.includes(w)) {
+      tags.push(w);
+    }
+  }
+
+  return [...new Set(tags)];
+}
+
+// ── Main picker ──
+async function pickWeatherbird(weatherCode, tempF, holidayEvents, calendarEvents) {
+  let index = {};
+  try {
+    const res = await fetch(WEATHERBIRD_INDEX_URL);
+    if (res.ok) {
+      index = await res.json();
+    } else {
+      console.warn('⚠️ Weatherbird index fetch failed:', res.status, res.statusText);
+      return { url: getFallbackBird(), reason: null };
+    }
+  } catch(e) {
+    console.warn('Could not load weatherbird index', e);
+    return { url: getFallbackBird(), reason: null };
+  }
+
+  const birds = Object.values(index);
+  if (!birds.length) return { url: getFallbackBird(), reason: null };
+
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const todayYmd = toYMD(today);
+
+  let targetTags = [];
+  let matchSource = 'season';
+  let holidayName = null;
+
+  // Holiday name → rich tags map
+  const HOLIDAY_TAG_MAP = {
+    'new year\'s eve':      ['new_years_eve','celebration','countdown','party'],
+    'new year\'s day':      ['new_years_day','celebration','confetti','party'],
+    'new year':              ['new_years_day','celebration','confetti','party'],
+    'martin luther king':    ['mlk','civil_rights','peace','dove'],
+    'groundhog':             ['groundhog','winter','shadow','prediction'],
+    'valentine':             ['valentines_day','love','heart','romance','flowers'],
+    'presidents':            ['presidents_day','patriotic','washington'],
+    "washington's birthday": ['presidents_day','patriotic','washington'],
+    'st. patrick':           ['st_patricks_day','irish','shamrock','green','luck'],
+    'patrick':               ['st_patricks_day','irish','shamrock','green','luck'],
+    'pi day':                ['pi_day','math','science','pie','numbers'],
+    'april fools':           ['april_fools','joke','silly','surprised'],
+    'earth day':             ['earth_day','nature','environment','green','trees'],
+    'arbor day':             ['arbor_day','trees','nature','planting'],
+    'tax day':               ['tax_day','taxes','stressed','paperwork','money'],
+    'easter':                ['easter','spring','eggs','rabbit','church'],
+    'cinco de mayo':         ['cinco_de_mayo','mexico','fiesta','celebration'],
+    'mother':                ['mothers_day','flowers','family','love'],
+    'memorial':              ['memorial_day','patriotic','military','soldier','flag'],
+    'father':                ['fathers_day','family','bbq','outdoors'],
+    'juneteenth':            ['juneteenth','freedom','celebration','history'],
+    'independence':          ['fourth_of_july','fireworks','patriotic','flag','celebration'],
+    'july 4':                ['fourth_of_july','fireworks','patriotic','flag','celebration'],
+    'labor day':             ['labor_day','work','end_of_summer'],
+    'indigenous':            ['indigenous_peoples_day','native_american','history'],
+    'columbus':              ['indigenous_peoples_day','native_american','history'],
+    'halloween':             ['halloween','spooky','pumpkin','costumes','ghost','witch','skeleton'],
+    'election':              ['election_day','voting','democracy','government'],
+    'veterans':              ['veterans_day','military','soldier','patriotic','flag'],
+    'thanksgiving':          ['thanksgiving','turkey','harvest','family','feast'],
+    'hanukkah':              ['hanukkah','menorah','jewish','celebration'],
+    'chanukah':              ['hanukkah','menorah','jewish','celebration'],
+    'christmas eve':         ['christmas_eve','santa','gifts','night','candles'],
+    'christmas day':         ['christmas_day','tree','santa','gifts','snow','holiday'],
+    'christmas':             ['christmas_day','tree','santa','gifts','snow','holiday'],
+    'kwanzaa':               ['kwanzaa','celebration','candles','african_heritage'],
+    'mardi gras':            ['mardi_gras','carnival','celebration','colorful'],
+    'super bowl':            ['super_bowl','football','party','sports'],
+    'black friday':          ['black_friday','shopping','deals','bags'],
+    'diwali':                ['diwali','lights','celebration','candles'],
+    'passover':              ['passover','jewish','celebration','spring'],
+    'rosh hashana':          ['rosh_hashana','jewish','new_year','celebration'],
+    'yom kippur':            ['yom_kippur','jewish','somber','fasting'],
+    'eid':                   ['eid','muslim','celebration','feast'],
+    'pride':                 ['pride','rainbow','lgbtq','celebration'],
+  };
+
+  function tagsForHoliday(name) {
+    const n = name.toLowerCase();
+    for (const [key, tags] of Object.entries(HOLIDAY_TAG_MAP)) {
+      if (n.includes(key)) return tags;
+    }
+    return n.split(/\s+/).filter(w => w.length > 3);
+  }
+
+  // 1. Check today's holidays from the US holidays calendar
+  const todayHolidays = (holidayEvents || []).filter(e => e.start?.date === todayYmd);
+  if (todayHolidays.length) {
+    holidayName = todayHolidays[0].summary || '';
+    targetTags = tagsForHoliday(holidayName);
+    matchSource = 'holiday';
+    console.log('🐦 Holiday today:', holidayName, '→', targetTags);
+  }
+
+  // Also check STATIC_DATES (birthdays, etc.)
+  for (const sd of STATIC_DATES) {
+    const start = new Date(today.getFullYear(), sd.month - 1, sd.day - (sd.leadDays || 0));
+    const end   = new Date(today.getFullYear(), sd.month - 1, sd.day + (sd.spanDays || 1));
+    if (today >= start && today < end) {
+      targetTags = [...new Set([...sd.tags, ...targetTags])];
+      matchSource = 'holiday';
+      break;
+    }
+  }
+
+  // 2. Extract tags from today's fun calendar events (highest priority if found)
+  const todayEvents = (calendarEvents || []).filter(e => e.start?.date === todayYmd);
+  let funEventName = null;
+  if (todayEvents.length) {
+    const funTags = [];
+    for (const e of todayEvents) {
+      const t = tagsFromFunEvent(e.summary);
+      if (t.length) {
+        funTags.push(...t);
+        if (!funEventName) funEventName = e.summary; // track first matching event for reason
+      }
+    }
+    if (funTags.length) {
+      targetTags = [...new Set([...funTags, ...targetTags])];
+      if (matchSource !== 'holiday') matchSource = 'calendar';
+      console.log('🐦 Fun calendar events today:', todayEvents.map(e => e.summary), '→', funTags);
+    }
+  }
+
+  // Snapshot the pure holiday/event tags NOW — before weather and season are merged in.
+  // Used later to restrict the candidate pool to genuinely holiday-themed birds.
+  const pureEventTags = [...targetTags];
+
+  // 3. Add weather tags
+  const wTags = weatherCodeToTags(weatherCode, tempF);
+  targetTags = [...new Set([...targetTags, ...wTags])];
+
+  // 4. Always add season as fallback
+  const sTags = seasonTags(month);
+  targetTags = [...new Set([...targetTags, ...sTags])];
+
+  console.log(`🐦 Weatherbird picking for: [${matchSource}]`, targetTags);
+
+  // Score all birds
+  const scored = birds.map(b => ({ bird: b, score: scoreBird(b, targetTags) }));
+  scored.sort((a, b) => b.score - a.score);
+
+  // When today is a holiday or calendar event, restrict the candidate pool to birds that
+  // actually match one of the pure holiday/event tags — weather and season tags are excluded
+  // from this check so spring/weather birds can't sneak into a 4/20 or Halloween pool.
+  let top;
+  if ((matchSource === 'holiday' || matchSource === 'calendar') && pureEventTags.length) {
+    const holidayMatches = scored.filter(s => {
+      if (s.score <= 0) return false;
+      const b = s.bird;
+      // Collect ONLY explicit tag fields — NOT description, which is too loose
+      const bTags = [];
+      if (b.tags && typeof b.tags === 'object') {
+        for (const v of Object.values(b.tags)) {
+          if (Array.isArray(v)) bTags.push(...v.map(t => String(t).toLowerCase()));
+          else if (typeof v === 'string') bTags.push(v.toLowerCase());
+        }
+      }
+      for (const field of ['holiday','season','weather','object','objects']) {
+        const v = b[field];
+        if (!v) continue;
+        if (Array.isArray(v)) bTags.push(...v.map(t => String(t).toLowerCase()));
+        else if (typeof v === 'string') bTags.push(v.toLowerCase());
+      }
+      const fname = (b.filename || '').toLowerCase();
+      return pureEventTags.some(pt => {
+        const p = pt.toLowerCase();
+        // Must match in filename or an explicit tag — description words excluded
+        return bTags.includes(p) ||
+               bTags.includes(p.replace(/_/g, ' ')) ||
+               fname.includes(p) ||
+               fname.includes(p.replace(/_/g, ''));
+      });
+    });
+
+    top = holidayMatches.length > 0 ? holidayMatches : scored.filter(s => s.score > 0);
+    console.log(`🐦 Holiday pool: ${holidayMatches.length} birds matched pure event tags [${pureEventTags.join(',')}]`);
+  } else {
+    const topScore = scored[0].score;
+    top = scored.filter(s => s.score >= topScore * 0.5 && s.score >= 0);
+  }
+  
+  // Use today's date as seed so the pick stays consistent all day.
+  // birdOffset is incremented by the "next bird" button for testing.
+  const today2 = new Date();
+  const daySeed = today2.getFullYear() * 10000 + (today2.getMonth()+1) * 100 + today2.getDate();
+  const winner = top[(daySeed + birdOffset) % top.length];
+
+  console.log('🐦 Winner:', winner?.bird?.filename, 'score:', winner?.score);
+  if (!winner) return { url: getFallbackBird(), reason: null };
+
+  // Build human-readable reason based on actual winning bird
+  let reason = '';
+  const winnerFilename = (winner.bird.filename || '').toLowerCase();
+  if (matchSource === 'holiday' && holidayName) {
+    reason = `Showing for ${holidayName}`;
+  } else if (matchSource === 'calendar' && funEventName) {
+    // Verify the winner actually matches an event tag — if it's a season bird that slipped
+    // through the fallback pool, show a season reason instead
+    const winnerBTags = [];
+    if (winner.bird.tags && typeof winner.bird.tags === 'object') {
+      for (const v of Object.values(winner.bird.tags)) {
+        if (Array.isArray(v)) winnerBTags.push(...v.map(t => String(t).toLowerCase()));
+        else if (typeof v === 'string') winnerBTags.push(v.toLowerCase());
+      }
+    }
+    const matchedEventTag = pureEventTags.find(pt =>
+      winnerBTags.includes(pt.toLowerCase()) || winnerFilename.includes(pt.toLowerCase())
+    );
+    if (matchedEventTag) {
+      reason = `Showing for "${funEventName}"`;
+    } else {
+      const weatherTag = targetTags.find(t => t.match(/^(snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|freezing|cloudy|overcast|drizzle|thunderstorm)$/));
+      const seasonTag = targetTags.find(t => t.match(/^(winter|spring|summer|fall|autumn)$/));
+      if (weatherTag && seasonTag) reason = `Picked for ${weatherTag} ${seasonTag} weather`;
+      else if (weatherTag) reason = `Picked for ${weatherTag} weather`;
+      else if (seasonTag) reason = `Picked for ${seasonTag}`;
+    }
+  } else {
+    const weatherTag = targetTags.find(t => t.match(/^(snow|rain|sunny|sunshine|storm|fog|cold|hot|warm|freezing|cloudy|overcast|drizzle|thunderstorm)$/));
+    const seasonTag = targetTags.find(t => t.match(/^(winter|spring|summer|fall|autumn)$/));
+    if (weatherTag && seasonTag) reason = `Picked for ${weatherTag} ${seasonTag} weather`;
+    else if (weatherTag) reason = `Picked for ${weatherTag} weather`;
+    else if (seasonTag) reason = `Picked for ${seasonTag}`;
+  }
+
+  return { url: WEATHERBIRD_BASE_URL + winner.bird.filename, reason };
+}
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INIT
